@@ -78,37 +78,20 @@ textarea {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  font-weight: 700;
-  letter-spacing: 0;
+  flex: 0 0 auto;
 }
 
-.brand-mark {
-  width: 26px;
-  height: 26px;
-  border: 1px solid currentColor;
-  border-radius: 8px;
-  position: relative;
-}
-
-.brand-mark::before,
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  inset: 7px;
-  border-radius: 5px;
-  border: 1px solid currentColor;
-}
-
-.brand-mark::after {
-  inset: 11px;
-  background: currentColor;
+.brand-logo {
+  display: block;
+  width: clamp(168px, 16vw, 230px);
+  height: auto;
+  mix-blend-mode: multiply;
 }
 
 .primary-nav {
   display: flex;
   align-items: center;
-  gap: clamp(18px, 2.4vw, 34px);
+  gap: clamp(16px, 2vw, 30px);
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -920,6 +903,10 @@ textarea:focus {
   .site-header {
     min-height: 66px;
     padding: 14px 18px;
+  }
+
+  .brand-logo {
+    width: min(56vw, 208px);
   }
 
   .nav-toggle {

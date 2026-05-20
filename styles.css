@@ -7,9 +7,9 @@
   --paper-warm: #f1f5fb;
   --line: rgba(32, 33, 36, 0.12);
   --sage: #00a884;
-  --sage-dark: #1a73e8;
+  --sage-dark: #5b67d8;
   --clay: #fbbc04;
-  --rose: #ea4335;
+  --rose: #e227be;
   --mist: #e8f0fe;
   --white: #ffffff;
   --shadow: 0 24px 80px rgba(60, 64, 67, 0.14);
@@ -528,7 +528,7 @@ h3 {
   padding: 24px 28px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: linear-gradient(90deg, rgba(26, 115, 232, 0.08), rgba(0, 168, 132, 0.08));
+  background: linear-gradient(90deg, rgba(45, 195, 235, 0.1), rgba(226, 39, 190, 0.08));
   color: var(--sage-dark);
   font-weight: 700;
 }
@@ -604,14 +604,14 @@ h3 {
 .generation-video {
   position: relative;
   min-height: 520px;
-  border: 1px solid rgba(26, 115, 232, 0.14);
+  border: 1px solid rgba(116, 86, 216, 0.16);
   border-radius: 16px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 72% 36%, rgba(0, 168, 132, 0.16), transparent 32%),
-    radial-gradient(circle at 32% 24%, rgba(26, 115, 232, 0.14), transparent 34%),
-    linear-gradient(135deg, #ffffff, #f7faff 54%, #eef6ff);
-  box-shadow: 0 28px 90px rgba(60, 64, 67, 0.12);
+    radial-gradient(circle at 72% 36%, rgba(226, 39, 190, 0.14), transparent 32%),
+    radial-gradient(circle at 32% 24%, rgba(45, 195, 235, 0.14), transparent 34%),
+    linear-gradient(135deg, #ffffff, #f9f7ff 54%, #eef7ff);
+  box-shadow: 0 28px 90px rgba(116, 86, 216, 0.12);
 }
 
 .protein-process-canvas {
@@ -636,7 +636,7 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(26, 115, 232, 0.16);
+  border: 1px solid rgba(116, 86, 216, 0.16);
   border-radius: 999px;
   padding: 8px 10px;
   color: var(--ink-soft);

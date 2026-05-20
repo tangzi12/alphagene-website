@@ -49,6 +49,14 @@ const interpolateColor = (start, end, amount) => {
   return `rgb(${channel(0)}, ${channel(1)}, ${channel(2)})`;
 };
 
+const proteinPalette = [
+  [45, 195, 235],
+  [91, 151, 230],
+  [139, 119, 222],
+  [184, 74, 213],
+  [226, 39, 190],
+];
+
 const createProteinAnimation = (container) => {
   const canvas = document.createElement("canvas");
   canvas.className = "protein-canvas";
@@ -56,13 +64,7 @@ const createProteinAnimation = (container) => {
   container.appendChild(canvas);
 
   const context = canvas.getContext("2d");
-  const colors = [
-    [26, 115, 232],
-    [0, 168, 132],
-    [52, 168, 83],
-    [251, 188, 4],
-    [234, 67, 53],
-  ];
+  const colors = proteinPalette;
   let width = 0;
   let height = 0;
   let dpr = 1;
@@ -107,8 +109,9 @@ const createProteinAnimation = (container) => {
 
     const points = getProteinPoints(time);
     const glow = context.createRadialGradient(width * 0.72, height * 0.48, 0, width * 0.72, height * 0.48, width * 0.42);
-    glow.addColorStop(0, "rgba(26, 115, 232, 0.16)");
-    glow.addColorStop(0.5, "rgba(0, 168, 132, 0.08)");
+    glow.addColorStop(0, "rgba(184, 74, 213, 0.16)");
+    glow.addColorStop(0.48, "rgba(45, 195, 235, 0.12)");
+    glow.addColorStop(0.72, "rgba(226, 39, 190, 0.08)");
     glow.addColorStop(1, "rgba(255, 255, 255, 0)");
     context.fillStyle = glow;
     context.fillRect(0, 0, width, height);
@@ -146,7 +149,7 @@ const createProteinAnimation = (container) => {
       context.moveTo(point.x, point.y);
       context.lineTo(target.x, target.y);
       context.lineWidth = 1;
-      context.strokeStyle = "rgba(95, 99, 104, 0.26)";
+      context.strokeStyle = "rgba(116, 86, 190, 0.22)";
       context.stroke();
     }
 
@@ -170,7 +173,7 @@ const createProteinAnimation = (container) => {
       const y = height * (0.16 + ((index * 0.137 + drift * 2) % 0.66));
       context.beginPath();
       context.arc(x, y, 1.2 + (index % 3) * 0.5, 0, Math.PI * 2);
-      context.fillStyle = "rgba(26, 115, 232, 0.24)";
+      context.fillStyle = index % 2 === 0 ? "rgba(45, 195, 235, 0.24)" : "rgba(226, 39, 190, 0.18)";
       context.fill();
     }
 
@@ -194,12 +197,13 @@ heroBlocks.forEach(createProteinAnimation);
 const createProteinProcessAnimation = (canvas) => {
   const context = canvas.getContext("2d");
   const colors = {
-    blue: "#1a73e8",
-    cyan: "#00a3ff",
-    green: "#00a884",
-    lime: "#34a853",
-    yellow: "#fbbc04",
-    red: "#ea4335",
+    blue: "#2dc3eb",
+    cyan: "#5b97e6",
+    green: "#8b77de",
+    lime: "#b84ad5",
+    yellow: "#e227be",
+    red: "#f35bc9",
+    violet: "#7456d8",
     ink: "#202124",
     muted: "#5f6368",
   };
@@ -248,14 +252,7 @@ const createProteinProcessAnimation = (canvas) => {
 
   const drawProtein = (centerX, centerY, scale, time, alpha) => {
     const points = [];
-    const palette = [
-      [26, 115, 232],
-      [0, 163, 255],
-      [0, 168, 132],
-      [52, 168, 83],
-      [251, 188, 4],
-      [234, 67, 53],
-    ];
+    const palette = proteinPalette;
 
     for (let index = 0; index < 76; index += 1) {
       const progress = index / 75;
@@ -288,9 +285,11 @@ const createProteinProcessAnimation = (canvas) => {
 
     points.forEach((point, index) => {
       if (index % 7 !== 0) return;
+      const colorIndex = Math.min(palette.length - 1, Math.floor(point.progress * palette.length));
+      const color = palette[colorIndex];
       context.beginPath();
       context.arc(point.x, point.y, 4.2, 0, Math.PI * 2);
-      context.fillStyle = `rgba(26, 115, 232, ${0.72 * alpha})`;
+      context.fillStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${0.72 * alpha})`;
       context.fill();
     });
   };
@@ -309,7 +308,7 @@ const createProteinProcessAnimation = (canvas) => {
     const right = width * 0.92;
     const stepWidth = (right - left) / 5;
 
-    context.strokeStyle = "rgba(26, 115, 232, 0.18)";
+    context.strokeStyle = "rgba(116, 86, 216, 0.2)";
     context.lineWidth = 2;
     context.beginPath();
     context.moveTo(left, railY);
@@ -318,9 +317,9 @@ const createProteinProcessAnimation = (canvas) => {
 
     const flowX = left + (right - left) * loop;
     const flowGradient = context.createLinearGradient(left, 0, flowX, 0);
-    flowGradient.addColorStop(0, "rgba(26, 115, 232, 0.86)");
-    flowGradient.addColorStop(0.55, "rgba(0, 168, 132, 0.76)");
-    flowGradient.addColorStop(1, "rgba(251, 188, 4, 0.92)");
+    flowGradient.addColorStop(0, "rgba(45, 195, 235, 0.88)");
+    flowGradient.addColorStop(0.52, "rgba(139, 119, 222, 0.82)");
+    flowGradient.addColorStop(1, "rgba(226, 39, 190, 0.92)");
     context.strokeStyle = flowGradient;
     context.lineWidth = 4;
     context.beginPath();
@@ -358,7 +357,7 @@ const createProteinProcessAnimation = (canvas) => {
       for (let col = 0; col < 14; col += 1) {
         const pulse = Math.sin(time * 0.003 + row * 0.8 + col * 0.5) * 0.5 + 0.5;
         const lit = activeStage >= 2 ? 0.18 + pulse * 0.42 : 0.08 + pulse * 0.08;
-        context.fillStyle = `rgba(26, 115, 232, ${lit})`;
+        context.fillStyle = col % 2 === 0 ? `rgba(45, 195, 235, ${lit})` : `rgba(184, 74, 213, ${lit * 0.86})`;
         roundedRect(gridX + col * 13, gridY + row * 13, 9, 9, 2);
         context.fill();
       }
@@ -381,7 +380,7 @@ const createProteinProcessAnimation = (canvas) => {
       roundedRect(x, y, width * 0.09, 48, 12);
       context.fillStyle = activeStage >= 4 ? "rgba(255, 255, 255, 0.88)" : "rgba(255, 255, 255, 0.46)";
       context.fill();
-      context.strokeStyle = activeStage >= 4 ? "rgba(26, 115, 232, 0.22)" : "rgba(32, 33, 36, 0.08)";
+      context.strokeStyle = activeStage >= 4 ? "rgba(184, 74, 213, 0.22)" : "rgba(32, 33, 36, 0.08)";
       context.stroke();
       context.fillStyle = [colors.blue, colors.green, colors.yellow][index];
       context.fillRect(x + 12, y + 14, width * 0.055, 5);

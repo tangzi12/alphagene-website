@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="AI protein design visualization">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.56" stop-color="#f7fbff"/>
+      <stop offset="1" stop-color="#edf6ff"/>
+    </linearGradient>
+    <radialGradient id="blueGlow" cx="72%" cy="35%" r="46%">
+      <stop offset="0" stop-color="#1a73e8" stop-opacity="0.22"/>
+      <stop offset="0.46" stop-color="#00a884" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softBlur">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#blueGlow)"/>
+  <g opacity="0.26" stroke="#1a73e8" stroke-width="1">
+    <path d="M732 72v760M812 72v760M892 72v760M972 72v760M1052 72v760M1132 72v760M1212 72v760M1292 72v760"/>
+    <path d="M650 150h780M650 230h780M650 310h780M650 390h780M650 470h780M650 550h780M650 630h780M650 710h780"/>
+  </g>
+  <g opacity="0.36" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M770 476c70-170 185-150 247-72s132 40 187-41 154-93 217 8" stroke="#1a73e8" stroke-width="34" opacity="0.14" filter="url(#softBlur)"/>
+    <path d="M746 464c76-148 174-144 252-54s139 38 196-46 150-82 222 2" stroke="#1a73e8" stroke-width="15"/>
+    <path d="M746 464c76-148 174-144 252-54s139 38 196-46 150-82 222 2" stroke="#00a884" stroke-width="5"/>
+    <path d="M795 557c85-115 177-91 237-1s160 92 222 8 110-154 190-99" stroke="#fbbc04" stroke-width="13"/>
+    <path d="M795 557c85-115 177-91 237-1s160 92 222 8 110-154 190-99" stroke="#ea4335" stroke-width="4"/>
+    <path d="M842 345c60 60 133 62 217 7M1018 418c54 66 113 70 176 23M1194 364c51 49 104 50 164 9M1038 560c72-8 139-4 201 16" stroke="#5f6368" stroke-width="2" opacity="0.52"/>
+  </g>
+  <g>
+    <circle cx="746" cy="464" r="11" fill="#1a73e8"/>
+    <circle cx="893" cy="368" r="9" fill="#00a884"/>
+    <circle cx="998" cy="410" r="10" fill="#34a853"/>
+    <circle cx="1194" cy="364" r="10" fill="#fbbc04"/>
+    <circle cx="1416" cy="366" r="11" fill="#ea4335"/>
+    <circle cx="795" cy="557" r="8" fill="#1a73e8"/>
+    <circle cx="1032" cy="556" r="9" fill="#00a884"/>
+    <circle cx="1254" cy="564" r="8" fill="#fbbc04"/>
+    <circle cx="1444" cy="465" r="10" fill="#ea4335"/>
+  </g>
+  <g opacity="0.55">
+    <rect x="1080" y="162" width="146" height="56" rx="16" fill="#ffffff" stroke="#dfe6f3"/>
+    <rect x="1102" y="181" width="78" height="7" rx="3" fill="#1a73e8"/>
+    <rect x="1102" y="197" width="102" height="5" rx="2" fill="#d7e3fa"/>
+    <rect x="1245" y="220" width="160" height="58" rx="16" fill="#ffffff" stroke="#dfe6f3"/>
+    <rect x="1268" y="240" width="92" height="7" rx="3" fill="#00a884"/>
+    <rect x="1268" y="257" width="110" height="5" rx="2" fill="#d8efe8"/>
+  </g>
+</svg>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Contact AlphaGene Labs for research collaboration, strategic partnerships, investment, and scientific discussion."
+    />
+    <title>Contact | AlphaGene Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="AlphaGene Labs home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>AlphaGene Labs</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="primary-nav" id="primary-nav" data-nav>
+        <a href="science.html">Science</a>
+        <a href="platform.html">Platform</a>
+        <a href="generation.html">Generation</a>
+        <a href="applications.html">Applications</a>
+        <a href="insights.html">Insights</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero contact-hero">
+        <div class="page-hero-media" aria-hidden="true">
+          <img src="assets/alphagene-hero-ai.svg" alt="" />
+        </div>
+        <div class="page-hero-copy reveal">
+          <p class="eyebrow">Contact</p>
+          <h1>Start a scientific conversation.</h1>
+          <p>
+            AlphaGene Labs welcomes research collaborations, clinical and scientific discussions, institutional
+            partnerships, investment conversations, and talent inquiries.
+          </p>
+        </div>
+      </section>
+
+      <section class="contact intake-layout">
+        <div class="contact-copy reveal">
+          <p class="eyebrow">AlphaGene Labs</p>
+          <h2>Partner with a protein design platform for major human disease.</h2>
+          <p>
+            Tell us about your area of interest. The AlphaGene team can follow up for research, partnership, investment,
+            or company discussions.
+          </p>
+          <div class="contact-links">
+            <a href="mailto:contact@alphagenelabs.com">contact@alphagenelabs.com</a>
+            <a href="https://www.alphagenelabs.com/">alphagenelabs.com</a>
+          </div>
+        </div>
+        <form class="contact-form reveal" action="mailto:contact@alphagenelabs.com" method="post" enctype="text/plain">
+          <label>
+            Name
+            <input type="text" name="name" autocomplete="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>
+            Area of interest
+            <select name="interest" required>
+              <option value="">Select one</option>
+              <option>Research collaboration</option>
+              <option>Clinical or scientific discussion</option>
+              <option>Investment</option>
+              <option>Careers</option>
+              <option>Media</option>
+            </select>
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="6" required></textarea>
+          </label>
+          <button class="button primary" type="submit">Send inquiry</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>AlphaGene Labs</p>
+      <p>
+        Research-stage biotechnology platform. This website is for informational purposes and does not provide medical
+        advice, diagnosis, treatment, or claims of clinical efficacy.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

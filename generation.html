@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A visual walkthrough of AlphaGene Labs' AI protein generation workflow from disease biology to designed protein candidates."
+    />
+    <title>Generation | AlphaGene Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="AlphaGene Labs home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>AlphaGene Labs</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="primary-nav" id="primary-nav" data-nav>
+        <a href="science.html">Science</a>
+        <a href="platform.html">Platform</a>
+        <a href="generation.html" aria-current="page">Generation</a>
+        <a href="applications.html">Applications</a>
+        <a href="insights.html">Insights</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero generation-hero">
+        <div class="page-hero-media" aria-hidden="true">
+          <img src="assets/alphagene-hero-ai.svg" alt="" />
+        </div>
+        <div class="page-hero-copy reveal">
+          <p class="eyebrow">AI protein generation</p>
+          <h1>From biological intent to designed protein candidates.</h1>
+          <p>
+            A visual walkthrough of how AlphaGene Labs translates human disease biology into structure-informed protein
+            design hypotheses.
+          </p>
+        </div>
+      </section>
+
+      <section class="generation-section" aria-label="AI protein generation animation">
+        <div class="generation-copy reveal">
+          <p class="eyebrow">Process visualization</p>
+          <h2>One continuous workflow, from data to molecular form.</h2>
+          <p>
+            The animation below represents the platform conceptually: disease context informs target hypotheses, sequence
+            and embedding models explore protein space, structure prediction refines candidates, and validation planning
+            prioritizes what moves forward.
+          </p>
+        </div>
+
+        <div class="generation-video reveal">
+          <canvas class="protein-process-canvas" data-protein-process aria-hidden="true"></canvas>
+          <div class="generation-stage-labels" aria-hidden="true">
+            <span>Disease profile</span>
+            <span>Target hypothesis</span>
+            <span>Sequence space</span>
+            <span>Structure prediction</span>
+            <span>Designed candidates</span>
+            <span>Validation workflow</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section generation-steps">
+        <article class="reveal">
+          <span>01</span>
+          <h3>Disease context</h3>
+          <p>Biological signals and constraints are organized into a research profile for longevity or complex disease.</p>
+        </article>
+        <article class="reveal">
+          <span>02</span>
+          <h3>Model search</h3>
+          <p>Computational models explore sequence, function, and protein interaction space around the target hypothesis.</p>
+        </article>
+        <article class="reveal">
+          <span>03</span>
+          <h3>Structure refinement</h3>
+          <p>Designed candidates are evaluated through predicted folds, surfaces, and plausibility of functional behavior.</p>
+        </article>
+        <article class="reveal">
+          <span>04</span>
+          <h3>Research prioritization</h3>
+          <p>Promising candidates are prepared for screening, review, and translational research planning.</p>
+        </article>
+      </section>
+
+      <section class="page-cta">
+        <div class="reveal">
+          <p class="eyebrow">Next</p>
+          <h2>Connect the generation process to the full platform.</h2>
+          <a class="button primary" href="platform.html">Explore the platform</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>AlphaGene Labs</p>
+      <p>
+        Research-stage biotechnology platform. This website is for informational purposes and does not provide medical
+        advice, diagnosis, treatment, or claims of clinical efficacy.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

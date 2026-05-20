@@ -7,9 +7,9 @@
   --paper-warm: #f1f5fb;
   --line: rgba(32, 33, 36, 0.12);
   --sage: #00a884;
-  --sage-dark: #5b67d8;
+  --sage-dark: #1a73e8;
   --clay: #fbbc04;
-  --rose: #e227be;
+  --rose: #ea4335;
   --mist: #e8f0fe;
   --white: #ffffff;
   --shadow: 0 24px 80px rgba(60, 64, 67, 0.14);
@@ -528,7 +528,7 @@ h3 {
   padding: 24px 28px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: linear-gradient(90deg, rgba(45, 195, 235, 0.1), rgba(226, 39, 190, 0.08));
+  background: linear-gradient(90deg, rgba(26, 115, 232, 0.08), rgba(0, 168, 132, 0.08));
   color: var(--sage-dark);
   font-weight: 700;
 }
@@ -604,14 +604,14 @@ h3 {
 .generation-video {
   position: relative;
   min-height: 520px;
-  border: 1px solid rgba(166, 75, 216, 0.18);
+  border: 1px solid rgba(26, 115, 232, 0.14);
   border-radius: 16px;
   overflow: hidden;
   background:
-    linear-gradient(115deg, rgba(45, 195, 235, 0.14), rgba(255, 255, 255, 0) 46%),
-    linear-gradient(295deg, rgba(226, 39, 190, 0.16), rgba(255, 255, 255, 0) 48%),
-    linear-gradient(135deg, #ffffff, #faf7ff 52%, #eff9ff);
-  box-shadow: 0 28px 90px rgba(116, 86, 216, 0.14);
+    radial-gradient(circle at 72% 36%, rgba(0, 168, 132, 0.16), transparent 32%),
+    radial-gradient(circle at 32% 24%, rgba(26, 115, 232, 0.14), transparent 34%),
+    linear-gradient(135deg, #ffffff, #f7faff 54%, #eef6ff);
+  box-shadow: 0 28px 90px rgba(60, 64, 67, 0.12);
 }
 
 .protein-process-canvas {
@@ -636,13 +636,11 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(166, 75, 216, 0.18);
+  border: 1px solid rgba(26, 115, 232, 0.16);
   border-radius: 999px;
   padding: 8px 10px;
-  color: #423f54;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(250, 247, 255, 0.78)),
-    linear-gradient(90deg, rgba(45, 195, 235, 0.08), rgba(226, 39, 190, 0.08));
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.72);
   font-size: 0.72rem;
   font-weight: 800;
   text-align: center;

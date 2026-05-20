@@ -65,6 +65,7 @@ const createProteinAnimation = (container) => {
 
   const context = canvas.getContext("2d");
   const colors = proteinPalette;
+  const isPageHero = container.classList.contains("page-hero");
   let width = 0;
   let height = 0;
   let dpr = 1;
@@ -80,22 +81,31 @@ const createProteinAnimation = (container) => {
     context.setTransform(dpr, 0, 0, dpr, 0, 0);
   };
 
-  const getProteinPoints = (time) => {
+  const getRibbonPoints = (time, options) => {
     const points = [];
-    const count = 58;
-    const scale = Math.min(width, height);
-    const centerX = width * 0.72;
-    const centerY = height * 0.48;
+    const count = options.count || 96;
+    const scale = Math.min(width, height) * options.scale;
 
     for (let index = 0; index < count; index += 1) {
       const progress = index / (count - 1);
-      const helix = progress * Math.PI * 6.2 + time * 0.00045;
-      const fold = progress * Math.PI * 2.7 + time * 0.00028;
-      const depth = Math.sin(helix);
+      const helix = progress * Math.PI * options.turns + time * options.speed + options.phase;
+      const fold = progress * Math.PI * options.fold + time * options.drift + options.phase * 0.7;
+      const orbit = Math.sin(time * options.orbitSpeed + options.phase);
+      const depth = Math.cos(helix + orbit);
+      const sweep = progress - 0.5;
+
       points.push({
-        x: centerX + (progress - 0.5) * width * 0.45 + Math.sin(helix) * scale * 0.055,
-        y: centerY + Math.sin(fold) * scale * 0.13 + Math.cos(helix) * scale * 0.035,
-        radius: 2.8 + (depth + 1) * 2.1,
+        x:
+          width * options.x +
+          sweep * width * options.length +
+          Math.sin(helix) * scale * options.twist +
+          Math.cos(fold) * scale * 0.06 * orbit,
+        y:
+          height * options.y +
+          Math.sin(fold) * scale * options.amplitude +
+          Math.cos(helix) * scale * options.depth +
+          sweep * height * options.slope,
+        radius: options.nodeSize * (0.7 + (depth + 1) * 0.24),
         depth,
         progress,
       });
@@ -104,76 +114,209 @@ const createProteinAnimation = (container) => {
     return points;
   };
 
-  const draw = (time = 0) => {
-    context.clearRect(0, 0, width, height);
-
-    const points = getProteinPoints(time);
-    const glow = context.createRadialGradient(width * 0.72, height * 0.48, 0, width * 0.72, height * 0.48, width * 0.42);
-    glow.addColorStop(0, "rgba(184, 74, 213, 0.16)");
-    glow.addColorStop(0.48, "rgba(45, 195, 235, 0.12)");
-    glow.addColorStop(0.72, "rgba(226, 39, 190, 0.08)");
-    glow.addColorStop(1, "rgba(255, 255, 255, 0)");
-    context.fillStyle = glow;
-    context.fillRect(0, 0, width, height);
-
+  const drawRibbon = (points, options) => {
+    context.save();
+    context.globalAlpha = options.alpha;
+    context.filter = options.blur ? `blur(${options.blur}px)` : "none";
+    context.globalCompositeOperation = options.blend || "source-over";
     for (let index = 0; index < points.length - 1; index += 1) {
       const point = points[index];
       const next = points[index + 1];
       const colorIndex = Math.min(colors.length - 2, Math.floor(point.progress * (colors.length - 1)));
       const localProgress = point.progress * (colors.length - 1) - colorIndex;
       const color = interpolateColor(colors[colorIndex], colors[colorIndex + 1], localProgress);
+      const alpha = options.lineAlpha * (0.58 + (point.depth + 1) * 0.18);
 
       context.beginPath();
       context.moveTo(point.x, point.y);
       context.lineTo(next.x, next.y);
-      context.lineWidth = 18 + point.depth * 3;
+      context.lineWidth = options.width + point.depth * options.depthWidth;
       context.lineCap = "round";
-      context.strokeStyle = color.replace("rgb", "rgba").replace(")", ", 0.22)");
+      context.strokeStyle = color.replace("rgb", "rgba").replace(")", `, ${alpha * 0.32})`);
       context.stroke();
 
       context.beginPath();
       context.moveTo(point.x, point.y);
       context.lineTo(next.x, next.y);
-      context.lineWidth = 4 + point.depth * 1.2;
-      context.strokeStyle = color.replace("rgb", "rgba").replace(")", ", 0.84)");
-      context.shadowColor = color.replace("rgb", "rgba").replace(")", ", 0.36)");
-      context.shadowBlur = 18;
+      context.lineWidth = Math.max(2, options.width * 0.23 + point.depth * 0.8);
+      context.strokeStyle = color.replace("rgb", "rgba").replace(")", `, ${alpha})`);
+      context.shadowColor = color.replace("rgb", "rgba").replace(")", ", 0.32)");
+      context.shadowBlur = options.shadow;
       context.stroke();
       context.shadowBlur = 0;
     }
 
-    for (let index = 3; index < points.length - 6; index += 6) {
+    for (let index = 3; index < points.length - 6; index += 7) {
       const point = points[index];
       const target = points[index + 5];
       context.beginPath();
       context.moveTo(point.x, point.y);
       context.lineTo(target.x, target.y);
-      context.lineWidth = 1;
-      context.strokeStyle = "rgba(116, 86, 190, 0.22)";
+      context.lineWidth = options.bridgeWidth;
+      context.strokeStyle = `rgba(255, 255, 255, ${options.bridgeAlpha})`;
       context.stroke();
     }
 
     points.forEach((point, index) => {
-      if (index % 2 !== 0) return;
+      if (index % options.nodeEvery !== 0) return;
       const colorIndex = Math.min(colors.length - 1, Math.floor(point.progress * colors.length));
       const color = colors[colorIndex];
       context.beginPath();
       context.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
-      context.fillStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${0.58 + point.depth * 0.16})`;
+      context.fillStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${options.nodeAlpha + point.depth * 0.08})`;
       context.fill();
       context.beginPath();
-      context.arc(point.x, point.y, point.radius + 7, 0, Math.PI * 2);
-      context.strokeStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.16)`;
+      context.arc(point.x, point.y, point.radius + options.nodeHalo, 0, Math.PI * 2);
+      context.strokeStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${options.haloAlpha})`;
       context.stroke();
+    });
+    context.restore();
+  };
+
+  const drawBackgroundWash = (time) => {
+    const wash = context.createLinearGradient(0, height, width, 0);
+    wash.addColorStop(0, "rgba(45, 195, 235, 0.36)");
+    wash.addColorStop(0.42, "rgba(250, 238, 255, 0.78)");
+    wash.addColorStop(1, "rgba(226, 39, 190, 0.34)");
+    context.fillStyle = wash;
+    context.fillRect(0, 0, width, height);
+
+    const coolBand = context.createLinearGradient(0, height * 0.12, width, height * 0.88);
+    coolBand.addColorStop(0, "rgba(255, 255, 255, 0)");
+    coolBand.addColorStop(0.42, "rgba(45, 195, 235, 0.18)");
+    coolBand.addColorStop(1, "rgba(255, 255, 255, 0)");
+    context.fillStyle = coolBand;
+    context.fillRect(0, 0, width, height);
+
+    const warmBand = context.createLinearGradient(width, height * 0.04, 0, height * 0.86);
+    warmBand.addColorStop(0, "rgba(226, 39, 190, 0.22)");
+    warmBand.addColorStop(0.52, "rgba(139, 119, 222, 0.08)");
+    warmBand.addColorStop(1, "rgba(255, 255, 255, 0)");
+    context.fillStyle = warmBand;
+    context.fillRect(0, 0, width, height);
+
+    context.save();
+    context.strokeStyle = "rgba(255, 255, 255, 0.16)";
+    context.lineWidth = 1;
+    for (let index = 0; index < 7; index += 1) {
+      const y = height * (0.16 + index * 0.11) + Math.sin(time * 0.0002 + index) * 8;
+      context.beginPath();
+      context.moveTo(width * 0.18, y);
+      context.bezierCurveTo(width * 0.36, y - 24, width * 0.58, y + 24, width * 0.84, y - 8);
+      context.stroke();
+    }
+    context.restore();
+  };
+
+  const draw = (time = 0) => {
+    context.clearRect(0, 0, width, height);
+    drawBackgroundWash(time);
+
+    const softScale = isPageHero ? 1 : 0.9;
+    const backgroundLeft = getRibbonPoints(time, {
+      x: 0.2,
+      y: 0.62,
+      scale: 0.74 * softScale,
+      length: 0.33,
+      twist: 0.07,
+      amplitude: 0.16,
+      depth: 0.08,
+      slope: -0.26,
+      turns: 8.2,
+      fold: 4.2,
+      speed: 0.00035,
+      drift: 0.00018,
+      orbitSpeed: 0.00028,
+      phase: 1.8,
+      nodeSize: 4,
+    });
+    drawRibbon(backgroundLeft, {
+      alpha: 0.32,
+      blur: 10,
+      width: 28,
+      depthWidth: 8,
+      lineAlpha: 0.48,
+      bridgeWidth: 2,
+      bridgeAlpha: 0.18,
+      shadow: 8,
+      nodeEvery: 10,
+      nodeAlpha: 0.16,
+      nodeHalo: 14,
+      haloAlpha: 0.08,
+    });
+
+    const backgroundRight = getRibbonPoints(time, {
+      x: 0.84,
+      y: 0.43,
+      scale: 0.84 * softScale,
+      length: 0.25,
+      twist: 0.08,
+      amplitude: 0.22,
+      depth: 0.09,
+      slope: 0.18,
+      turns: 9.4,
+      fold: 5.2,
+      speed: -0.00032,
+      drift: 0.0002,
+      orbitSpeed: 0.00024,
+      phase: 3.3,
+      nodeSize: 4,
+    });
+    drawRibbon(backgroundRight, {
+      alpha: 0.3,
+      blur: 12,
+      width: 30,
+      depthWidth: 9,
+      lineAlpha: 0.44,
+      bridgeWidth: 2,
+      bridgeAlpha: 0.14,
+      shadow: 6,
+      nodeEvery: 10,
+      nodeAlpha: 0.13,
+      nodeHalo: 14,
+      haloAlpha: 0.07,
+    });
+
+    const mainRibbon = getRibbonPoints(time, {
+      x: isPageHero ? 0.67 : 0.72,
+      y: isPageHero ? 0.5 : 0.46,
+      scale: isPageHero ? 0.7 : 0.78,
+      length: isPageHero ? 0.3 : 0.38,
+      twist: 0.08,
+      amplitude: 0.2,
+      depth: 0.08,
+      slope: isPageHero ? -0.1 : -0.2,
+      turns: 8.8,
+      fold: 4.9,
+      speed: 0.00048,
+      drift: 0.00028,
+      orbitSpeed: 0.00034,
+      phase: 0,
+      nodeSize: 4.8,
+    });
+    drawRibbon(mainRibbon, {
+      alpha: 0.78,
+      blur: 0,
+      width: isPageHero ? 23 : 26,
+      depthWidth: 7,
+      lineAlpha: 0.84,
+      bridgeWidth: 2.5,
+      bridgeAlpha: 0.34,
+      shadow: 18,
+      nodeEvery: 7,
+      nodeAlpha: 0.38,
+      nodeHalo: 10,
+      haloAlpha: 0.14,
+      blend: "multiply",
     });
 
     for (let index = 0; index < 34; index += 1) {
       const drift = time * 0.00004;
-      const x = width * (0.5 + ((index * 0.071 + drift) % 0.48));
-      const y = height * (0.16 + ((index * 0.137 + drift * 2) % 0.66));
+      const x = width * (0.08 + ((index * 0.071 + drift) % 0.82));
+      const y = height * (0.12 + ((index * 0.137 + drift * 2) % 0.72));
       context.beginPath();
       context.arc(x, y, 1.2 + (index % 3) * 0.5, 0, Math.PI * 2);
-      context.fillStyle = index % 2 === 0 ? "rgba(45, 195, 235, 0.24)" : "rgba(226, 39, 190, 0.18)";
+      context.fillStyle = index % 2 === 0 ? "rgba(255, 255, 255, 0.38)" : "rgba(116, 86, 216, 0.16)";
       context.fill();
     }
 

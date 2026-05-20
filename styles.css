@@ -608,8 +608,8 @@ h3 {
   border-radius: 16px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 72% 36%, rgba(226, 39, 190, 0.16), transparent 32%),
-    radial-gradient(circle at 32% 24%, rgba(45, 195, 235, 0.14), transparent 34%),
+    linear-gradient(115deg, rgba(45, 195, 235, 0.14), rgba(255, 255, 255, 0) 46%),
+    linear-gradient(295deg, rgba(226, 39, 190, 0.16), rgba(255, 255, 255, 0) 48%),
     linear-gradient(135deg, #ffffff, #faf7ff 52%, #eff9ff);
   box-shadow: 0 28px 90px rgba(116, 86, 216, 0.14);
 }

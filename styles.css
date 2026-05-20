@@ -604,14 +604,14 @@ h3 {
 .generation-video {
   position: relative;
   min-height: 520px;
-  border: 1px solid rgba(116, 86, 216, 0.16);
+  border: 1px solid rgba(166, 75, 216, 0.18);
   border-radius: 16px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 72% 36%, rgba(226, 39, 190, 0.14), transparent 32%),
+    radial-gradient(circle at 72% 36%, rgba(226, 39, 190, 0.16), transparent 32%),
     radial-gradient(circle at 32% 24%, rgba(45, 195, 235, 0.14), transparent 34%),
-    linear-gradient(135deg, #ffffff, #f9f7ff 54%, #eef7ff);
-  box-shadow: 0 28px 90px rgba(116, 86, 216, 0.12);
+    linear-gradient(135deg, #ffffff, #faf7ff 52%, #eff9ff);
+  box-shadow: 0 28px 90px rgba(116, 86, 216, 0.14);
 }
 
 .protein-process-canvas {
@@ -636,11 +636,13 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(116, 86, 216, 0.16);
+  border: 1px solid rgba(166, 75, 216, 0.18);
   border-radius: 999px;
   padding: 8px 10px;
-  color: var(--ink-soft);
-  background: rgba(255, 255, 255, 0.72);
+  color: #423f54;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(250, 247, 255, 0.78)),
+    linear-gradient(90deg, rgba(45, 195, 235, 0.08), rgba(226, 39, 190, 0.08));
   font-size: 0.72rem;
   font-weight: 800;
   text-align: center;

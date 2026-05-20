@@ -197,16 +197,16 @@ heroBlocks.forEach(createProteinAnimation);
 const createProteinProcessAnimation = (canvas) => {
   const context = canvas.getContext("2d");
   const colors = {
-    blue: "#2dc3eb",
-    cyan: "#5b97e6",
-    green: "#8b77de",
-    lime: "#b84ad5",
-    yellow: "#e227be",
-    red: "#f35bc9",
+    cyan: "#2dc3eb",
+    blue: "#5b97e6",
     violet: "#7456d8",
+    purple: "#a64bd8",
+    magenta: "#e227be",
+    rose: "#f35bc9",
     ink: "#202124",
     muted: "#5f6368",
   };
+  const stageColors = [colors.cyan, colors.blue, colors.violet, colors.purple, colors.magenta, colors.rose];
   const sequenceLetters = "MKTFFVLLLCTFTVLSARQGEVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWVRQAPGKGLEWV";
   let width = 0;
   let height = 0;
@@ -296,19 +296,23 @@ const createProteinProcessAnimation = (canvas) => {
 
   const draw = (time = 0) => {
     context.clearRect(0, 0, width, height);
-    context.fillStyle = "rgba(255, 255, 255, 0.96)";
+    const wash = context.createLinearGradient(0, 0, width, height);
+    wash.addColorStop(0, "rgba(255, 255, 255, 0.98)");
+    wash.addColorStop(0.48, "rgba(248, 247, 255, 0.96)");
+    wash.addColorStop(1, "rgba(239, 249, 255, 0.96)");
+    context.fillStyle = wash;
     context.fillRect(0, 0, width, height);
 
     const loop = (time % 18000) / 18000;
     const activeStage = Math.floor(loop * 6);
     const stageProgress = loop * 6 - activeStage;
-    const topY = height * 0.13;
-    const railY = height * 0.36;
+    const topY = height * 0.18;
+    const railY = height * 0.41;
     const left = width * 0.08;
     const right = width * 0.92;
     const stepWidth = (right - left) / 5;
 
-    context.strokeStyle = "rgba(116, 86, 216, 0.2)";
+    context.strokeStyle = "rgba(116, 86, 216, 0.18)";
     context.lineWidth = 2;
     context.beginPath();
     context.moveTo(left, railY);
@@ -330,11 +334,12 @@ const createProteinProcessAnimation = (canvas) => {
     ["Profile", "Target", "Sequence", "Structure", "Candidates", "Validation"].forEach((label, index) => {
       const x = left + stepWidth * index;
       const active = index <= activeStage;
+      const stageColor = stageColors[index];
       context.beginPath();
       context.arc(x, railY, active ? 10 : 7, 0, Math.PI * 2);
-      context.fillStyle = active ? colors.blue : "#ffffff";
+      context.fillStyle = active ? stageColor : "#ffffff";
       context.fill();
-      context.strokeStyle = active ? colors.blue : "rgba(32, 33, 36, 0.18)";
+      context.strokeStyle = active ? stageColor : "rgba(116, 86, 216, 0.18)";
       context.stroke();
       context.fillStyle = active ? colors.ink : colors.muted;
       context.font = "700 12px Inter, Arial";
@@ -343,13 +348,13 @@ const createProteinProcessAnimation = (canvas) => {
     });
 
     roundedRect(width * 0.07, topY, width * 0.24, height * 0.16, 14);
-    context.fillStyle = "rgba(248, 250, 253, 0.92)";
+    context.fillStyle = "rgba(255, 255, 255, 0.78)";
     context.fill();
-    context.strokeStyle = "rgba(32, 33, 36, 0.1)";
+    context.strokeStyle = "rgba(116, 86, 216, 0.14)";
     context.stroke();
     drawPill(width * 0.09, topY + 24, 92, 28, "Longevity", colors.blue, activeStage >= 0);
-    drawPill(width * 0.09, topY + 62, 76, 28, "Oncology", colors.green, activeStage >= 0);
-    drawPill(width * 0.18, topY + 62, 98, 28, "Organ failure", colors.yellow, activeStage >= 0);
+    drawPill(width * 0.09, topY + 62, 76, 28, "Oncology", colors.violet, activeStage >= 0);
+    drawPill(width * 0.18, topY + 62, 98, 28, "Organ failure", colors.magenta, activeStage >= 0);
 
     const gridX = width * 0.36;
     const gridY = topY + 6;
@@ -382,7 +387,7 @@ const createProteinProcessAnimation = (canvas) => {
       context.fill();
       context.strokeStyle = activeStage >= 4 ? "rgba(184, 74, 213, 0.22)" : "rgba(32, 33, 36, 0.08)";
       context.stroke();
-      context.fillStyle = [colors.blue, colors.green, colors.yellow][index];
+      context.fillStyle = [colors.cyan, colors.violet, colors.magenta][index];
       context.fillRect(x + 12, y + 14, width * 0.055, 5);
       context.fillStyle = "rgba(95, 99, 104, 0.35)";
       context.fillRect(x + 12, y + 27, width * 0.042, 4);
@@ -398,7 +403,7 @@ const createProteinProcessAnimation = (canvas) => {
       context.fillStyle = "rgba(32, 33, 36, 0.08)";
       roundedRect(scoreX + 86, scoreY - 10 + index * 34, 126, 8, 4);
       context.fill();
-      context.fillStyle = [colors.blue, colors.green, colors.yellow][index];
+      context.fillStyle = [colors.cyan, colors.violet, colors.magenta][index];
       roundedRect(scoreX + 86, scoreY - 10 + index * 34, 126 * value, 8, 4);
       context.fill();
     });

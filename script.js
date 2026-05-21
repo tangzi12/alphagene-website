@@ -3,6 +3,7 @@ const nav = document.querySelector("[data-nav]");
 const navToggle = document.querySelector("[data-nav-toggle]");
 const revealItems = document.querySelectorAll(".reveal");
 const processCanvases = document.querySelectorAll("[data-protein-process]");
+const proteinHeroCanvases = document.querySelectorAll("[data-protein-hero]");
 
 const setHeaderState = () => {
   header.classList.toggle("is-scrolled", window.scrollY > 20);
@@ -280,3 +281,222 @@ const createProteinProcessAnimation = (canvas) => {
 };
 
 processCanvases.forEach(createProteinProcessAnimation);
+
+const createProteinHeroScene = async (canvas) => {
+  if (prefersReducedMotion) return;
+
+  try {
+    const THREE = await import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js");
+    const hero = canvas.closest(".hero");
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: "high-performance",
+    });
+    const group = new THREE.Group();
+    const clock = new THREE.Clock();
+
+    camera.position.set(0, 0.2, 7.4);
+    scene.add(group);
+
+    const ambient = new THREE.AmbientLight(0xffffff, 1.8);
+    const key = new THREE.DirectionalLight(0xffffff, 2.2);
+    const rim = new THREE.DirectionalLight(0x7fffe5, 1.2);
+    key.position.set(2.5, 3.5, 5);
+    rim.position.set(-4, -1.2, 2);
+    scene.add(ambient, key, rim);
+
+    const materials = {
+      teal: new THREE.MeshPhysicalMaterial({
+        color: 0x00a884,
+        roughness: 0.42,
+        metalness: 0.02,
+        transmission: 0.12,
+        thickness: 0.4,
+        transparent: true,
+        opacity: 0.88,
+      }),
+      blue: new THREE.MeshPhysicalMaterial({
+        color: 0x2f80ed,
+        roughness: 0.38,
+        metalness: 0.03,
+        transparent: true,
+        opacity: 0.82,
+      }),
+      cyan: new THREE.MeshPhysicalMaterial({
+        color: 0x42d6ff,
+        roughness: 0.36,
+        metalness: 0.02,
+        transparent: true,
+        opacity: 0.72,
+      }),
+      gold: new THREE.MeshPhysicalMaterial({
+        color: 0xf4c430,
+        roughness: 0.42,
+        transparent: true,
+        opacity: 0.72,
+      }),
+      shell: new THREE.MeshPhysicalMaterial({
+        color: 0xd8f2ff,
+        roughness: 0.2,
+        transmission: 0.5,
+        thickness: 1.6,
+        transparent: true,
+        opacity: 0.18,
+        depthWrite: false,
+      }),
+    };
+
+    const makeTube = (points, radius, material) => {
+      const curve = new THREE.CatmullRomCurve3(points);
+      const geometry = new THREE.TubeGeometry(curve, 160, radius, 18, false);
+      return new THREE.Mesh(geometry, material);
+    };
+
+    const makeHelix = (turns, height, radius, material, position, rotation) => {
+      const points = [];
+      const segments = 140;
+      for (let index = 0; index <= segments; index += 1) {
+        const progress = index / segments;
+        const angle = progress * Math.PI * 2 * turns;
+        points.push(
+          new THREE.Vector3(
+            Math.cos(angle) * radius,
+            (progress - 0.5) * height,
+            Math.sin(angle) * radius
+          )
+        );
+      }
+      const mesh = makeTube(points, 0.085, material);
+      mesh.position.set(...position);
+      mesh.rotation.set(...rotation);
+      return mesh;
+    };
+
+    const makeFold = (material, position, rotation, scale = 1) => {
+      const points = [];
+      for (let index = 0; index <= 120; index += 1) {
+        const progress = index / 120;
+        const angle = progress * Math.PI * 4.2;
+        points.push(
+          new THREE.Vector3(
+            (progress - 0.5) * 3.1 * scale,
+            Math.sin(angle) * 0.42 * scale,
+            Math.cos(angle * 0.74) * 0.52 * scale
+          )
+        );
+      }
+      const mesh = makeTube(points, 0.07 * scale, material);
+      mesh.position.set(...position);
+      mesh.rotation.set(...rotation);
+      return mesh;
+    };
+
+    const makeSheet = (material, position, rotation, scale = 1) => {
+      const shape = new THREE.Shape();
+      shape.moveTo(-0.12, -0.78);
+      shape.lineTo(0.12, -0.78);
+      shape.lineTo(0.12, 0.38);
+      shape.lineTo(0.34, 0.38);
+      shape.lineTo(0, 0.82);
+      shape.lineTo(-0.34, 0.38);
+      shape.lineTo(-0.12, 0.38);
+      shape.lineTo(-0.12, -0.78);
+      const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth: 0.035,
+        bevelEnabled: true,
+        bevelSize: 0.025,
+        bevelThickness: 0.025,
+        bevelSegments: 3,
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(...position);
+      mesh.rotation.set(...rotation);
+      mesh.scale.setScalar(scale);
+      return mesh;
+    };
+
+    const shell = new THREE.Mesh(new THREE.IcosahedronGeometry(2.55, 5), materials.shell);
+    shell.scale.set(1.22, 0.86, 0.74);
+    shell.position.set(0.62, 0.05, -0.08);
+    group.add(shell);
+
+    group.add(makeHelix(4.25, 2.7, 0.36, materials.teal, [-1.08, 0.22, 0.34], [0.42, 0.16, -0.82]));
+    group.add(makeHelix(3.7, 2.12, 0.31, materials.blue, [0.64, 0.58, -0.18], [1.0, -0.35, 0.45]));
+    group.add(makeHelix(3.0, 1.72, 0.27, materials.cyan, [1.52, -0.48, 0.26], [0.28, 0.84, 0.72]));
+    group.add(makeFold(materials.gold, [0.06, -0.96, 0.22], [-0.42, 0.16, -0.08], 0.92));
+    group.add(makeFold(materials.teal, [0.92, -0.08, -0.55], [0.9, -0.28, 1.25], 0.82));
+    group.add(makeFold(materials.blue, [-0.88, -0.55, -0.35], [0.72, 0.34, -1.62], 0.62));
+
+    for (let index = 0; index < 6; index += 1) {
+      const sheet = makeSheet(
+        index % 2 === 0 ? materials.blue : materials.teal,
+        [-0.6 + index * 0.36, 0.18 + Math.sin(index) * 0.22, -0.58 + index * 0.08],
+        [0.82, -0.24 + index * 0.04, -0.95 + index * 0.16],
+        0.72 - index * 0.025
+      );
+      group.add(sheet);
+    }
+
+    const beadGeometry = new THREE.SphereGeometry(0.08, 24, 24);
+    for (let index = 0; index < 22; index += 1) {
+      const material = [materials.blue, materials.teal, materials.cyan, materials.gold][index % 4];
+      const bead = new THREE.Mesh(beadGeometry, material);
+      const angle = index * 0.72;
+      bead.position.set(
+        Math.cos(angle) * (1.2 + (index % 4) * 0.22) + 0.28,
+        Math.sin(angle * 1.4) * 0.86,
+        Math.sin(angle) * 0.54
+      );
+      bead.scale.setScalar(0.78 + (index % 3) * 0.18);
+      group.add(bead);
+    }
+
+    group.position.set(1.42, 0.04, 0);
+    group.rotation.set(-0.12, -0.48, 0.08);
+    group.scale.setScalar(1.18);
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      const width = Math.max(1, rect.width);
+      const height = Math.max(1, rect.height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+
+      if (width < 760) {
+        group.position.set(0.9, 0.15, 0);
+        group.scale.setScalar(0.84);
+      } else {
+        group.position.set(1.42, 0.04, 0);
+        group.scale.setScalar(1.18);
+      }
+    };
+
+    const draw = () => {
+      const elapsed = clock.getElapsedTime();
+      group.rotation.y = -0.52 + Math.sin(elapsed * 0.18) * 0.18;
+      group.rotation.x = -0.12 + Math.sin(elapsed * 0.13) * 0.08;
+      group.rotation.z = 0.08 + Math.cos(elapsed * 0.16) * 0.05;
+      shell.rotation.y = elapsed * 0.05;
+      shell.rotation.x = Math.sin(elapsed * 0.12) * 0.08;
+      renderer.render(scene, camera);
+      requestAnimationFrame(draw);
+    };
+
+    resize();
+    hero?.classList.add("is-protein-scene-ready");
+    window.addEventListener("resize", resize, { passive: true });
+    draw();
+  } catch (error) {
+    canvas.remove();
+  }
+};
+
+proteinHeroCanvases.forEach((canvas) => {
+  createProteinHeroScene(canvas);
+});

@@ -161,6 +161,81 @@ const createProteinProcessAnimation = (canvas) => {
     const loop = (time % 18000) / 18000;
     const activeStage = Math.floor(loop * 6);
     const stageProgress = loop * 6 - activeStage;
+
+    if (width < 640) {
+      const compactLeft = 28;
+      const compactRight = width - 28;
+      const compactRailY = height * 0.62;
+      const compactStepWidth = (compactRight - compactLeft) / 5;
+
+      context.textBaseline = "alphabetic";
+      context.textAlign = "left";
+      context.fillStyle = "rgba(32, 33, 36, 0.8)";
+      context.font = "800 18px Manrope, Inter, Arial";
+      context.fillText("AI protein generation", 24, 34);
+      context.fillStyle = "rgba(95, 99, 104, 0.82)";
+      context.font = "600 11px Inter, Arial";
+      context.fillText("Biology → sequence → structure → candidate", 24, 55);
+      context.fillStyle = colors.blue;
+      context.font = "800 10px Inter, Arial";
+      context.fillText(`STAGE 0${activeStage + 1} / 06`, 24, 80);
+
+      for (let row = 0; row < 7; row += 1) {
+        for (let col = 0; col < 10; col += 1) {
+          const pulse = Math.sin(time * 0.0025 + row * 0.7 + col * 0.45) * 0.5 + 0.5;
+          context.fillStyle = `rgba(26, 115, 232, ${0.035 + pulse * 0.055})`;
+          roundedRect(24 + col * ((width - 48) / 10), 98 + row * 22, 5, 5, 2);
+          context.fill();
+        }
+      }
+
+      context.save();
+      context.translate(width * 0.5, height * 0.39);
+      context.rotate(-0.52 + Math.sin(time * 0.00028) * 0.08);
+      drawProtein(0, 0, Math.min(width * 0.78, 286), time, 1);
+      context.restore();
+
+      context.save();
+      context.translate(width * 0.52, height * 0.42);
+      context.rotate(0.74 + Math.cos(time * 0.00024) * 0.07);
+      drawProtein(0, 0, Math.min(width * 0.48, 176), time + 4200, 0.42);
+      context.restore();
+
+      context.strokeStyle = "rgba(26, 115, 232, 0.16)";
+      context.lineWidth = 2;
+      context.beginPath();
+      context.moveTo(compactLeft, compactRailY);
+      context.lineTo(compactRight, compactRailY);
+      context.stroke();
+
+      const compactFlowX = compactLeft + (compactRight - compactLeft) * loop;
+      const compactGradient = context.createLinearGradient(compactLeft, 0, compactFlowX, 0);
+      compactGradient.addColorStop(0, "rgba(26, 115, 232, 0.9)");
+      compactGradient.addColorStop(0.58, "rgba(0, 168, 132, 0.82)");
+      compactGradient.addColorStop(1, "rgba(251, 188, 4, 0.9)");
+      context.strokeStyle = compactGradient;
+      context.lineWidth = 3;
+      context.beginPath();
+      context.moveTo(compactLeft, compactRailY);
+      context.lineTo(compactFlowX, compactRailY);
+      context.stroke();
+
+      for (let index = 0; index < 6; index += 1) {
+        const x = compactLeft + compactStepWidth * index;
+        context.beginPath();
+        context.arc(x, compactRailY, index <= activeStage ? 6 : 4, 0, Math.PI * 2);
+        context.fillStyle = index <= activeStage ? colors.blue : "#ffffff";
+        context.fill();
+        context.strokeStyle = index <= activeStage ? colors.blue : "rgba(32, 33, 36, 0.2)";
+        context.stroke();
+      }
+
+      if (!prefersReducedMotion) {
+        frame = requestAnimationFrame(draw);
+      }
+      return;
+    }
+
     const topY = height * 0.13;
     const railY = height * 0.36;
     const left = width * 0.08;

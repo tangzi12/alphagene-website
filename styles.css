@@ -1230,6 +1230,13 @@ h3 {
   font-size: 0.86rem;
 }
 
+.structure-results .model-attribution {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+
 .download-button {
   color: var(--white);
   background: var(--sage-dark);

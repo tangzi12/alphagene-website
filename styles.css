@@ -1044,18 +1044,15 @@ h3 {
   font-size: 0.86rem;
 }
 
-.privacy-note {
-  margin-top: 28px;
-  padding: 16px 18px;
-  border: 1px solid rgba(251, 188, 4, 0.28);
-  border-radius: 10px;
-  color: var(--ink-soft);
-  background: rgba(251, 188, 4, 0.08);
-  font-size: 0.78rem;
+.data-disclosure {
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.55;
 }
 
-.privacy-note strong {
-  color: var(--ink);
+.data-disclosure strong {
+  color: var(--ink-soft);
 }
 
 .viewer-heading {

@@ -1,6 +1,8 @@
 (() => {
   const API_URL = "https://api.esmatlas.com/foldSequence/v1/pdb/";
-  const MAX_RESIDUES = 400;
+  const MAX_RESIDUES = 800;
+  const LONG_SEQUENCE_THRESHOLD = 400;
+  const PREDICTION_TIMEOUT_MS = 300000;
   const CANONICAL_AMINO_ACIDS = /^[ACDEFGHIKLMNPQRSTVWY]+$/;
   const UBIQUITIN_SEQUENCE =
     "MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLRLRGG";
@@ -211,6 +213,7 @@
 
   const input = form.querySelector("[data-sequence-input]");
   const count = form.querySelector("[data-residue-count]");
+  const longSequenceWarning = form.querySelector("[data-long-sequence-warning]");
   const error = form.querySelector("[data-form-error]");
   const submit = form.querySelector("[data-fold-submit]");
   const submitLabel = form.querySelector("[data-submit-label]");
@@ -229,6 +232,11 @@
   const viewerElement = document.querySelector("[data-molecule-viewer]");
   const viewerEmpty = document.querySelector("[data-viewer-empty]");
   const viewerLoading = document.querySelector("[data-viewer-loading]");
+  const predictionProgress = document.querySelector("[data-prediction-progress]");
+  const predictionProgressBar = document.querySelector("[data-prediction-progress-bar]");
+  const predictionProgressLabel = document.querySelector("[data-prediction-progress-label]");
+  const predictionProgressValue = document.querySelector("[data-prediction-progress-value]");
+  const predictionProgressNote = document.querySelector("[data-prediction-progress-note]");
   const viewerHint = document.querySelector("[data-viewer-hint]");
   const viewerControls = document.querySelector("[data-viewer-controls]");
   const resultPanel = document.querySelector("[data-structure-results]");
@@ -242,6 +250,10 @@
   let viewer = null;
   let currentPdb = "";
   let currentMode = "cartoon";
+  let progressInterval = null;
+  let progressStartedAt = 0;
+  let progressEstimateMs = 0;
+  let progressPercent = 0;
 
   const cleanSequence = (value) => value.replace(/\s+/g, "").toUpperCase();
 
@@ -249,6 +261,12 @@
     const sequence = cleanSequence(input.value);
     count.textContent = sequence.length.toLocaleString();
     count.parentElement.classList.toggle("is-over-limit", sequence.length > MAX_RESIDUES);
+    count.parentElement.classList.toggle(
+      "is-long-sequence",
+      sequence.length > LONG_SEQUENCE_THRESHOLD && sequence.length <= MAX_RESIDUES,
+    );
+    longSequenceWarning.hidden =
+      sequence.length <= LONG_SEQUENCE_THRESHOLD || sequence.length > MAX_RESIDUES;
   };
 
   const showError = (message) => {
@@ -259,6 +277,72 @@
   const clearError = () => {
     error.textContent = "";
     error.hidden = true;
+  };
+
+  const formatElapsedTime = (milliseconds) => {
+    const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  };
+
+  const renderProgress = (percent, label) => {
+    progressPercent = Math.max(progressPercent, Math.min(100, Math.round(percent)));
+    predictionProgressBar.style.width = `${progressPercent}%`;
+    predictionProgressLabel.textContent = label;
+    predictionProgressValue.textContent = `${progressPercent}%`;
+    predictionProgress.setAttribute("aria-valuenow", String(progressPercent));
+    predictionProgress.setAttribute("aria-valuetext", `${label}, estimated ${progressPercent}%`);
+    predictionProgressNote.textContent = `Estimated progress · ${formatElapsedTime(
+      Date.now() - progressStartedAt,
+    )} elapsed`;
+  };
+
+  const updatePredictionProgress = () => {
+    const elapsed = Date.now() - progressStartedAt;
+    const ratio = elapsed / progressEstimateMs;
+    let percent;
+    let label;
+
+    if (ratio < 0.08) {
+      percent = 4 + (ratio / 0.08) * 12;
+      label = "Preparing sequence";
+    } else if (ratio < 0.25) {
+      percent = 16 + ((ratio - 0.08) / 0.17) * 18;
+      label = "Encoding residues";
+    } else if (ratio < 0.78) {
+      percent = 34 + ((ratio - 0.25) / 0.53) * 46;
+      label = "Folding structure";
+    } else if (ratio < 1.05) {
+      percent = 80 + ((ratio - 0.78) / 0.27) * 12;
+      label = "Refining coordinates";
+    } else {
+      percent = 94;
+      label = "Still processing long sequence";
+    }
+
+    renderProgress(percent, label);
+  };
+
+  const stopPredictionProgress = () => {
+    if (progressInterval !== null) {
+      window.clearInterval(progressInterval);
+      progressInterval = null;
+    }
+  };
+
+  const startPredictionProgress = (sequenceLength) => {
+    stopPredictionProgress();
+    progressStartedAt = Date.now();
+    progressEstimateMs = Math.min(210000, Math.max(35000, 12000 + sequenceLength * 180));
+    progressPercent = 0;
+    renderProgress(4, "Preparing sequence");
+    progressInterval = window.setInterval(updatePredictionProgress, 500);
+  };
+
+  const completePredictionProgress = () => {
+    stopPredictionProgress();
+    renderProgress(100, "Structure ready");
   };
 
   const setLoading = (isLoading) => {
@@ -273,6 +357,7 @@
     submitSpinner.hidden = !isLoading;
     viewerLoading.hidden = !isLoading;
     if (isLoading) viewerEmpty.hidden = true;
+    if (!isLoading) stopPredictionProgress();
   };
 
   const validateSequence = (sequence) => {
@@ -395,7 +480,7 @@
 
   const predictStructure = async (sequence) => {
     const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 120000);
+    const timeout = window.setTimeout(() => controller.abort(), PREDICTION_TIMEOUT_MS);
 
     try {
       const response = await fetch(API_URL, {
@@ -406,7 +491,7 @@
       });
 
       if (response.status === 429) {
-        throw new Error("The public ESMFold service is busy or rate-limited. Please wait and try again.");
+        throw new Error("The prediction service is busy or rate-limited. Please wait and try again.");
       }
       if (!response.ok) {
         throw new Error(`The prediction service returned an error (${response.status}). Please try again.`);
@@ -419,7 +504,7 @@
       return pdb;
     } catch (requestError) {
       if (requestError.name === "AbortError") {
-        throw new Error("The prediction timed out after two minutes. Try a shorter sequence or try again later.");
+        throw new Error("The prediction timed out after five minutes. Try a shorter sequence or try again later.");
       }
       if (requestError instanceof TypeError) {
         throw new Error("The prediction service could not be reached. Check your connection and try again.");
@@ -503,9 +588,11 @@
     updateCount();
     clearStructure();
     setLoading(true);
+    startPredictionProgress(sequence.length);
 
     try {
       const pdb = await predictStructure(sequence);
+      completePredictionProgress();
       showStructure(pdb, sequence.length);
     } catch (requestError) {
       showError(requestError.message || "The prediction could not be completed. Please try again.");
@@ -536,7 +623,7 @@
         ? selectedTarget.accession.toLowerCase()
         : "custom-sequence";
     link.href = url;
-    link.download = `alphagene-${fileId}-esmfold.pdb`;
+    link.download = `alphagene-${fileId}-fold.pdb`;
     document.body.appendChild(link);
     link.click();
     link.remove();

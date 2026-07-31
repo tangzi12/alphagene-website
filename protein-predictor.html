@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=alpha-model-brand-5" />
+    <link rel="stylesheet" href="styles.css?v=long-sequence-progress-7" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -186,14 +186,18 @@
               autocomplete="off"
               autocapitalize="characters"
               spellcheck="false"
-              aria-describedby="sequence-help sequence-error"
+              aria-describedby="sequence-help sequence-warning sequence-error"
               data-sequence-input
               placeholder="Example: MQIFVKTLTGKTITLEVEPSDTIENVKAK..."
             ></textarea>
             <div class="sequence-meta" id="sequence-help">
               <span>Canonical amino acids only. Spaces and line breaks are removed.</span>
-              <span><strong data-residue-count>0</strong> / 400 residues</span>
+              <span><strong data-residue-count>0</strong> / 800 residues</span>
             </div>
+            <p class="sequence-warning" id="sequence-warning" data-long-sequence-warning hidden>
+              Long-sequence mode: predictions above 400 residues can take up to five minutes and may be more likely to
+              time out on the research preview.
+            </p>
             <p class="form-error" id="sequence-error" role="alert" data-form-error hidden></p>
 
             <div class="form-actions">
@@ -242,10 +246,27 @@
               <p>Your predicted structure will appear here.</p>
               <span>Choose a disease-related protein or enter your own sequence to begin.</span>
             </div>
-            <div class="viewer-loading" role="status" aria-live="polite" data-viewer-loading hidden>
+            <div class="viewer-loading" data-viewer-loading hidden>
               <span class="structure-spinner" aria-hidden="true"></span>
-              <strong>Folding sequence…</strong>
-              <span>The public service can take a minute for longer proteins.</span>
+              <strong role="status" aria-live="polite">Folding sequence…</strong>
+              <div
+                class="prediction-progress"
+                role="progressbar"
+                aria-label="Estimated structure prediction progress"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+                data-prediction-progress
+              >
+                <div class="prediction-progress-track" aria-hidden="true">
+                  <span data-prediction-progress-bar></span>
+                </div>
+                <div class="prediction-progress-meta">
+                  <span data-prediction-progress-label>Preparing sequence</span>
+                  <strong data-prediction-progress-value>0%</strong>
+                </div>
+              </div>
+              <span data-prediction-progress-note>Estimated progress · Longer sequences can take several minutes.</span>
             </div>
           </div>
 
@@ -322,8 +343,8 @@
     </footer>
 
     <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
-    <script src="script.js?v=alpha-model-brand-5"></script>
-    <script src="protein-targets-human.js?v=alpha-model-brand-5"></script>
-    <script src="protein-predictor.js?v=alpha-model-brand-5"></script>
+    <script src="script.js?v=long-sequence-progress-7"></script>
+    <script src="protein-targets-human.js?v=long-sequence-progress-7"></script>
+    <script src="protein-predictor.js?v=long-sequence-progress-7"></script>
   </body>
 </html>

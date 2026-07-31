@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Try a free, research-use protein structure prediction demo powered by the public ESMFold service."
+    />
+    <title>Structure Demo | AlphaGene Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.esmatlas.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=structure-demo-1" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="AlphaGene Labs home">
+        <span>AlphaGene Labs</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="primary-nav" id="primary-nav" data-nav>
+        <a href="science.html">Science</a>
+        <a href="platform.html">Platform</a>
+        <a href="generation.html">Generation</a>
+        <a href="applications.html">Applications</a>
+        <a href="insights.html">Insights</a>
+        <a href="structure-demo.html" aria-current="page">Structure Demo</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero structure-demo-hero">
+        <div class="page-hero-media" aria-hidden="true">
+          <img src="assets/alphagene-protein-hero-v2.png" alt="" />
+        </div>
+        <div class="page-hero-copy reveal">
+          <p class="eyebrow">Free structure prediction demo</p>
+          <h1>From amino acid sequence to a predicted 3D fold.</h1>
+          <p>
+            Paste a protein sequence, run ESMFold through Meta's public research service, and inspect the predicted
+            structure directly in your browser.
+          </p>
+        </div>
+      </section>
+
+      <section class="structure-workbench" aria-labelledby="workbench-title">
+        <div class="sequence-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">01 / Sequence</p>
+              <h2 id="workbench-title">Enter a protein sequence.</h2>
+            </div>
+            <span class="service-badge">Public ESMFold service</span>
+          </div>
+
+          <form class="sequence-form" data-fold-form novalidate>
+            <label for="protein-sequence">One-letter amino acid sequence</label>
+            <textarea
+              id="protein-sequence"
+              name="sequence"
+              rows="12"
+              maxlength="1200"
+              autocomplete="off"
+              autocapitalize="characters"
+              spellcheck="false"
+              aria-describedby="sequence-help sequence-error"
+              data-sequence-input
+              placeholder="Example: MQIFVKTLTGKTITLEVEPSDTIENVKAK..."
+            ></textarea>
+            <div class="sequence-meta" id="sequence-help">
+              <span>Canonical amino acids only. Spaces and line breaks are removed.</span>
+              <span><strong data-residue-count>0</strong> / 400 residues</span>
+            </div>
+            <p class="form-error" id="sequence-error" role="alert" data-form-error hidden></p>
+
+            <div class="form-actions">
+              <button class="button primary fold-submit" type="submit" data-fold-submit>
+                <span data-submit-label>Predict structure</span>
+                <span class="button-spinner" aria-hidden="true" data-submit-spinner hidden></span>
+              </button>
+              <button class="button ghost" type="button" data-load-example>Load ubiquitin example</button>
+              <button class="text-button" type="button" data-clear-sequence>Clear</button>
+            </div>
+          </form>
+
+          <div class="privacy-note">
+            <strong>Before you submit:</strong>
+            your sequence is sent directly from this browser to Meta's public ESM Atlas API. AlphaGene Labs does not
+            receive or store it. Do not submit confidential, proprietary, patient-derived, or otherwise sensitive data.
+            The public service is rate-limited and intended for small-scale experimentation.
+          </div>
+        </div>
+
+        <div class="viewer-panel" aria-labelledby="viewer-title">
+          <div class="viewer-heading">
+            <div>
+              <p class="eyebrow">02 / Predicted structure</p>
+              <h2 id="viewer-title">Interactive 3D view</h2>
+            </div>
+            <div class="viewer-controls" role="group" aria-label="Structure display mode" data-viewer-controls hidden>
+              <button type="button" class="viewer-mode is-active" data-view-mode="cartoon">Cartoon</button>
+              <button type="button" class="viewer-mode" data-view-mode="stick">Stick</button>
+              <button type="button" class="viewer-mode" data-view-mode="surface">Surface</button>
+              <button type="button" class="viewer-mode" data-view-reset>Reset</button>
+            </div>
+          </div>
+
+          <div class="viewer-stage" data-viewer-stage>
+            <div class="viewer-canvas" data-molecule-viewer aria-label="Interactive predicted protein structure"></div>
+            <div class="viewer-empty" data-viewer-empty>
+              <div class="protein-orbit" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <p>Your predicted structure will appear here.</p>
+              <span>Load the example or enter your own sequence to begin.</span>
+            </div>
+            <div class="viewer-loading" role="status" aria-live="polite" data-viewer-loading hidden>
+              <span class="structure-spinner" aria-hidden="true"></span>
+              <strong>Folding sequence…</strong>
+              <span>The public service can take a minute for longer proteins.</span>
+            </div>
+          </div>
+
+          <div class="structure-results" data-structure-results hidden>
+            <div>
+              <span>Sequence length</span>
+              <strong data-result-length>—</strong>
+            </div>
+            <div>
+              <span>Mean confidence</span>
+              <strong data-result-confidence>—</strong>
+            </div>
+            <div>
+              <span>Model</span>
+              <strong>ESMFold</strong>
+            </div>
+            <button class="download-button" type="button" data-download-pdb>Download PDB</button>
+          </div>
+
+          <div class="confidence-legend" data-confidence-legend hidden>
+            <span>Confidence</span>
+            <span><i class="legend-swatch very-high"></i> Very high</span>
+            <span><i class="legend-swatch confident"></i> Confident</span>
+            <span><i class="legend-swatch low"></i> Low</span>
+            <span><i class="legend-swatch very-low"></i> Very low</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="structure-explainer">
+        <div class="structure-explainer-heading reveal">
+          <p class="eyebrow">What this demo does</p>
+          <h2>A fast fold hypothesis—not a finished protein product.</h2>
+        </div>
+        <div class="structure-explainer-grid">
+          <article class="reveal">
+            <span>01</span>
+            <h3>Single-sequence prediction</h3>
+            <p>ESMFold estimates a protein's 3D structure directly from its amino acid sequence.</p>
+          </article>
+          <article class="reveal">
+            <span>02</span>
+            <h3>Interactive inspection</h3>
+            <p>Rotate, zoom, and compare cartoon, stick, and surface representations in the browser.</p>
+          </article>
+          <article class="reveal">
+            <span>03</span>
+            <h3>Not protein design</h3>
+            <p>This demo predicts a fold for a sequence you provide. It does not generate a new sequence for a function.</p>
+          </article>
+          <article class="reveal">
+            <span>04</span>
+            <h3>Research-use limitation</h3>
+            <p>Predictions do not establish function, binding, safety, efficacy, or an experimentally validated structure.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="page-cta">
+        <div class="reveal">
+          <p class="eyebrow">Beyond prediction</p>
+          <h2>See how structure prediction fits into a broader protein development workflow.</h2>
+          <a class="button primary" href="platform.html">Explore the platform</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>AlphaGene Labs</p>
+      <p>
+        Research-stage biotechnology platform. This website is for informational purposes and does not provide medical
+        advice, diagnosis, treatment, or claims of clinical efficacy.
+      </p>
+    </footer>
+
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <script src="script.js?v=structure-demo-1"></script>
+    <script src="structure-demo.js?v=structure-demo-1"></script>
+  </body>
+</html>

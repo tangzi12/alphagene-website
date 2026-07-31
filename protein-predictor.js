@@ -4,6 +4,96 @@
   const CANONICAL_AMINO_ACIDS = /^[ACDEFGHIKLMNPQRSTVWY]+$/;
   const UBIQUITIN_SEQUENCE =
     "MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLRLRGG";
+  const TARGETS = {
+    "human-bcl2": {
+      context: "Human · Acute leukemia / chronic lymphocytic leukemia",
+      name: "BCL2 · Apoptosis regulator Bcl-2",
+      classification: "Clinically validated target",
+      accession: "P10415",
+      note: "Full canonical sequence. BCL-2 is inhibited by venetoclax in AML and CLL treatment contexts.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/P10415/entry",
+      evidenceUrl: "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/venetoclax",
+      sequence:
+        "MAHAGRTGYDNREIVMKYIHYKLSQRGYEWDAGDVGAAPPGAAPAPGIFSSQPGHTPHPAASRDPVARTSPLQTPAAPGAAAGPALSPVPPVVHLTLRQAGDDFSRRYRRDFAEMSSQLHLTPFTARGRFATVVEELFRDGVNWGRIVAFFEFGGVMCVESVNREMSPLVDNIALWMTEYLNRHLHTWIQDNGGWDAFVELYGPSMRPLFDFSWLSLKTLLSLALVGACITLGAYLGHK",
+    },
+    "human-cd20": {
+      context: "Human · B-cell lymphoma",
+      name: "MS4A1 · B-lymphocyte antigen CD20",
+      classification: "Clinically validated target",
+      accession: "P11836",
+      note: "Full canonical sequence. CD20 is an antibody target in CD20-positive B-cell lymphomas and leukemias.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/P11836/entry",
+      evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/rituximab",
+      sequence:
+        "MTTPRNSVNGTFPAEPMKGPIAMQSGPKPLFRRMSSLVGPTQSFFMRESKTLGAVQIMNGLFHIALGGLLMIPAGIYAPICVTVWYPLWGGIMYIISGSLLAATEKNSRKCLVKGKMIMNSLSLFAAISGMILSIMDILNIKISHFLKMESLNFIRAHTPYINIYNCEPANPSEKNSPSTQYCYSIQSLFLGILSVMLIFAFFQELVIAGIVENEWKRTCSRPKSNIVLLSAEEKKEQTIEIKEEVVGLTETSSQPKNEEDIEIIPIQEEEEEETETNFPEPPQDQESSPIENDSSP",
+    },
+    "human-fgf23": {
+      context: "Human · Chronic kidney disease",
+      name: "FGF23 · Fibroblast growth factor 23",
+      classification: "Disease biomarker / pathway",
+      accession: "Q9GZV9",
+      note: "Full canonical precursor. FGF23 is associated with mineral metabolism and outcomes in CKD; it is shown here as a biomarker/pathway protein, not a universal kidney-failure drug target.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/Q9GZV9/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/21673295/",
+      sequence:
+        "MLGARLRLWVCALCSVCSMSVLRAYPNASPLLGSSWGGLIHLYTATARNSYHLQIHKNGHVDGAPHQTIYSALMIRSEDAGFVVITGVMSRRYLCMDFRGNIFGSHYFDPENCRFQHQTLENGYDVYHSPQYHFLVSLGRAKRAFLPGMNPPPYSQFLSRRNEIPLIHFNTPIPRRHTRSAEDDSERDPLNVLKPRARMTPAPASCSQELPSAEDNSPMASDPLGVVRGGRVNTHAGGTGPEGCRPFAKFI",
+    },
+    "dog-cd20": {
+      context: "Dog · B-cell lymphoma",
+      name: "MS4A1 · B-lymphocyte antigen CD20",
+      classification: "Veterinary research target",
+      accession: "Q3C2E2",
+      note: "Full reviewed canine sequence. CD20 is a B-cell lymphoma marker and an investigational canine immunotherapy target.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/Q3C2E2/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/38662527/",
+      sequence:
+        "MTTPRNSMSGTLPVDPMKSPTAMYPVQKIIPKRMPSVVGPTQNFFMRESKTLGAVQIMNGLFHIALGSLLMIHTDVCAPICITMWYPLWGGIMFIISGSLLAAADKNPRKSLVKGKMIMNSLSLFAAISGIIFLIMDIFNITISHFFKMENLNLIKAPMPYVDIHNCDPANPSEKNSLSIQYCGSIRSVFLGVFAVMLIFAFFQKLVTAGIVENEWKKLCSKPKSDVVVLLAAEEKKEQPIETTEEMVELTEIASQPKKEEDIEIIPVQEEEGELEINFAEPPQEQESSPIENDSIP",
+    },
+    "dog-kit-domain": {
+      context: "Dog · Mast cell tumor",
+      name: "KIT · Protein kinase domain (residues 592–940)",
+      classification: "Clinically relevant target fragment",
+      accession: "O97799",
+      note: "Reviewed canine KIT kinase-domain fragment, not the full 979-residue receptor. KIT inhibition is relevant to canine mast cell tumor treatment.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/O97799/entry",
+      evidenceUrl: "https://animaldrugsatfda.fda.gov/adafda/app/search/public/document/downloadLabeling/888",
+      sequence:
+        "LSFGKTLGAGAFGKVVEATAYGLIKSDAAMTVAVKMLKPSAHLTEREALMSELKVLSYLGNHMNIVNLLGACTVGGPTLVITEYCCYGDLLNFLRRKRDSFICSKQEDHGEVALYKNLLHSKESSCSDSTNEYMDMKPGVSYVVPTKADKRRSARIGSYIERDVTPAIMEDDELALDLEDLLSFSYQVAKGMAFLASKNCIHRDLAARNILLTHGRITKICDFGLARDIKNDSNYVVKGNARLPVKWMAPESIFNCVYTFESDVWSYGIFLWELFSLGSSPYPGMPVDSKFYKMIKEGFRMLSPEHAPAEMYDIMKTCWDADPLKRPTFKQIVQLIEKQISDSTNHIYS",
+    },
+    "dog-ngal": {
+      context: "Dog · Acute kidney injury",
+      name: "LCN2 · Neutrophil gelatinase-associated lipocalin",
+      classification: "Kidney injury biomarker",
+      accession: "A0A8I3Q9B0",
+      note: "Full canine sequence. NGAL has been studied as an AKI biomarker; this UniProt entry is unreviewed and is not presented as a treatment target.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/A0A8I3Q9B0/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/24417647/",
+      sequence:
+        "MTQVLLWLGLALLGSLQVQTQDSTPSLIPAPPPLKVPLQPDFQHDQFQGKWYVIGIAGNILKKEGHGQLKMYTTTYELKDDQSYNVTSTLLRNERCDYWNRDFVPSFQPGQFSLGDIQLYPGVQSYLVQVVATNYNQYALVYFRKVYKSQEYFKITLYGRTKELPLELKKEFIRFAKSIGLTEDHIIFPVPIDQCIDE",
+    },
+    "cat-cd20": {
+      context: "Cat · B-cell lymphoma",
+      name: "MS4A1 · B-lymphocyte antigen CD20",
+      classification: "Veterinary research marker",
+      accession: "A0ABI8AKS1",
+      note: "Full feline reference sequence. CD20 expression is studied in feline B-cell lymphoma; this UniProt entry is unreviewed.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/A0ABI8AKS1/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/38612282/",
+      sequence:
+        "MATPRNSMSGTLPADAMKGPTAMNPVQKIIPKKMPSVVGPTQNFFMKESKPLGAVQIMNGLFHMALGGLLMIHMEVYAPICMTVWYPLWGGIMYIISGSLLVAAEKNPRKSLVKGKMIMNSLSLFAAISGMILLIMDIFNIAISHFFKMENLNLLKSPKPYIDIHTCQPESKPSEKNSLSIKYCDSIRSVFLSIFAVMVVFTLFQKLVTAGIVENEWKKLCSKPKADVVVLLAAEEKKEQLVEITEEAVELTEVSSQPKNEEDIEIIPVQEEEEETEMNFPEPPQDQEPSPIENDSIP",
+    },
+    "cat-fgf23": {
+      context: "Cat · Chronic kidney disease",
+      name: "FGF23 · Fibroblast growth factor 23",
+      classification: "CKD biomarker",
+      accession: "A0ABI7XEV3",
+      note: "Full feline reference sequence. FGF23 has been studied as a feline CKD biomarker; this UniProt entry is unreviewed and is not presented as a treatment target.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/A0ABI7XEV3/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/33543676/",
+      sequence:
+        "MSGTRLGLLVSVLCWVVRAYPNTSPLLGSSWGGLTHLYTATARNSYHLQIHKDGHVDGTPHQTIYSALMIRSEDAGFVVITGVMSQRYLCMDFRGNIFGSHLFSPESCRFRQRTLENGYDVYHSPQHRFLVSLGPAKRAFLPGTNPPPYSQFLSRRNEIPLVHFNTPRPRRHTRSAEDAERDPLNVLKPRPRMTPAPASCSQELPSAEDSGVVASDPLGVLRGNRVNAHAGGMGVERCRPFPKFN",
+    },
+  };
 
   const form = document.querySelector("[data-fold-form]");
   if (!form) return;
@@ -16,9 +106,19 @@
   const submitSpinner = form.querySelector("[data-submit-spinner]");
   const loadExample = form.querySelector("[data-load-example]");
   const clearButton = form.querySelector("[data-clear-sequence]");
+  const targetSelect = document.querySelector("[data-target-select]");
+  const predictTargetButton = document.querySelector("[data-predict-target]");
+  const targetDetail = document.querySelector("[data-target-detail]");
+  const targetContext = document.querySelector("[data-target-context]");
+  const targetName = document.querySelector("[data-target-name]");
+  const targetClassification = document.querySelector("[data-target-classification]");
+  const targetNote = document.querySelector("[data-target-note]");
+  const targetSource = document.querySelector("[data-target-source]");
+  const targetEvidence = document.querySelector("[data-target-evidence]");
   const viewerElement = document.querySelector("[data-molecule-viewer]");
   const viewerEmpty = document.querySelector("[data-viewer-empty]");
   const viewerLoading = document.querySelector("[data-viewer-loading]");
+  const viewerHint = document.querySelector("[data-viewer-hint]");
   const viewerControls = document.querySelector("[data-viewer-controls]");
   const resultPanel = document.querySelector("[data-structure-results]");
   const resultLength = document.querySelector("[data-result-length]");
@@ -56,6 +156,8 @@
     input.disabled = isLoading;
     loadExample.disabled = isLoading;
     clearButton.disabled = isLoading;
+    targetSelect.disabled = isLoading;
+    predictTargetButton.disabled = isLoading || !TARGETS[targetSelect.value];
     submitLabel.textContent = isLoading ? "Predicting…" : "Predict structure";
     submitSpinner.hidden = !isLoading;
     viewerLoading.hidden = !isLoading;
@@ -65,7 +167,7 @@
   const validateSequence = (sequence) => {
     if (!sequence) return "Enter an amino acid sequence to begin.";
     if (sequence.length > MAX_RESIDUES) {
-      return `This public demo accepts up to ${MAX_RESIDUES} residues. Your sequence has ${sequence.length}.`;
+      return `This predictor accepts up to ${MAX_RESIDUES} residues. Your sequence has ${sequence.length}.`;
     }
     if (!CANONICAL_AMINO_ACIDS.test(sequence)) {
       return "Use the 20 canonical one-letter amino acid codes only: ACDEFGHIKLMNPQRSTVWY.";
@@ -154,6 +256,7 @@
     viewerControls.hidden = true;
     resultPanel.hidden = true;
     confidenceLegend.hidden = true;
+    viewerHint.hidden = true;
     viewerEmpty.hidden = false;
   };
 
@@ -174,6 +277,7 @@
     viewerControls.hidden = false;
     resultPanel.hidden = false;
     confidenceLegend.hidden = false;
+    viewerHint.hidden = false;
     viewer.resize();
     return true;
   };
@@ -218,9 +322,16 @@
   input.addEventListener("input", () => {
     updateCount();
     clearError();
+    const selectedTarget = TARGETS[targetSelect.value];
+    if (selectedTarget && cleanSequence(input.value) !== selectedTarget.sequence) {
+      targetSelect.value = "";
+      updateTargetDetail();
+    }
   });
 
   loadExample.addEventListener("click", () => {
+    targetSelect.value = "";
+    updateTargetDetail();
     input.value = UBIQUITIN_SEQUENCE;
     updateCount();
     clearError();
@@ -228,11 +339,40 @@
   });
 
   clearButton.addEventListener("click", () => {
+    targetSelect.value = "";
+    updateTargetDetail();
     input.value = "";
     updateCount();
     clearError();
     clearStructure();
     input.focus();
+  });
+
+  const updateTargetDetail = () => {
+    const target = TARGETS[targetSelect.value];
+    predictTargetButton.disabled = !target;
+    targetDetail.hidden = !target;
+    if (!target) return;
+
+    targetContext.textContent = target.context;
+    targetName.textContent = target.name;
+    targetClassification.textContent = target.classification;
+    targetNote.textContent = `${target.note} Sequence length: ${target.sequence.length} residues.`;
+    targetSource.href = target.sourceUrl;
+    targetSource.textContent = `UniProt ${target.accession}`;
+    targetEvidence.href = target.evidenceUrl;
+    targetEvidence.textContent = "Disease context";
+  };
+
+  targetSelect.addEventListener("change", updateTargetDetail);
+
+  predictTargetButton.addEventListener("click", () => {
+    const target = TARGETS[targetSelect.value];
+    if (!target) return;
+    input.value = target.sequence;
+    updateCount();
+    clearError();
+    form.requestSubmit();
   });
 
   form.addEventListener("submit", async (event) => {
@@ -279,8 +419,13 @@
     const blob = new Blob([currentPdb], { type: "chemical/x-pdb" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
+    const selectedTarget = TARGETS[targetSelect.value];
+    const fileId =
+      selectedTarget && selectedTarget.sequence === cleanSequence(input.value)
+        ? selectedTarget.accession.toLowerCase()
+        : "custom-sequence";
     link.href = url;
-    link.download = "alphagene-esmfold-prediction.pdb";
+    link.download = `alphagene-${fileId}-esmfold.pdb`;
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -292,4 +437,5 @@
   });
 
   updateCount();
+  updateTargetDetail();
 })();

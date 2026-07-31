@@ -1,0 +1,336 @@
+window.ALPHAGENE_HUMAN_TARGETS = Object.freeze({
+  "human-bcma": {
+    context: "Human · Multiple myeloma",
+    name: "TNFRSF17 · B-cell maturation antigen (BCMA)",
+    classification: "Clinically validated target",
+    accession: "Q02223",
+    note: "Full reviewed sequence. BCMA is a surface target used by approved BCMA-directed cell and antibody therapies in multiple myeloma.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/Q02223/entry",
+    evidenceUrl:
+      "https://www.fda.gov/news-events/press-announcements/fda-approves-first-cell-based-gene-therapy-adult-patients-multiple-myeloma",
+    sequence:
+      "MLQMAGQCSQNEYFDSLLHACIPCQLRCSSNTPPLTCQRYCNASVTNSVKGTNAILWTCLGLSLIISLAVFVLMFLLRKINSEPLKDEFKNTGSGLLGMANIDLEKSRTGDEIILPRGLEYTVEECTCEDCIKSKPKVDSDHCFPLPAMEEGATILVTTKTNDYCKSLPAALSATEIEKSISAR",
+  },
+  "human-cd38": {
+    context: "Human · Multiple myeloma",
+    name: "CD38 · ADP-ribosyl cyclase",
+    classification: "Clinically validated target",
+    accession: "P28907",
+    note: "Full reviewed sequence. CD38 is targeted by approved antibody therapies such as daratumumab in multiple myeloma.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P28907/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/daratumumab",
+    sequence:
+      "MANCEFSPVSGDKPCCRLSRRAQLCLGVSILVLILVVVLAVVVPRWRQQWSGPGTTKRFPETVLARCVKYTEIHPEMRHVDCQSVWDAFKGAFISKHPCNITEEDYQPLMKLGTQTVPCNKILLWSRIKDLAHQFTQVQRDMFTLEDTLLGYLADDLTWCGEFNTSKINYQSCPDWRKDCSNNPVSVFWKTVSRRFAEAACDVVHVMLNGSRSKIFDKNSTFGSVEVHNLQPEKVQTLEAWVIHGGREDSRDLCQDPTIKELESIISKRNIQFSCKNIYRPDKFLQCVKNPEDSSCTSEI",
+  },
+  "human-flt3-domain": {
+    context: "Human · FLT3-mutated acute myeloid leukemia",
+    name: "FLT3 · Protein kinase domain (residues 610–943)",
+    classification: "Clinically validated target fragment",
+    accession: "P36888",
+    note: "Reviewed FLT3 kinase-domain fragment, not the full 993-residue receptor. Mutation-specific FLT3 inhibitors are used in FLT3-mutated AML.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P36888/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/gilteritinibfumarate",
+    sequence:
+      "LEFGKVLGSGAFGKVMNATAYGISKTGVSIQVAVKMLKEKADSSEREALMSELKMMTQLGSHENIVNLLGACTLSGPIYLIFEYCCYGDLLNYLRSKREKFHRTWTEIFKEHNFSFYPTFQSHPNSSMPGSREVQIHPDSDQISGLHGNSFHSEDEIEYENQKRLEEEEDLNVLTFEDLLCFAYQVAKGMEFLEFKSCVHRDLAARNVLVTHGKVVKICDFGLARDIMSDSNYVVRGNARLPVKWMAPESLFEGIYTIKSDVWSYGILLWEIFSLGVNPYPGIPVDANFYKLIQNGFKMDQPFYATEEIYIIMQSCWAFDSRKRPSFPNLTSFL",
+  },
+  "human-pdl1": {
+    context: "Human · Lung, breast, liver and other cancers",
+    name: "CD274 · Programmed cell death ligand 1 (PD-L1)",
+    classification: "Clinically validated immune checkpoint target",
+    accession: "Q9NZQ7",
+    note: "Full reviewed sequence. PD-L1 is an immune checkpoint target across selected biomarker-defined cancer treatment contexts.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/Q9NZQ7/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/atezolizumab",
+    sequence:
+      "MRIFAVFIFMTYWHLLNAFTVTVPKDLYVVEYGSNMTIECKFPVEKQLDLAALIVYWEMEDKNIIQFVHGEEDLKVQHSSYRQRARLLKDQLSLGNAALQITDVKLQDAGVYRCMISYGGADYKRITVKVNAPYNKINQRILVVDPVTSEHELTCQAEGYPKAEVIWTSSDHQVLSGKTTTTNSKREEKLFNVTSTLRINTTTNEIFYCTFRRLDPEENHTAELVIPELPLAHPPNERTHLVILGAILLCLGVALTFIFRLRKGRMMDVKKCGIQDTNSKKQSDTHLEET",
+  },
+  "human-ctla4": {
+    context: "Human · Melanoma and other cancers",
+    name: "CTLA4 · Cytotoxic T-lymphocyte protein 4",
+    classification: "Clinically validated immune checkpoint target",
+    accession: "P16410",
+    note: "Full reviewed sequence. CTLA-4 blockade is an established immune-checkpoint strategy in selected cancers.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P16410/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/ipilimumab",
+    sequence:
+      "MACLGFQRHKAQLNLATRTWPCTLLFFLLFIPVFCKAMHVAQPAVVLASSRGIASFVCEYASPGKATEVRVTVLRQADSQVTEVCAATYMMGNELTFLDDSICTGTSSGNQVNLTIQGLRAMDTGLYICKVELMYPPPYYLGIGNGTQIYVIDPEPCPDSDFLLWILAAVSSGLFFYSFLLTAVSLSKMLKKRSPLTTGVYVKMPPTEPECEKQFQPYFIPIN",
+  },
+  "human-kras": {
+    context: "Human · Lung, colorectal and pancreatic cancers",
+    name: "KRAS · GTPase KRas",
+    classification: "Mutation-specific clinically validated target",
+    accession: "P01116",
+    note: "Full reviewed sequence. Specific KRAS variants, including KRAS G12C, are drug targets in selected cancers; the wild-type reference sequence is shown.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P01116/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/sotorasib",
+    sequence:
+      "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHHYREQIKRVKDSEDVPMVLVGNKCDLPSRTVDTKQAQDLARSYGIPFIETSAKTRQRVEDAFYTLVREIRQYRLKKISKEEKTPGCVKIKKCIIM",
+  },
+  "human-tp53": {
+    context: "Human · Multiple cancer types",
+    name: "TP53 · Cellular tumor antigen p53",
+    classification: "Cancer driver / research target",
+    accession: "P04637",
+    note: "Full reviewed sequence. TP53 is one of the most frequently altered cancer genes, but it is not a single universally druggable target.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P04637/entry",
+    evidenceUrl: "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/tp53-gene",
+    sequence:
+      "MEEPQSDPSVEPPLSQETFSDLWKLLPENNVLSPLPSQAMDDLMLSPDDIEQWFTEDPGPDEAPRMPEAAPPVAPAPAAPTPAAPAPAPSWPLSSSVPSQKTYQGSYGFRLGFLHSGTAKSVTCTYSPALNKMFCQLAKTCPVQLWVDSTPPPGTRVRAMAIYKQSQHMTEVVRRCPHHERCSDSDGLAPPQHLIRVEGNLRVEYLDDRNTFRHSVVVPYEPPEVGSDCTTIHYNYMCNSSCMGGMNRRPILTIITLEDSSGNLLGRNSFEVRVCACPGRDRRTEEENLRKKGEPHHELPPGSTKRALPNNTSSSPQPKKKPLDGEYFTLQIRGRERFEMFRELNEALELKDAQAGKEPGGSRAHSSHLKSKKGQSTSRHKKLMFKTEGPDSD",
+  },
+  "human-vegfa": {
+    context: "Human · Tumor angiogenesis",
+    name: "VEGFA · Vascular endothelial growth factor A",
+    classification: "Clinically validated angiogenesis target",
+    accession: "P15692",
+    note: "Full reviewed canonical long-form sequence. VEGFA is targeted by anti-angiogenic therapies in selected cancer contexts.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P15692/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/bevacizumab",
+    sequence:
+      "MTDRQTDTAPSPSYHLLPGRRRTVDAAASRGQGPEPAPGGGVEGVGARGVALKLFVQLLGCSRFGGAVVRAGEAEPSGAARSASSGREEPQPEEGEEEEEKEEERGPQWRLGARKPGSWTGEAAVCADSAPAARAPQALARASGRGGRVARRGAEESGPPHSPSRRGSASRAGPGRASETMNFLLSWVHWSLALLLYLHHAKWSQAAPMAEGGGQNHHEVVKFMDVYQRSYCHPIETLVDIFQEYPDEIEYIFKPSCVPLMRCGGCCNDEGLECVPTEESNITMQIMRIKPHQGQHIGEMSFLQHNKCECRPKKDRARQEKKSVRGKGKGQKRKRKKSRYKSWSVPCGPCSERRKHLFVQDPQTCKCSCKNTDSRCKARQLELNERTCRCDKPRR",
+  },
+  "human-her2-domain": {
+    context: "Human · HER2-positive breast / gastric cancer",
+    name: "ERBB2 · HER2 protein kinase domain (residues 720–987)",
+    classification: "Clinically validated target fragment",
+    accession: "P04626",
+    note: "Reviewed HER2 kinase-domain fragment, not the full 1,255-residue receptor. HER2 is an established target in biomarker-selected breast and gastric cancers.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P04626/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/trastuzumab",
+    sequence:
+      "LRKVKVLGSGAFGTVYKGIWIPDGENVKIPVAIKVLRENTSPKANKEILDEAYVMAGVGSPYVSRLLGICLTSTVQLVTQLMPYGCLLDHVRENRGRLGSQDLLNWCMQIAKGMSYLEDVRLVHRDLAARNVLVKSPNHVKITDFGLARLLDIDETEYHADGGKVPIKWMALESILRRRFTHQSDVWSYGVTVWELMTFGAKPYDGIPAREIPDLLEKGERLPQPPICTIDVYMIMVKCWMIDSECRPRFRELVSEFSRMARDPQRFV",
+  },
+  "human-egfr-domain": {
+    context: "Human · EGFR-mutated lung / colorectal cancer",
+    name: "EGFR · Protein kinase domain (residues 712–979)",
+    classification: "Clinically validated target fragment",
+    accession: "P00533",
+    note: "Reviewed EGFR kinase-domain fragment, not the full 1,210-residue receptor. EGFR therapies depend on cancer type and molecular context.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P00533/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/osimertinib",
+    sequence:
+      "FKKIKVLGSGAFGTVYKGLWIPEGEKVKIPVAIKELREATSPKANKEILDEAYVMASVDNPHVCRLLGICLTSTVQLITQLMPFGCLLDYVREHKDNIGSQYLLNWCVQIAKGMNYLEDRRLVHRDLAARNVLVKTPQHVKITDFGLAKLLGAEEKEYHAEGGKVPIKWMALESILHRIYTHQSDVWSYGVTVWELMTFGSKPYDGIPASEISSILEKGERLPQPPICTIDVYMIMVKCWMIDADSRPKFRELIIEFSKMARDPQRYL",
+  },
+  "human-braf-domain": {
+    context: "Human · BRAF-altered melanoma / thyroid cancer",
+    name: "BRAF · Protein kinase domain (residues 457–717)",
+    classification: "Mutation-specific target fragment",
+    accession: "P15056",
+    note: "Reviewed BRAF kinase-domain fragment, not the full 766-residue protein. BRAF inhibitor use is mutation- and cancer-context-specific.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P15056/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/vemurafenib",
+    sequence:
+      "ITVGQRIGSGSFGTVYKGKWHGDVAVKMLNVTAPTPQQLQAFKNEVGVLRKTRHVNILLFMGYSTKPQLAIVTQWCEGSSLYHHLHIIETKFEMIKLIDIARQTAQGMDYLHAKSIIHRDLKSNNIFLHEDLTVKIGDFGLATVKSRWSGSHQFEQLSGSILWMAPEVIRMQDKNPYSFQSDVYAFGIVLYELMTGQLPYSNINNRDQIIFMVGRGYLSPDLSKVRSNCPKAMKRLMAECLKKKRDERPLFPQILASIELL",
+  },
+  "human-ar-domain": {
+    context: "Human · Prostate cancer",
+    name: "AR · Androgen receptor ligand-binding domain (residues 669–900)",
+    classification: "Clinically validated target fragment",
+    accession: "P10275",
+    note: "Reviewed androgen-receptor ligand-binding domain, not the full 920-residue receptor. Androgen-receptor signaling is a central prostate-cancer treatment axis.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P10275/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/enzalutamide",
+    sequence:
+      "ECQPIFLNVLEAIEPGVVCAGHDNNQPDSFAALLSSLNELGERQLVHVVKWAKALPGFRNLHVDDQMAVIQYSWMGLMVFAMGWRSFTNVNSRMLYFAPDLVFNEYRMHKSRMYSQCVRMRHLSQEFGWLQITPQEFLCMKALLLFSIIPVDGLKNQKFFDELRMNYIKELDRIIACKRKNPTSCSRRFYQLTKLLDSVQPIARELHQFTFDLLIKSHMVSVDFPEMMAEII",
+  },
+  "human-esr1-domain": {
+    context: "Human · Estrogen-receptor-positive breast cancer",
+    name: "ESR1 · Estrogen receptor ligand-binding domain (residues 311–547)",
+    classification: "Clinically validated target fragment",
+    accession: "P03372",
+    note: "Reviewed estrogen-receptor ligand-binding domain, not the full 595-residue receptor. Endocrine therapy targets ER signaling in ER-positive breast cancer.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P03372/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/fulvestrant",
+    sequence:
+      "TADQMVSALLDAEPPILYSEYDPTRPFSEASMMGLLTNLADRELVHMINWAKRVPGFVDLTLHDQVHLLECAWLEILMIGLVWRSMEHPGKLLFAPNLLLDRNQGKCVEGMVEIFDMLLATSSRFRMMNLQGEEFVCLKSIILLNSGVYTFLSSTLKSLEEKDHIHRVLDKITDTLIHLMAKAGLTLQQQHQRLAQLLLILSHIRHMSNKGMEHLYSMKCKNVVPLYDLLLEMLDAH",
+  },
+  "human-cldn18": {
+    context: "Human · CLDN18.2-positive gastric / GEJ cancer",
+    name: "CLDN18.2 · Claudin-18 isoform A2",
+    classification: "Clinically validated surface target",
+    accession: "P56856-2",
+    note: "Full reviewed isoform A2 sequence. CLDN18.2 is an approved antibody target in eligible gastric or gastroesophageal-junction cancers.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P56856/entry",
+    evidenceUrl:
+      "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-zolbetuximab-clzb-chemotherapy-gastric-or-gastroesophageal-junction-adenocarcinoma",
+    sequence:
+      "MAVTACQGLGFVVSLIGIAGIIAATCMDQWSTQDLYNNPVTAVFNYQGLWRSCVRESSGFTECRGYFTLLGLPAMLQAVRALMIVGIVLGAIGLLVSIFALKCIRIGSMEDSAKANMTLTSGIMFIVSGLCAIAGVSVFANMLVTNFWMSTANMYTGMGGMVQTVQTRYTFGAALFVGWVAGGLTLIGGVMMCIACRGLAPEETNYKAVSYHASGHSVAYKPGGFKASTGFGSNTKNKKIYDGGARTEDEVQSYPSKHDYV",
+  },
+  "human-trop2": {
+    context: "Human · Breast and other epithelial cancers",
+    name: "TACSTD2 · Tumor-associated calcium signal transducer 2 (TROP-2)",
+    classification: "Clinically validated ADC target",
+    accession: "P09758",
+    note: "Full reviewed sequence. TROP-2 is targeted by approved antibody-drug conjugates in selected breast-cancer settings and is studied across epithelial cancers.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P09758/entry",
+    evidenceUrl: "https://www.cancer.gov/about-cancer/treatment/drugs/sacituzumabgovitecan-hziy",
+    sequence:
+      "MARGPGLAPPPLRLPLLLLVLAAVTGHTAAQDNCTCPTNKMTVCSPDGPGGRCQCRALGSGMAVDCSTLTSKCLLLKARMSAPKNARTLVRPSEHALVDNDGLYDPDCDPEGRFKARQCNQTSVCWCVNSVGVRRTDKGDLSLRCDELVRTHHILIDLRHRPTAGAFNHSDLDAELRRLFRERYRLHPKFVAAVHYEQPTIQIELRQNTSQKAAGDVDIGDAAYYFERDIKGESLFQGRGGLDLRVRGEPLQVERTLIYYLDEIPPKFSMKRLTAGLIAVIVVVVVALVAGMAVLVITNRRKSGKYKKVEIKELGELRKEPSL",
+  },
+  "human-baff": {
+    context: "Human · Systemic lupus erythematosus / lupus nephritis",
+    name: "TNFSF13B · B-cell activating factor (BAFF / BLyS)",
+    classification: "Clinically validated SLE target",
+    accession: "Q9Y275",
+    note: "Full reviewed sequence. BAFF/BLyS supports B-cell survival and is blocked by belimumab in eligible SLE and lupus-nephritis treatment contexts.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/Q9Y275/entry",
+    evidenceUrl: "https://www.ema.europa.eu/en/medicines/human/EPAR/benlysta",
+    sequence:
+      "MDDSTEREQSRLTSCLKKREEMKLKECVSILPRKESPSVRSSKDGKLLAATLLLALLSCCLTVVSFYQVAALQGDLASLRAELQGHHAEKLPAGAGAPKAGLEEAPAVTAGLKIFEPPAPGEGNSSQNSRNKRAVQGPEETVTQDCLQLIADSETPTIQKGSYTFVPWLLSFKRGSALEEKENKILVKETGYFFIYGQVLYTDKTYAMGHLIQRKKVHVFGDELSLVTLFRCIQNMPETLPNNSCYSAGIAKLEEGDELQLAIPRENAQISLDGDVTFFGALKLL",
+  },
+  "human-ifna2": {
+    context: "Human · Systemic lupus erythematosus",
+    name: "IFNA2 · Interferon alpha-2",
+    classification: "Type I interferon pathway protein",
+    accession: "P01563",
+    note: "Full reviewed sequence. IFNA2 is a representative type I interferon pathway protein; receptor blockade is clinically used in selected SLE, but this sequence is not itself a universal treatment target.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P01563/entry",
+    evidenceUrl: "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2021/761123Orig1s000OtherR.pdf",
+    sequence:
+      "MALTFALLVALLVLSCKSSCSVGCDLPQTHSLGSRRTLMLLAQMRRISLFSCLKDRHDFGFPQEEFGNQFQKAETIPVLHEMIQQIFNLFSTKDSSAAWDETLLDKFYTELYQQLNDLEACVIQGVGVTETPLMKEDSILAVRKYFQRITLYLKEKKYSPCAWEVVRAEIMRSFSLSTNLQESLRSKE",
+  },
+  "human-tnf": {
+    context: "Human · Rheumatoid arthritis / psoriasis / inflammatory bowel disease",
+    name: "TNF · Tumor necrosis factor",
+    classification: "Clinically validated inflammatory target",
+    accession: "P01375",
+    note: "Full reviewed precursor sequence. TNF inhibition is established across several inflammatory diseases, with indication-specific benefits and risks.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P01375/entry",
+    evidenceUrl: "https://www.ema.europa.eu/en/medicines/human/EPAR/remicade",
+    sequence:
+      "MSTESMIRDVELAEEALPKKTGGPQGSRRCLFLSLFSFLIVAGATTLFCLLHFGVIGPQREEFPRDLSLISPLAQAVRSSSRTPSDKPVAHVVANPQAEGQLQWLNRRANALLANGVELRDNQLVVPSEGLYLIYSQVLFKGQGCPSTHVLLTHTISRIAVSYQTKVNLLSAIKSPCQRETPEGAEAKPWYEPIYLGGVFQLEKGDRLSAEINRPDYLDFAESGQVYFGIIAL",
+  },
+  "human-il17a": {
+    context: "Human · Psoriasis / psoriatic arthritis / axial spondyloarthritis",
+    name: "IL17A · Interleukin-17A",
+    classification: "Clinically validated immune target",
+    accession: "Q16552",
+    note: "Full reviewed sequence. IL-17A blockade is used in selected inflammatory diseases such as plaque psoriasis and axial spondyloarthritis.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/Q16552/entry",
+    evidenceUrl: "https://www.ema.europa.eu/en/medicines/human/EPAR/cosentyx",
+    sequence:
+      "MTPGKTSLVSLLLLLSLEAIVKAGITIPRNPGCPNSEDKNFPRTVMVNLNIHNRNTNTNPKRSSDYYNRSTSPWNLHRNEDPERYPSVIWEAKCRHLGCINADGNVDYHMNSVPIQQEILVLRREPPHCPNSFRLEKILVSVGCTCVTPIVHHVA",
+  },
+  "human-il23a": {
+    context: "Human · Psoriasis / psoriatic arthritis / inflammatory bowel disease",
+    name: "IL23A · Interleukin-23 subunit alpha (p19)",
+    classification: "Clinically validated immune target",
+    accession: "Q9NPF7",
+    note: "Full reviewed sequence. The IL-23 p19 subunit is targeted by approved therapies in selected inflammatory diseases.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/Q9NPF7/entry",
+    evidenceUrl: "https://www.ema.europa.eu/en/medicines/human/EPAR/tremfya",
+    sequence:
+      "MLGSRAVMLLLLLPWTAQGRAVPGGSSPAWTQCQQLSQKLCTLAWSAHPLVGHMDLREEGDEETTNDVPHIQCGDGCDPQGLRDNSQFCLQRIHQGLIFYEKLLGSDIFTGEPSLLPDSPVGQLHASLLGLSQLLQPEGHHWETQQIPSLSPSQPWQRLLLRFKILRSLQAFVAVAARVFAHGAATLSP",
+  },
+  "human-il12b": {
+    context: "Human · Psoriasis / inflammatory bowel disease",
+    name: "IL12B · IL-12/IL-23 subunit beta (p40)",
+    classification: "Clinically validated immune target",
+    accession: "P29460",
+    note: "Full reviewed sequence. The shared IL-12/23 p40 subunit is targeted in selected psoriasis and inflammatory-bowel-disease settings.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P29460/entry",
+    evidenceUrl: "https://www.ema.europa.eu/en/medicines/human/EPAR/stelara",
+    sequence:
+      "MCHQQLVISWFSLVFLASPLVAIWELKKDVYVVELDWYPDAPGEMVVLTCDTPEEDGITWTLDQSSEVLGSGKTLTIQVKEFGDAGQYTCHKGGEVLSHSLLLLHKKEDGIWSTDILKDQKEPKNKTFLRCEAKNYSGRFTCWWLTTISTDLTFSVKSSRGSSDPQGVTCGAATLSAERVRGDNKEYEYSVECQEDSACPAAEESLPIEVMVDAVHKLKYENYTSSFFIRDIIKPDPPKNLQLKPLKNSRQVEVSWEYPDTWSTPHSYFSLTFCVQVQGKSKREKKDRVFTDKTSATVICRKNASISVRAQDRYYSSSWSEWASVPCS",
+  },
+  "human-il6r-domain": {
+    context: "Human · Rheumatoid arthritis / giant cell arteritis",
+    name: "IL6R · Extracellular domain (residues 20–365)",
+    classification: "Clinically validated target fragment",
+    accession: "P08887",
+    note: "Reviewed IL-6 receptor extracellular-domain fragment, not the full 468-residue receptor. IL-6R blockade is established in selected inflammatory diseases.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P08887/entry",
+    evidenceUrl: "https://www.ema.europa.eu/en/medicines/human/EPAR/roactemra",
+    sequence:
+      "LAPRRCPAQEVARGVLTSLPGDSVTLTCPGVEPEDNATVHWVLRKPAAGSHPSRWAGMGRRLLLRSVQLHDSGNYSCYRAGRPAGTVHLLVDVPPEEPQLSCFRKSPLSNVVCEWGPRSTPSLTTKAVLLVRKFQNSPAEDFQEPCQYSQESQKFSCQLAVPEGDSSFYIVSMCVASSVGSKFSKTQTFQGCGILQPDPPANITVTAVARNPRWLSVTWQDPHSWNSSFYRLRFELRYRAERSKTFTTWMVKDLQHHCVIHDAWSGLRHVVQLRAQEEFGQGEWSEWSPEAMGTPWTESRSPPAENEVSTPMQALTTNKDDDNILFRDSANATSLPVQDSSSVPLP",
+  },
+  "human-tslp": {
+    context: "Human · Severe asthma",
+    name: "TSLP · Thymic stromal lymphopoietin",
+    classification: "Clinically validated asthma target",
+    accession: "Q969D9",
+    note: "Full reviewed sequence. TSLP is an upstream epithelial cytokine targeted by approved add-on treatment for severe asthma.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/Q969D9/entry",
+    evidenceUrl: "https://www.fda.gov/drugs/news-events-human-drugs/fda-approves-maintenance-treatment-severe-asthma",
+    sequence:
+      "MFPFALLYVLSVSFRKIFILQLVGLVLTYDFTNCDFEKIKAAYLSTISKDLITYMSGTKSTEFNNTVSCSNRPHCLTEIQSLTFNPTAGCASLAKEMFAMKTKAALAIWCPGYSETQINATQAMKKRRKRKVTTNKCLEQVSQLQGLWRRFNRPLLKQQ",
+  },
+  "human-il5": {
+    context: "Human · Eosinophilic asthma",
+    name: "IL5 · Interleukin-5",
+    classification: "Clinically validated eosinophilic target",
+    accession: "P05113",
+    note: "Full reviewed sequence. IL-5 pathway blockade is used in selected severe eosinophilic-asthma treatment contexts.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P05113/entry",
+    evidenceUrl: "https://www.fda.gov/news-events/press-announcements/fda-approves-cinqair-treat-severe-asthma",
+    sequence:
+      "MRMLLHLSLLALGAAYVYAIPTEIPTSALVKETLALLSTHRTLLIANETLRIPVPVHKNHQLCTEEIFQGIGTLESQTVQGGTVERLFKNLSLIKKYIDGQKKKCGEERRRVNQFLDYLQEFLGVMNTEWIIES",
+  },
+  "human-il4r-domain": {
+    context: "Human · Atopic dermatitis / asthma / type 2 inflammation",
+    name: "IL4R · Extracellular domain (residues 26–232)",
+    classification: "Clinically validated target fragment",
+    accession: "P24394",
+    note: "Reviewed IL-4 receptor alpha extracellular-domain fragment, not the full 825-residue receptor. IL-4R alpha blockade inhibits IL-4 and IL-13 signaling in selected type 2 inflammatory diseases.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P24394/entry",
+    evidenceUrl: "https://www.fda.gov/media/180009/download",
+    sequence:
+      "MKVLQEPTCVSDYMSISTCEWKMNGPTNCSTELRLLYQLVFLLSEAHTCIPENNGGAGCVCHLLMDDVVSADNYTLDLWAGQQLLWKGSFKPSEHVKPRAPGNLTVHTNVSDTLLLTWSNPYPPDNYLYNHLTYAVNIWSENDPADFRIYNVTYLEPSLRIAASTLKSGISYRARVRAWAQCYNTTWSEWSPSTKWHNSYREPFEQH",
+  },
+  "human-fcrn": {
+    context: "Human · Myasthenia gravis / CIDP",
+    name: "FCGRT · Neonatal Fc receptor (FcRn) alpha chain",
+    classification: "Clinically validated autoimmune target",
+    accession: "P55899",
+    note: "Full reviewed sequence. FcRn blockade lowers pathogenic IgG autoantibody levels and is used in selected antibody-mediated autoimmune diseases.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P55899/entry",
+    evidenceUrl: "https://www.ema.europa.eu/en/medicines/human/EPAR/vyvgart",
+    sequence:
+      "MGVPRPQPWALGLLLFLLPGSLGAESHLSLLYHLTAVSSPAPGTPAFWVSGWLGPQQYLSYNSLRGEAEPCGAWVWENQVSWYWEKETTDLRIKEKLFLEAFKALGGKGPYTLQGLLGCELGPDNTSVPTAKFALNGEEFMNFDLKQGTWGGDWPEALAISQRWQQQDKAANKELTFLLFSCPHRLREHLERGRGNLEWKEPPSMRLKARPSSPGFSVLTCSAFSFYPPELQLRFLRNGLAAGTGQGDFGPNSDGSFHASSSLTVKSGDEHHYCCIVQHAGLAQPLRVELESPAKSSVLVVGIVIGVLLLTAAAVGGALLWRRMRSGLPAPWISLRGDDTGVLLPTPGEAQDADLKDVNVIPATA",
+  },
+  "human-s1pr1": {
+    context: "Human · Relapsing multiple sclerosis",
+    name: "S1PR1 · Sphingosine 1-phosphate receptor 1",
+    classification: "Clinically validated immunomodulatory target",
+    accession: "P21453",
+    note: "Full reviewed sequence. S1P-receptor modulation changes lymphocyte trafficking and is used in selected multiple-sclerosis settings.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P21453/entry",
+    evidenceUrl: "https://www.ema.europa.eu/en/medicines/human/EPAR/gilenya",
+    sequence:
+      "MGPTSVPLVKAHRSSVSDYVNYDIIVRHYNYTGKLNISADKENSIKLTSVVFILICCFIILENIFVLLTIWKTKKFHRPMYYFIGNLALSDLLAGVAYTANLLLSGATTYKLTPAQWFLREGSMFVALSASVFSLLAIAIERYITMLKMKLHNGSNNFRLFLLISACWVISLILGGLPIMGWNCISALSSCSTVLPLYHKHYILFCTTVFTLLLLSIVILYCRIYSLVRTRSRRLTFRKNISKASRSSEKSLALLKTVIIVLSVFIACWAPLFILLLLDVGCKVKTCDILFRAEYFLVLAVLNSGTNPIIYTLTNKEMRRAFIRIMSCCKCPSGDSAGKFKRPIIAGMEFSRSKSDNSSHPQKDEGDNPETIMSSGNVNSSS",
+  },
+  "human-c5ar1": {
+    context: "Human · ANCA-associated vasculitis",
+    name: "C5AR1 · Complement C5a receptor 1",
+    classification: "Clinically validated vasculitis target",
+    accession: "P21730",
+    note: "Full reviewed sequence. C5a-receptor antagonism is approved as add-on treatment in selected severe active ANCA-associated vasculitis.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P21730/entry",
+    evidenceUrl:
+      "https://www.fda.gov/drugs/news-events-human-drugs/fda-approves-add-drug-adults-rare-form-blood-vessel-inflammation",
+    sequence:
+      "MDSFNYTTPDYGHYDDKDTLDLNTPVDKTSNTLRVPDILALVIFAVVFLVGVLGNALVVWVTAFEAKRTINAIWFLNLAVADFLSCLALPILFTSIVQHHHWPFGGAACSILPSLILLNMYASILLLATISADRFLLVFKPIWCQNFRGAGLAWIACAVAWGLALLLTIPSFLYRVVREEYFPPKVLCGVDYSHDKRRERAVAIVRLVLGFLWPLLTLTICYTFILLRTWSRRATRSTKTLKVVVAVVASFFIFWLPYQVTGIMMSFLEPSSPTFLLLKKLDSLCVSFAYINCCINPIIYVVAGQGFQGRLRKSLPSLLRNVLTEESVVRESKSFTRSTVDTMAQKTQAV",
+  },
+  "human-aqp4": {
+    context: "Human · Neuromyelitis optica spectrum disorder",
+    name: "AQP4 · Aquaporin-4",
+    classification: "Disease-defining autoantigen",
+    accession: "P55087",
+    note: "Full reviewed sequence. AQP4-IgG is a disease-defining biomarker in many NMOSD cases; AQP4 is shown as an autoantigen, not as a direct treatment target.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P55087/entry",
+    evidenceUrl: "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpcd/classification.cfm?id=3367",
+    sequence:
+      "MSDRPTARRWGKCGPLCTRENIMVAFKGVWTQAFWKAVTAEFLAMLIFVLLSLGSTINWGGTEKPLPVDMVLISLCFGLSIATMVQCFGHISGGHINPAVTVAMVCTRKISIAKSVFYIAAQCLGAIIGAGILYLVTPPSVVGGLGVTMVHGNLTAGHGLLVELIITFQLVFTIFASCDSKRTDVTGSIALAIGFSVAIGHLFAINYTGASMNPARSFGPAVIMGNWENHWIYWVGPIIGAVLAGGLYEYVFCPDVEFKRRFKEAFSKAAQQTKGSYMEVEDNRSQVETDDLILKPGVVHVIDVDRGEEKKGKDQSGEVLSSV",
+  },
+  "human-cd3e": {
+    context: "Human · Type 1 diabetes immune modulation",
+    name: "CD3E · T-cell surface glycoprotein CD3 epsilon chain",
+    classification: "Clinically validated immune-modulation target",
+    accession: "P07766",
+    note: "Full reviewed sequence. Anti-CD3 therapy is used in specific type 1 diabetes settings; this does not make CD3E a diagnostic marker or universal treatment target.",
+    sourceUrl: "https://www.uniprot.org/uniprotkb/P07766/entry",
+    evidenceUrl:
+      "https://www.fda.gov/news-events/press-announcements/fda-approves-new-indication-tzield-teplizumab-certain-pediatric-patients-recently-diagnosed-stage-3",
+    sequence:
+      "MQSGTHWRVLGLCLLSVGVWGQDGNEEMGGITQTPYKVSISGTTVILTCPQYPGSEILWQHNDKNIGGDEDDKNIGSDEDHLSLKEFSELEQSGYYVCYPRGSKPEDANFYLYLRARVCENCMEMDVMSVATIVIVDICITGGLLLLVYYWSKNRKAKAKPVTRGAGAGGRQRGQNKERPPPVPNPDYEPIRKGQRDLYSGLNQRRI",
+  },
+});

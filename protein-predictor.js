@@ -5,6 +5,7 @@
   const UBIQUITIN_SEQUENCE =
     "MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLRLRGG";
   const TARGETS = {
+    ...(window.ALPHAGENE_HUMAN_TARGETS || {}),
     "human-bcl2": {
       context: "Human · Acute leukemia / chronic lymphocytic leukemia",
       name: "BCL2 · Apoptosis regulator Bcl-2",

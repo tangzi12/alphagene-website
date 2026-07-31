@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=pet-target-library-3" />
+    <link rel="stylesheet" href="styles.css?v=human-target-library-4" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -68,15 +68,59 @@
                 <span>Curated example library</span>
                 <strong>Choose a disease-related protein</strong>
               </div>
-              <span>18 curated proteins · Human · Dog · Cat</span>
+              <span>48 curated proteins · Human · Dog · Cat</span>
             </div>
             <div class="target-picker">
               <label class="sr-only" for="target-example">Disease-related protein example</label>
               <select id="target-example" data-target-select>
                 <option value="">Select a disease and protein…</option>
-                <optgroup label="Human">
+                <optgroup label="Human · Blood cancers">
                   <option value="human-bcl2">Acute leukemia / CLL — BCL2</option>
                   <option value="human-cd20">B-cell lymphoma — CD20 / MS4A1</option>
+                  <option value="human-bcma">Multiple myeloma — BCMA / TNFRSF17</option>
+                  <option value="human-cd38">Multiple myeloma — CD38</option>
+                  <option value="human-flt3-domain">FLT3-mutated AML — FLT3 kinase domain</option>
+                </optgroup>
+                <optgroup label="Human · Solid cancers">
+                  <option value="human-pdl1">Multiple cancers — PD-L1 / CD274</option>
+                  <option value="human-ctla4">Melanoma / multiple cancers — CTLA-4</option>
+                  <option value="human-kras">Lung / colorectal / pancreatic — KRAS</option>
+                  <option value="human-tp53">Multiple cancers — TP53</option>
+                  <option value="human-vegfa">Tumor angiogenesis — VEGFA</option>
+                  <option value="human-her2-domain">HER2+ breast / gastric — HER2 kinase domain</option>
+                  <option value="human-egfr-domain">Lung / colorectal — EGFR kinase domain</option>
+                  <option value="human-braf-domain">Melanoma / thyroid — BRAF kinase domain</option>
+                  <option value="human-ar-domain">Prostate cancer — AR ligand-binding domain</option>
+                  <option value="human-esr1-domain">ER+ breast cancer — ESR1 ligand-binding domain</option>
+                  <option value="human-cldn18">Gastric / GEJ cancer — CLDN18.2</option>
+                  <option value="human-trop2">Breast / epithelial cancers — TROP-2</option>
+                </optgroup>
+                <optgroup label="Human · Lupus &amp; systemic autoimmunity">
+                  <option value="human-baff">SLE / lupus nephritis — BAFF / BLyS</option>
+                  <option value="human-ifna2">SLE interferon pathway — IFN-alpha 2</option>
+                </optgroup>
+                <optgroup label="Human · Arthritis, psoriasis &amp; IBD">
+                  <option value="human-tnf">RA / psoriasis / IBD — TNF</option>
+                  <option value="human-il17a">Psoriasis / axial SpA — IL-17A</option>
+                  <option value="human-il23a">Psoriasis / IBD — IL-23 p19</option>
+                  <option value="human-il12b">Psoriasis / IBD — IL-12/23 p40</option>
+                  <option value="human-il6r-domain">RA / giant cell arteritis — IL-6R extracellular domain</option>
+                </optgroup>
+                <optgroup label="Human · Allergy &amp; asthma">
+                  <option value="human-tslp">Severe asthma — TSLP</option>
+                  <option value="human-il5">Eosinophilic asthma — IL-5</option>
+                  <option value="human-il4r-domain">Atopic dermatitis / asthma — IL-4R extracellular domain</option>
+                </optgroup>
+                <optgroup label="Human · Neuroimmune &amp; vasculitis">
+                  <option value="human-fcrn">Myasthenia gravis / CIDP — FcRn</option>
+                  <option value="human-s1pr1">Multiple sclerosis — S1PR1</option>
+                  <option value="human-c5ar1">ANCA-associated vasculitis — C5aR1</option>
+                  <option value="human-aqp4">NMOSD autoantigen — AQP4</option>
+                </optgroup>
+                <optgroup label="Human · Type 1 diabetes">
+                  <option value="human-cd3e">Type 1 diabetes immune modulation — CD3 epsilon</option>
+                </optgroup>
+                <optgroup label="Human · Kidney">
                   <option value="human-fgf23">Chronic kidney disease — FGF23</option>
                 </optgroup>
                 <optgroup label="Dog · Oncology">
@@ -278,7 +322,8 @@
     </footer>
 
     <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
-    <script src="script.js?v=pet-target-library-3"></script>
-    <script src="protein-predictor.js?v=pet-target-library-3"></script>
+    <script src="script.js?v=human-target-library-4"></script>
+    <script src="protein-targets-human.js?v=human-target-library-4"></script>
+    <script src="protein-predictor.js?v=human-target-library-4"></script>
   </body>
 </html>

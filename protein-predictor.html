@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=protein-predictor-2" />
+    <link rel="stylesheet" href="styles.css?v=pet-target-library-3" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -68,7 +68,7 @@
                 <span>Curated example library</span>
                 <strong>Choose a disease-related protein</strong>
               </div>
-              <span>Human · Dog · Cat</span>
+              <span>18 curated proteins · Human · Dog · Cat</span>
             </div>
             <div class="target-picker">
               <label class="sr-only" for="target-example">Disease-related protein example</label>
@@ -79,14 +79,32 @@
                   <option value="human-cd20">B-cell lymphoma — CD20 / MS4A1</option>
                   <option value="human-fgf23">Chronic kidney disease — FGF23</option>
                 </optgroup>
-                <optgroup label="Dog">
+                <optgroup label="Dog · Oncology">
                   <option value="dog-cd20">B-cell lymphoma — CD20 / MS4A1</option>
                   <option value="dog-kit-domain">Mast cell tumor — KIT kinase domain</option>
-                  <option value="dog-ngal">Acute kidney injury — NGAL / LCN2</option>
+                  <option value="dog-pdl1">Oral melanoma / multiple cancers — PD-L1</option>
+                  <option value="dog-vegfa">Hemangiosarcoma / angiogenesis — VEGFA</option>
                 </optgroup>
-                <optgroup label="Cat">
+                <optgroup label="Dog · Kidney &amp; Cardiology">
+                  <option value="dog-ngal">Acute kidney injury — NGAL / LCN2</option>
+                  <option value="dog-fgf23">Chronic kidney disease — FGF23</option>
+                  <option value="dog-nppb">Heart failure / MMVD — NPPB / NT-proBNP</option>
+                </optgroup>
+                <optgroup label="Dog · Inflammation &amp; Pain">
+                  <option value="dog-ngf">Osteoarthritis pain — NGF</option>
+                  <option value="dog-il31">Atopic dermatitis / pruritus — IL-31</option>
+                </optgroup>
+                <optgroup label="Cat · Oncology">
                   <option value="cat-cd20">B-cell lymphoma — CD20 / MS4A1</option>
+                  <option value="cat-pdl1">SCC / mammary / other cancers — PD-L1</option>
+                </optgroup>
+                <optgroup label="Cat · Kidney &amp; Cardiology">
                   <option value="cat-fgf23">Chronic kidney disease — FGF23</option>
+                  <option value="cat-nppb">Hypertrophic cardiomyopathy — NPPB / NT-proBNP</option>
+                </optgroup>
+                <optgroup label="Cat · Metabolic &amp; Pain">
+                  <option value="cat-iapp">Type 2 diabetes / islet amyloidosis — IAPP</option>
+                  <option value="cat-ngf">Osteoarthritis pain — NGF</option>
                 </optgroup>
               </select>
               <button class="button primary target-predict-button" type="button" data-predict-target disabled>
@@ -108,8 +126,9 @@
               </div>
             </div>
             <p class="library-disclaimer">
-              These are educational starting points, not a diagnostic panel. “Biomarker,” “research target,” and
-              “clinically validated target” are different evidence levels.
+              This is a curated, expandable library of commonly studied examples—not an exhaustive list of every
+              disease-associated protein or a diagnostic panel. “Biomarker,” “research target,” and “clinically
+              validated target” are different evidence levels.
             </p>
           </div>
 
@@ -259,7 +278,7 @@
     </footer>
 
     <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
-    <script src="script.js?v=protein-predictor-2"></script>
-    <script src="protein-predictor.js?v=protein-predictor-2"></script>
+    <script src="script.js?v=pet-target-library-3"></script>
+    <script src="protein-predictor.js?v=pet-target-library-3"></script>
   </body>
 </html>

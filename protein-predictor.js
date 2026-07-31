@@ -71,6 +71,72 @@
       sequence:
         "MTQVLLWLGLALLGSLQVQTQDSTPSLIPAPPPLKVPLQPDFQHDQFQGKWYVIGIAGNILKKEGHGQLKMYTTTYELKDDQSYNVTSTLLRNERCDYWNRDFVPSFQPGQFSLGDIQLYPGVQSYLVQVVATNYNQYALVYFRKVYKSQEYFKITLYGRTKELPLELKKEFIRFAKSIGLTEDHIIFPVPIDQCIDE",
     },
+    "dog-pdl1": {
+      context: "Dog · Oral melanoma / multiple cancers",
+      name: "CD274 · Programmed cell death ligand 1 (PD-L1)",
+      classification: "Investigational immune checkpoint target",
+      accession: "A0A8I3P7C4",
+      note: "Full canine reference sequence. PD-L1 expression and blockade are being studied in canine cancers; this UniProt entry is unreviewed and the example is not a claim of approved treatment.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/A0A8I3P7C4/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/33580183/",
+      sequence:
+        "MRMFSVFTFMAYCHLLKAFTITVSKDLYVVEYGGNVTMECKFPVEKQLNLFALIVYWEMEDKKIIQFVNGKEDLKVQHSSYSQRAQLLKDQLFLGKAALQITDVRLQDAGVYCCLIGYGGADYKRITLKVHAPYRNISQRISVDPVTSEHELMCQAEGYPEAEVIWTSSDHRVLSGKTTITNSNREEKLFNVTSTLNINATANEIFYCTFQRSGPEENNTAELVIPERLPVPASERTHFMILGPFLLLLGVVLAVTFCLKKHGRMMDVEKCCTRDRNSKKRNDIQFEET",
+    },
+    "dog-vegfa": {
+      context: "Dog · Hemangiosarcoma / tumor angiogenesis",
+      name: "VEGFA · Vascular endothelial growth factor A",
+      classification: "Veterinary research target",
+      accession: "Q9MYV3",
+      note: "Full reviewed canine sequence. VEGFA is an angiogenesis pathway protein studied in canine hemangiosarcoma; it is presented as a research target rather than an approved disease-specific therapy.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/Q9MYV3/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/30691610/",
+      sequence:
+        "MNFLLSWVHWSLALLLYLHHAKWSQAAPMAGGEHKPHEVVKFMDVYQRSYCRPIETLVDIFQEYPDEIEYIFKPSCVPLMRCGGCCNDEGLECVPTEEFNITMQIMRIKPHQGQHIGEMSFLQHSKCECRPKKDRARQEKKSIRGKGKGQKRKRKKSRYKPWSVPCGPCSERRKHLFVQDPQTCKCSCKNTDSRCKARQLELNERTCRCDKPRR",
+    },
+    "dog-fgf23": {
+      context: "Dog · Chronic kidney disease",
+      name: "FGF23 · Fibroblast growth factor 23",
+      classification: "CKD biomarker / pathway",
+      accession: "A0A0B4J199",
+      note: "Full canine reference sequence. Circulating FGF23 has been studied across stages of canine CKD; this unreviewed UniProt entry is shown as a biomarker/pathway protein, not a universal treatment target.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/A0A0B4J199/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/28419560/",
+      sequence:
+        "MWTVEFFLFDVTGPPFKSLREKRRESSLGLSRKIPTKKRRKRPVRHSRGIKEAVSGFKLQPAIQRAVMSGTRLGFLVSVLCWVVRAYSNTSPLLGSSWGSLTHLYTATARNSYHLQIHKDGHVDGTPHQTIYSALMIRSEDAGFVVITGVMSRRYLCMDFRGNIFGSHLFSPESCRFRQRTLENGYDVYHSPQHRFLVSLGQAKRAFLPGTNPPPYSQFLSRRNEIPLVHFHTPRPRRHTRSAEAPERDPLNVLKPRPRLAPAPASCSQELPSAEDPGAPASDPLGVLRGHRANARAGGVGVDRCRAFPTPI",
+    },
+    "dog-nppb": {
+      context: "Dog · Heart failure / myxomatous mitral valve disease",
+      name: "NPPB · B-type natriuretic peptide precursor",
+      classification: "Cardiac biomarker",
+      accession: "P16859",
+      note: "Full reviewed canine precursor sequence. NT-proBNP is used and studied as a cardiac biomarker; selecting it here does not diagnose heart disease or make it a treatment target.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/P16859/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/25308881/",
+      sequence:
+        "MEPCAALPRALLLLLFLHLSPLGGRPHPLGGRSPASEASEASEASGLWAVQELLGRLKDAVSELQAEQLALEPLHRSHSPAEAPEAGGTPRGVLAPHDSVLQALRRLRSPKMMHKSGCFGRRLDRIGSLSGLGCNVLRKY",
+    },
+    "dog-ngf": {
+      context: "Dog · Osteoarthritis pain",
+      name: "NGF · Beta-nerve growth factor",
+      classification: "Clinically validated veterinary target",
+      accession: "A0A8I3PYI3",
+      note: "Full canine reference precursor. Canine NGF is the target of the FDA-approved osteoarthritis pain antibody bedinvetmab; this UniProt entry is unreviewed.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/A0A8I3PYI3/entry",
+      evidenceUrl: "https://www.fda.gov/animal-veterinary/cvm-updates/fda-approves-first-monoclonal-antibody-dogs-osteoarthritis-pain",
+      sequence:
+        "MSMLFYTLITALLIGIRAEPHPESHVPAGHAIPHAHWTKLQHSLDTALRRARSAPAGAIAARVTGQTRNITVDPKLFKKRRLRSPRVLFSTHPPPVAADAQDLDLEAGSTASVNRTHRSKRSSSHPVFHRGEFSVCDSVSVWVGDKTTATDIKGKEVMVLGEVNINNSVFKQYFFETKCRDPTPVDSGCRGIDSKHWNSYCTTTHTFVKALTMDGKQAAWRFIRIDTACVCVLSRKAGRRA",
+    },
+    "dog-il31": {
+      context: "Dog · Atopic dermatitis / pruritus",
+      name: "IL31 · Interleukin-31",
+      classification: "Clinically validated veterinary target",
+      accession: "A0A8I3S3D1",
+      note: "Full canine reference sequence. Canine IL-31 is targeted by lokivetmab for pruritus associated with atopic dermatitis; this UniProt entry is unreviewed.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/A0A8I3S3D1/entry",
+      evidenceUrl: "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/cytopoint",
+      sequence:
+        "MLSHTGPSRFALFLLCSMETLLSSHMAPTHQLPPSDVRKIILELQPLSRGLLEDYQKKETGVPESNRTLLLCLTSDSQPPRLNSSAILPYFRAIRPLSDKNIIDKIIEQLDKLKFQHEPETEISVPADTFECKSFILTILQQFSACLESVFKSLNSGPQ",
+    },
     "cat-cd20": {
       context: "Cat · B-cell lymphoma",
       name: "MS4A1 · B-lymphocyte antigen CD20",
@@ -92,6 +158,50 @@
       evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/33543676/",
       sequence:
         "MSGTRLGLLVSVLCWVVRAYPNTSPLLGSSWGGLTHLYTATARNSYHLQIHKDGHVDGTPHQTIYSALMIRSEDAGFVVITGVMSQRYLCMDFRGNIFGSHLFSPESCRFRQRTLENGYDVYHSPQHRFLVSLGPAKRAFLPGTNPPPYSQFLSRRNEIPLVHFNTPRPRRHTRSAEDAERDPLNVLKPRPRMTPAPASCSQELPSAEDSGVVASDPLGVLRGNRVNAHAGGMGVERCRPFPKFN",
+    },
+    "cat-pdl1": {
+      context: "Cat · Squamous cell / mammary / other cancers",
+      name: "CD274 · Programmed cell death ligand 1 (PD-L1)",
+      classification: "Investigational immune checkpoint target",
+      accession: "A0ABI7WRQ0",
+      note: "Full feline reference sequence. PD-L1 expression has been reported across several feline tumors; this unreviewed UniProt entry is presented as an investigational target, not an approved feline cancer treatment.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/A0ABI7WRQ0/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/36701405/",
+      sequence:
+        "MRIFSVFAFMAYCHLLKAFTITVSKDLYVVEYGSNVTMECRFPVEEQLDLVSLIVYWEMEDKKIIQFVQGKEDLKVQHRSYSQRAQLLKDQLFLGKAALQITNVTLEDAGVYCCLIGYGGADYKRITLKVHAPYRKINQRISVDPVTSEHELMCQAEGYPTAEVIWTNSAHQVLNGKTIISVSNMETKLFNVTSTLRINTTANEIFYCTFLQRSSPEGNSTAELVIPEPFLVPANERTHFMILGAILLFLVVVPAVTFCLKKRDGISFIAVVPTGHMGKRMGGCCCHSGSYRQSQGC",
+    },
+    "cat-nppb": {
+      context: "Cat · Hypertrophic cardiomyopathy / heart failure",
+      name: "NPPB · B-type natriuretic peptide precursor",
+      classification: "Cardiac biomarker",
+      accession: "Q9GLK4",
+      note: "Full reviewed feline precursor sequence. NT-proBNP is used and studied as a cardiac biomarker in cats, including hypertrophic cardiomyopathy contexts; it is not presented as a treatment target.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/Q9GLK4/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/32200578/",
+      sequence:
+        "MDPKTALLRALLLLLFLHLSPLGGRSHPLGGPGPASEASAIQELLDGLRDTVSELQEAQMALGPLQQGHSPAESWEAQEEPPARVLAPHDNVLRALRRLGSSKMMRDSRCFGRRLDRIGSLSGLGCNVLRRH",
+    },
+    "cat-iapp": {
+      context: "Cat · Type 2 diabetes / islet amyloidosis",
+      name: "IAPP · Islet amyloid polypeptide",
+      classification: "Disease-associated protein",
+      accession: "P12967",
+      note: "Full reviewed feline precursor sequence. Feline diabetes can share type-2-like islet amyloid pathology involving IAPP; this example is a disease-associated protein, not a diagnosis or established treatment target.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/P12967/entry",
+      evidenceUrl: "https://pubmed.ncbi.nlm.nih.gov/11106586/",
+      sequence:
+        "MCLLKLPVVLIVLLVALHHLKATPIESNQVEKRKCNTATCATQRLANFLIRSSNNLGAILSPTNVGSNTYGKRSTVDILNREPLNYLPF",
+    },
+    "cat-ngf": {
+      context: "Cat · Osteoarthritis pain",
+      name: "NGF · Beta-nerve growth factor",
+      classification: "Clinically validated veterinary target",
+      accession: "A0ABI7YSK6",
+      note: "Full feline reference precursor. Feline NGF is the target of the FDA-approved osteoarthritis pain antibody frunevetmab; this UniProt entry is unreviewed.",
+      sourceUrl: "https://www.uniprot.org/uniprotkb/A0ABI7YSK6/entry",
+      evidenceUrl: "https://animaldrugsatfda.fda.gov/adafda/app/search/public/document/downloadFoi/11817",
+      sequence:
+        "MSMLSYTLITALLIGIQAEPHPESNVPAGHTIPQAHWTKLQHSLDTALRRARSTPAGAIAARVAGQTRNITVDPKLFKKRRLRSPRVLFSTHPPPVAADTQGLDLEAGGAASFNRTHRSKRSSSHPVFHRGEFSVCDSVSVWVGDKTTATDIKGKEVMVLGEVNINNSVFKQYFFETKCRDPTPVDSGCRGIDSKHWNSYCTTTHTFVKALTMDGKQAAWRFIRIDTACVCVLSRKAGRRA",
     },
   };
 

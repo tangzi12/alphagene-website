@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore AlphaGene Labs' prepared target-to-protein-design workflow with interactive RFdiffusion backbones, ProteinMPNN sequences, and downloadable research artifacts."
+    />
+    <title>Protein Design Studio | AlphaGene Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=design-studio-1" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="AlphaGene Labs home">
+        <span>AlphaGene Labs</span>
+      </a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+        data-nav-toggle
+      >
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation" data-nav>
+        <a href="science.html">Science</a>
+        <a href="platform.html">Platform</a>
+        <a href="protein-design-studio.html" aria-current="page">Design Studio</a>
+        <a href="applications.html">Applications</a>
+        <a href="insights.html">Insights</a>
+        <a href="protein-predictor.html">Protein Predictor</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero design-studio-hero">
+        <div class="page-hero-media" aria-hidden="true">
+          <img src="assets/alphagene-generation-hero.png" alt="" />
+        </div>
+        <div class="page-hero-copy reveal">
+          <span class="prepared-demo-badge">Precomputed demo</span>
+          <p class="eyebrow">AlphaGene Protein Design Studio</p>
+          <h1>From target structure to designed protein candidates.</h1>
+          <p>
+            Explore a prepared target-to-design run. This page replays previously computed RFdiffusion and ProteinMPNN
+            outputs; it does not start a live GPU job.
+          </p>
+          <div class="hero-actions design-hero-actions">
+            <a class="button primary" href="#design-workbench">Explore the prepared run</a>
+            <a class="button ghost" href="generation.html">How the workflow works</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="design-path" aria-label="Protein design stages">
+        <ol>
+          <li><span>01</span><strong>Define target</strong><small>Kv1.3 channel interface</small></li>
+          <li><span>02</span><strong>Generate backbone</strong><small>RFdiffusion candidate set</small></li>
+          <li><span>03</span><strong>Design sequence</strong><small>ProteinMPNN with fixed motif</small></li>
+          <li><span>04</span><strong>Review candidate</strong><small>Structure and method checks</small></li>
+        </ol>
+      </section>
+
+      <section class="design-studio-shell" id="design-workbench">
+        <div class="design-studio-intro reveal">
+          <div>
+            <p class="eyebrow">Interactive workspace</p>
+            <h2>Replay a real prepared binder-design example.</h2>
+          </div>
+          <span class="studio-cost-badge">Prepared run · no GPU cost</span>
+        </div>
+
+        <div class="design-studio-grid">
+          <aside class="design-control-panel reveal" aria-labelledby="design-controls-title">
+            <div class="studio-panel-heading">
+              <div>
+                <p class="eyebrow">Design brief</p>
+                <h3 id="design-controls-title">Configure the demonstration</h3>
+              </div>
+              <span>Target → Binder</span>
+            </div>
+
+            <fieldset class="design-task-picker">
+              <legend>Choose a design task</legend>
+              <label class="design-task-card is-selected">
+                <input type="radio" name="design-task" value="binder" checked />
+                <span>
+                  <strong>Binder design</strong>
+                  <small>Prepared run available</small>
+                </span>
+                <i>Demo</i>
+              </label>
+              <label class="design-task-card is-unavailable" title="Requires a connected live GPU worker">
+                <input type="radio" name="design-task" value="denovo" disabled />
+                <span>
+                  <strong>De novo protein</strong>
+                  <small>Available with live GPU</small>
+                </span>
+                <i>Live</i>
+              </label>
+              <label class="design-task-card is-unavailable" title="Requires a connected live GPU worker">
+                <input type="radio" name="design-task" value="motif" disabled />
+                <span>
+                  <strong>Motif scaffolding</strong>
+                  <small>Available with live GPU</small>
+                </span>
+                <i>Live</i>
+              </label>
+            </fieldset>
+
+            <div class="design-field">
+              <label for="prepared-target">Prepared target</label>
+              <select id="prepared-target" data-prepared-target>
+                <option>Kv1.3 ion channel · toxin-inspired binder</option>
+              </select>
+              <div class="prepared-target-card">
+                <span>Target reference</span>
+                <strong>PDB 7SSZ-derived · target chain B</strong>
+                <p>
+                  A public tutorial system exploring a compact pore-blocking binder while retaining a Lys–Tyr functional
+                  motif.
+                </p>
+              </div>
+            </div>
+
+            <div class="design-range-field">
+              <div class="design-range-label">
+                <label for="binder-length">Preferred binder length</label>
+                <output for="binder-length" data-length-output>65 residues</output>
+              </div>
+              <input id="binder-length" type="range" min="58" max="65" value="65" step="1" data-design-length />
+              <div class="range-boundaries"><span>58 aa</span><span>65 aa</span></div>
+            </div>
+
+            <div class="design-range-field">
+              <div class="design-range-label">
+                <label for="candidate-count">Candidates to display</label>
+                <output for="candidate-count" data-count-output>3 candidates</output>
+              </div>
+              <input id="candidate-count" type="range" min="1" max="3" value="3" step="1" data-candidate-count />
+              <div class="range-boundaries"><span>1</span><span>3</span></div>
+            </div>
+
+            <div class="design-range-field is-fixed">
+              <div class="design-range-label">
+                <label for="diffusion-steps">Prepared diffusion steps</label>
+                <output for="diffusion-steps">50 steps</output>
+              </div>
+              <input id="diffusion-steps" type="range" min="25" max="50" value="50" step="25" disabled />
+              <p>Fixed by the prepared RFdiffusion run.</p>
+            </div>
+
+            <p class="prepared-control-note">
+              Demo controls select among prepared runs. Changing a control does not perform a new model calculation.
+            </p>
+
+            <button class="button primary studio-run-button" type="button" data-replay-design>
+              Replay prepared design
+            </button>
+          </aside>
+
+          <div class="design-viewer-panel reveal">
+            <div class="design-viewer-heading">
+              <div>
+                <p class="eyebrow">Interactive 3D complex</p>
+                <h3 data-selected-candidate-title>AG-KV13-001</h3>
+              </div>
+              <div class="viewer-controls" data-design-viewer-controls>
+                <button class="viewer-mode is-active" type="button" data-design-view="complex">Complex</button>
+                <button class="viewer-mode" type="button" data-design-view="binder">Binder</button>
+                <button class="viewer-mode" type="button" data-design-view="interface">Interface</button>
+                <button class="viewer-mode" type="button" data-design-view="reset">Reset</button>
+              </div>
+            </div>
+
+            <div class="design-viewer-stage" role="region" aria-label="Interactive protein structure viewer" data-design-viewer-stage>
+              <div class="viewer-canvas" data-design-molecule-viewer></div>
+              <canvas class="design-diffusion-overlay" data-diffusion-overlay aria-hidden="true"></canvas>
+              <div class="design-stage-status">
+                <span data-stage-number>Stage 04 / 04</span>
+                <strong data-stage-label>Review candidate</strong>
+                <small>Illustrative transition · not RFdiffusion timesteps</small>
+              </div>
+              <div class="viewer-loading design-viewer-loading" data-design-viewer-loading>
+                <span class="structure-spinner" aria-hidden="true"></span>
+                <strong>Loading prepared structure</strong>
+                <span>Parsing target and binder coordinates in your browser.</span>
+              </div>
+              <div class="viewer-empty design-viewer-error" data-design-viewer-error hidden>
+                <p>Structure could not be loaded.</p>
+                <span>Refresh the page or download the PDB to inspect it locally.</span>
+              </div>
+              <span class="viewer-interaction-hint">Drag to rotate · scroll to zoom · right-drag to move</span>
+            </div>
+
+            <div class="design-playback" role="group" aria-label="Prepared run playback controls">
+              <div class="design-playback-actions">
+                <button type="button" data-step-back aria-label="Previous design stage">Previous</button>
+                <button type="button" data-play-pause aria-label="Play prepared run">Play</button>
+                <button type="button" data-step-forward aria-label="Next design stage">Next</button>
+              </div>
+              <label class="sr-only" for="design-progress">Prepared run progress</label>
+              <input id="design-progress" type="range" min="0" max="100" value="100" step="1" data-design-progress />
+              <div class="design-playback-meta">
+                <span aria-live="polite" data-playback-status>Prepared result ready</span>
+                <strong data-progress-value>100%</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="prepared-candidates" aria-labelledby="prepared-candidates-title">
+          <div class="prepared-section-heading reveal">
+            <div>
+              <p class="eyebrow">Prepared candidate set</p>
+              <h2 id="prepared-candidates-title">Compare backbone and sequence outputs.</h2>
+            </div>
+            <p>Choose a card to load its complex, sequence, metrics, and downloads.</p>
+          </div>
+          <div class="candidate-card-grid reveal" data-candidate-grid></div>
+        </section>
+
+        <section class="design-result-grid" aria-label="Selected candidate result">
+          <article class="design-result-panel reveal">
+            <div class="result-panel-heading">
+              <div>
+                <p class="eyebrow">ProteinMPNN sequence</p>
+                <h2 data-result-candidate>AG-KV13-001</h2>
+              </div>
+              <span class="result-status">Prepared output</span>
+            </div>
+            <p class="result-sequence" data-result-sequence></p>
+            <p class="sequence-motif-note" data-sequence-motif></p>
+            <dl class="design-metric-grid">
+              <div><dt>Sequence length</dt><dd data-metric-length>—</dd></div>
+              <div><dt>Backbone Rg</dt><dd data-metric-rg>—</dd></div>
+              <div><dt>ProteinMPNN score</dt><dd data-metric-mpnn>—</dd></div>
+              <div><dt>Backbone assessment</dt><dd data-metric-status>—</dd></div>
+            </dl>
+            <div class="design-downloads">
+              <a class="download-button" href="assets/design-studio/kv13-binder-1.pdb" download data-download-design-pdb>
+                Download PDB
+              </a>
+              <button class="download-button is-secondary" type="button" data-download-design-fasta>Download FASTA</button>
+              <button class="download-button is-secondary" type="button" data-download-design-report>Download report</button>
+            </div>
+          </article>
+
+          <article class="design-result-panel design-review-panel reveal">
+            <div class="result-panel-heading">
+              <div>
+                <p class="eyebrow">Structure-consistency review</p>
+                <h2>Evidence available in this run</h2>
+              </div>
+              <span class="result-status is-neutral">Backbone only</span>
+            </div>
+            <ul class="review-checklist">
+              <li>
+                <span>Included</span>
+                <div><strong>RFdiffusion backbone complex</strong><small>Target chain B and designed binder chain A</small></div>
+              </li>
+              <li>
+                <span>Included</span>
+                <div><strong>ProteinMPNN sequence design</strong><small>Fixed Lys–Tyr motif and recorded model score</small></div>
+              </li>
+              <li class="is-pending">
+                <span>Not run</span>
+                <div><strong>Independent fold-back prediction</strong><small>No AlphaFold, ColabFold, or ESMFold score is claimed</small></div>
+              </li>
+              <li class="is-pending">
+                <span>Not run</span>
+                <div><strong>Experimental binding validation</strong><small>No affinity, specificity, safety, or efficacy data</small></div>
+              </li>
+            </ul>
+            <p class="review-disclaimer">
+              Computational structure-consistency checks do not establish binding affinity, specificity, stability,
+              safety, efficacy, or experimental validation.
+            </p>
+          </article>
+        </section>
+      </section>
+
+      <section class="structure-explainer design-methods">
+        <div class="structure-explainer-heading reveal">
+          <p class="eyebrow">Methods and provenance</p>
+          <h2>Every displayed artifact has a traceable role.</h2>
+        </div>
+        <div class="structure-explainer-grid">
+          <article class="reveal">
+            <span>01</span>
+            <h3>Public target system</h3>
+            <p>A 7SSZ-derived Kv1.3 channel/toxin system supplies the prepared target geometry and interface context.</p>
+          </article>
+          <article class="reveal">
+            <span>02</span>
+            <h3>RFdiffusion backbones</h3>
+            <p>Three real outputs from the official RosettaCommons binder-design tutorial form the candidate set.</p>
+          </article>
+          <article class="reveal">
+            <span>03</span>
+            <h3>ProteinMPNN sequences</h3>
+            <p>Sequences were generated for each binder backbone with the tutorial's Lys–Tyr motif held fixed.</p>
+          </article>
+          <article class="reveal">
+            <span>04</span>
+            <h3>Optional live validation</h3>
+            <p>A private GPU backend can add fold-back prediction, complex scoring, queues, and project persistence.</p>
+          </article>
+        </div>
+        <div class="design-source-links reveal">
+          <a href="https://github.com/RosettaCommons/RFdiffusion/tree/d1e73869925de2d189081acb3a597ff98c30200d/tutorials/protein_binder_design" target="_blank" rel="noreferrer">RFdiffusion tutorial source</a>
+          <a href="https://github.com/dauparas/ProteinMPNN/tree/8907e6671bfbfc92303b5f79c4b5e6ce47cdef57" target="_blank" rel="noreferrer">ProteinMPNN source</a>
+          <a href="https://www.rcsb.org/structure/7SSZ" target="_blank" rel="noreferrer">RCSB PDB 7SSZ</a>
+          <a href="assets/design-studio/ATTRIBUTION.txt">Asset attribution</a>
+        </div>
+      </section>
+
+      <section class="page-cta design-live-cta">
+        <div class="reveal">
+          <p class="eyebrow">From demo to live platform</p>
+          <h2>Connect a private GPU worker when you are ready to calculate new designs.</h2>
+          <p>
+            The current experience is a zero-GPU-cost prepared demonstration. A live deployment can keep the same
+            interface while adding customer accounts, private uploads, job queues, and project history.
+          </p>
+          <a class="button primary" href="contact.html">Discuss a private design run</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>AlphaGene Labs</p>
+      <p>
+        Research-use demonstration only. Candidates have not been experimentally tested and are not therapeutic products.
+      </p>
+    </footer>
+
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <script src="script.js?v=design-studio-1"></script>
+    <script src="protein-design-studio.js?v=design-studio-1"></script>
+  </body>
+</html>

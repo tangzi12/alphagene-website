@@ -1,0 +1,27 @@
+AlphaGene Protein Design Studio prepared demonstration assets
+Prepared: 2026-08-27
+
+The three backbone-complex PDB files are tutorial outputs from the
+RosettaCommons RFdiffusion repository, pinned to commit:
+d1e73869925de2d189081acb3a597ff98c30200d
+
+Source directory:
+https://github.com/RosettaCommons/RFdiffusion/tree/d1e73869925de2d189081acb3a597ff98c30200d/tutorials/protein_binder_design
+
+The tutorial target is derived from PDB 7SSZ. The demonstration PDB files
+contain a designed binder backbone in chain A and the prepared target in
+chain B. Tutorial materials are credited to Diego Lopez Mateos, Matthew
+Hvasta, and Kush Narang. RFdiffusion is copyright 2023 University of
+Washington and was developed at the Institute for Protein Design.
+
+AlphaGene Labs generated the paired FASTA sequences from these public
+backbones with ProteinMPNN model v_48_020, git commit
+8907e6671bfbfc92303b5f79c4b5e6ce47cdef57. The Lys-Tyr motif positions
+were held fixed. ProteinMPNN is copyright 2022 Justas Dauparas.
+
+The prepared assets do not include an RFdiffusion trajectory, AlphaFold,
+ColabFold, or ESMFold output. The on-page transition is explicitly an
+illustration and is not presented as model timesteps. No candidate has been
+experimentally tested.
+
+See RFDIFFUSION_LICENSE.txt and PROTEINMPNN_LICENSE.txt in this directory.

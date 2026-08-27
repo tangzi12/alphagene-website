@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=design-studio-1" />
+    <link rel="stylesheet" href="styles.css?v=binding-atlas-2" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -57,8 +57,8 @@
             outputs; it does not start a live GPU job.
           </p>
           <div class="hero-actions design-hero-actions">
-            <a class="button primary" href="#design-workbench">Explore the prepared run</a>
-            <a class="button ghost" href="generation.html">How the workflow works</a>
+            <a class="button primary" href="#binding-atlas">Explore classic binding cases</a>
+            <a class="button ghost" href="#design-workbench">Replay the design workflow</a>
           </div>
         </div>
       </section>
@@ -70,6 +70,135 @@
           <li><span>03</span><strong>Design sequence</strong><small>ProteinMPNN with fixed motif</small></li>
           <li><span>04</span><strong>Review candidate</strong><small>Structure and method checks</small></li>
         </ol>
+      </section>
+
+      <section class="binding-atlas" id="binding-atlas" aria-labelledby="binding-atlas-title">
+        <div class="binding-atlas-heading reveal">
+          <div>
+            <span class="atlas-reference-badge">Experimental reference structures</span>
+            <p class="eyebrow">Classic Binding Atlas</p>
+            <h2 id="binding-atlas-title">See how established ligands and inhibitors engage their targets.</h2>
+          </div>
+          <p>
+            Explore nine landmark binding stories across oncology, metabolism, immunology, and infectious disease.
+            Each view replays a public experimental structure from the Protein Data Bank—not a newly generated AlphaGene result.
+          </p>
+        </div>
+
+        <div class="atlas-category-filter reveal" role="group" aria-label="Filter binding cases by field" data-atlas-filters></div>
+
+        <div class="binding-atlas-layout">
+          <aside class="atlas-case-panel reveal" aria-labelledby="atlas-case-list-title">
+            <div class="atlas-panel-heading">
+              <div>
+                <p class="eyebrow">Case library</p>
+                <h3 id="atlas-case-list-title">Choose a binding story</h3>
+              </div>
+              <span data-atlas-case-count>9 cases</span>
+            </div>
+            <div class="atlas-case-list" data-atlas-case-list></div>
+          </aside>
+
+          <div class="atlas-explorer reveal">
+            <div class="atlas-explorer-heading">
+              <div>
+                <p class="eyebrow" data-atlas-category>Immuno-oncology</p>
+                <h3 data-atlas-title>PD-1 checkpoint blockade</h3>
+                <p data-atlas-subtitle>Compare the natural checkpoint interface with clinically established antibody complexes.</p>
+              </div>
+              <span class="atlas-pdb-badge" data-atlas-pdb>PDB 4ZQK</span>
+            </div>
+
+            <div class="atlas-variant-tabs" role="tablist" aria-label="Available experimental structures" data-atlas-variants></div>
+
+            <div class="atlas-viewer-toolbar">
+              <div class="viewer-controls atlas-view-modes" role="group" aria-label="Structure view" data-atlas-view-modes>
+                <button class="viewer-mode is-active" type="button" data-atlas-view="complex" aria-pressed="true">Complex</button>
+                <button class="viewer-mode" type="button" data-atlas-view="target" aria-pressed="false">Target</button>
+                <button class="viewer-mode" type="button" data-atlas-view="partner" aria-pressed="false" data-atlas-partner-mode>Partner</button>
+                <button class="viewer-mode" type="button" data-atlas-view="interface" aria-pressed="false">Interface</button>
+                <button class="viewer-mode" type="button" data-atlas-view="reset" aria-pressed="false">Reset</button>
+              </div>
+              <button class="atlas-story-button" type="button" data-atlas-play-story>
+                Play 3-step binding story
+              </button>
+            </div>
+
+            <div class="atlas-viewer-stage" role="region" aria-label="Interactive experimental complex viewer" data-atlas-viewer-stage>
+              <div class="viewer-canvas" data-atlas-molecule-viewer></div>
+              <div class="atlas-viewer-label">
+                <span data-atlas-view-label>Experimental complex</span>
+                <small>Drag to rotate · pinch or scroll to zoom · right-drag to move</small>
+              </div>
+              <div class="viewer-loading atlas-viewer-loading" role="status" data-atlas-loading>
+                <span class="structure-spinner" aria-hidden="true"></span>
+                <strong data-atlas-loading-title>Loading experimental structure</strong>
+                <span data-atlas-loading-copy>Reading coordinates from the local case library.</span>
+                <div class="atlas-load-progress" role="progressbar" aria-label="Structure loading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-atlas-load-progress>
+                  <i data-atlas-load-bar></i>
+                </div>
+                <small data-atlas-load-percent>0%</small>
+              </div>
+              <div class="viewer-empty atlas-viewer-error" role="alert" data-atlas-error hidden>
+                <p>Structure could not be loaded.</p>
+                <span>Choose another case or download the PDB for local inspection.</span>
+              </div>
+            </div>
+
+            <div class="atlas-story-strip" aria-label="Binding story stages">
+              <button type="button" data-atlas-story-step="target"><span>01</span><strong data-atlas-target-step>Target</strong></button>
+              <i aria-hidden="true">→</i>
+              <button type="button" data-atlas-story-step="partner"><span>02</span><strong data-atlas-partner-step>Partner</strong></button>
+              <i aria-hidden="true">→</i>
+              <button type="button" data-atlas-story-step="interface"><span>03</span><strong>Binding interface</strong></button>
+            </div>
+            <p class="atlas-story-note" aria-live="polite" data-atlas-story-status>
+              Three-step explanatory view · not a molecular-dynamics trajectory.
+            </p>
+
+            <div class="atlas-legend" aria-label="Structure color legend">
+              <span><i class="is-target"></i><b data-atlas-target-legend>Target</b></span>
+              <span><i class="is-partner"></i><b data-atlas-partner-legend>Binding partner</b></span>
+              <span><i class="is-interface"></i><b>Interface residues</b></span>
+            </div>
+
+            <div class="atlas-detail-grid">
+              <article>
+                <span>Binding logic</span>
+                <h4 data-atlas-mechanism-title>Natural checkpoint recognition</h4>
+                <p data-atlas-mechanism></p>
+              </article>
+              <article>
+                <span>Experimental record</span>
+                <dl class="atlas-fact-list">
+                  <div><dt>Method</dt><dd data-atlas-method>—</dd></div>
+                  <div><dt>Resolution</dt><dd data-atlas-resolution>—</dd></div>
+                  <div><dt>Displayed chains</dt><dd data-atlas-chains>—</dd></div>
+                </dl>
+              </article>
+              <article class="atlas-scope-card">
+                <span>Interpretation boundary</span>
+                <h4>What this structure does—and does not—show</h4>
+                <p data-atlas-scope></p>
+              </article>
+            </div>
+
+            <div class="atlas-actions">
+              <a class="button primary" href="https://www.rcsb.org/structure/4ZQK" target="_blank" rel="noreferrer" data-atlas-rcsb>Open RCSB record</a>
+              <a class="button ghost" href="assets/binding-atlas/4zqk.pdb" download data-atlas-download>Download experimental PDB</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="atlas-disclaimer reveal">
+          <strong>Reference-library boundary</strong>
+          <p>
+            These are public experimental structures used to explain molecular recognition. Static coordinates do
+            not establish affinity, selectivity, efficacy, safety, or real-time binding dynamics. Antibody entries show
+            Fab fragments where indicated; receptor entries may show only experimental domains or ectodomains.
+            <a href="assets/binding-atlas/ATTRIBUTION.txt">View structure provenance</a>.
+          </p>
+        </div>
       </section>
 
       <section class="design-studio-shell" id="design-workbench">
@@ -342,12 +471,14 @@
     <footer class="site-footer">
       <p>AlphaGene Labs</p>
       <p>
-        Research-use demonstration only. Candidates have not been experimentally tested and are not therapeutic products.
+        Research-use demonstration only. Reference structures and computational candidates are not therapeutic products;
+        AlphaGene candidates shown here have not been experimentally tested.
       </p>
     </footer>
 
     <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
-    <script src="script.js?v=design-studio-1"></script>
-    <script src="protein-design-studio.js?v=design-studio-1"></script>
+    <script src="script.js?v=binding-atlas-2"></script>
+    <script src="binding-atlas.js?v=binding-atlas-2"></script>
+    <script src="protein-design-studio.js?v=binding-atlas-2"></script>
   </body>
 </html>

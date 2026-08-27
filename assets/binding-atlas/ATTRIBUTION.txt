@@ -1,0 +1,47 @@
+AlphaGene Labs Classic Binding Atlas — asset attribution
+=========================================================
+
+The coordinate files in this folder are public experimental structures downloaded
+from the RCSB Protein Data Bank on 2026-08-27. AlphaGene Labs did not generate or
+experimentally determine these coordinates.
+
+Structure records
+-----------------
+4ZQK  Human PD-1 / PD-L1 complex
+       https://www.rcsb.org/structure/4ZQK
+5GGS  PD-1 / pembrolizumab Fab complex
+       https://www.rcsb.org/structure/5GGS
+5WT9  PD-1 / nivolumab Fab complex
+       https://www.rcsb.org/structure/5WT9
+8ZNL  Depositor-described de novo PD-L1 binder complex
+       https://www.rcsb.org/structure/8ZNL
+6SOF  Human insulin receptor ectodomain bound by four insulins
+       https://www.rcsb.org/structure/6SOF
+4OGA  Insulin / insulin receptor Site 1 construct
+       https://www.rcsb.org/structure/4OGA
+1N8Z  HER2 ectodomain / trastuzumab Fab complex
+       https://www.rcsb.org/structure/1N8Z
+1YY9  EGFR ectodomain / cetuximab Fab complex
+       https://www.rcsb.org/structure/1YY9
+6O0K  BCL-2 / venetoclax complex
+       https://www.rcsb.org/structure/6O0K
+1IEP  c-Abl kinase domain / imatinib complex
+       https://www.rcsb.org/structure/1IEP
+3WD5  TNF-alpha / adalimumab Fab complex
+       https://www.rcsb.org/structure/3WD5
+1BJ1  VEGF-A / neutralizing Fab-12 complex
+       https://www.rcsb.org/structure/1BJ1
+6M0J  SARS-CoV-2 Spike RBD / human ACE2 complex
+       https://www.rcsb.org/structure/6M0J
+
+Each RCSB record links to the relevant primary citation, authors, experimental
+details, and data-usage policies. Structure titles, chain mappings, methods, and
+resolutions shown by the webpage are derived from the deposited records.
+
+Interpretation boundary
+-----------------------
+Static experimental coordinates do not establish affinity, selectivity, efficacy,
+safety, or real-time binding dynamics. Antibody entries display Fab fragments where
+indicated. Receptor entries may contain experimental domains or ectodomains rather
+than complete membrane proteins. PDB 8ZNL is an experimental X-ray entry, but its
+RCSB primary citation was still listed as "To be published" on the access date.

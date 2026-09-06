@@ -208,7 +208,7 @@
       viewer.setStyle({ chain: "A" }, { cartoon: { color: "#1a73e8" }, stick: { color: "#1a73e8", radius: 0.13 } });
       addMotifStyle();
       const surfaceResult = viewer.addSurface(
-        window.$3Dmol.SurfaceType.VDW,
+        window.$3Dmol?.SurfaceType?.VDW || "VDW",
         { color: "#cbd8e6", opacity: 0.42 },
         { chain: "B" }
       );
@@ -521,7 +521,7 @@ Research-use demonstration only. This candidate has not been experimentally test
     downloadBlob(`${selectedCandidate.id}-design-report.txt`, createReport(selectedCandidate), "text/plain;charset=utf-8");
   });
 
-  if (!window.$3Dmol) {
+  if (!window.AlphaGeneStructureViewer) {
     loadingPanel.hidden = true;
     errorPanel.hidden = false;
     playbackStatus.textContent = "3D viewer library could not be loaded";
@@ -531,7 +531,20 @@ Research-use demonstration only. This candidate has not been experimentally test
     return;
   }
 
-  viewer = window.$3Dmol.createViewer(viewerElement, { backgroundColor: "#f8fbff", antialias: true });
+  try {
+    viewer = window.AlphaGeneStructureViewer.createViewer(viewerElement, {
+      backgroundColor: "#f8fbff",
+      antialias: true,
+    });
+  } catch (_error) {
+    loadingPanel.hidden = true;
+    errorPanel.hidden = false;
+    playbackStatus.textContent = "Interactive structure viewer could not be started";
+    setViewerButtonsDisabled(true);
+    renderCandidateCards();
+    updateResultPanel(selectedCandidate);
+    return;
+  }
   setActiveModeButton(currentViewMode);
   resizeOverlay();
   updateProgress(100, false);

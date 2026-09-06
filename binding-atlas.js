@@ -600,8 +600,8 @@
       setLoadingProgress(90, "Parsing atoms and building the interactive model.");
 
       if (!viewer) {
-        if (!window.$3Dmol) throw new Error("3D viewer library is unavailable");
-        viewer = window.$3Dmol.createViewer(viewerElement, {
+        if (!window.AlphaGeneStructureViewer) throw new Error("3D viewer is unavailable");
+        viewer = window.AlphaGeneStructureViewer.createViewer(viewerElement, {
           backgroundColor: "#f8fbff",
           antialias: true,
         });

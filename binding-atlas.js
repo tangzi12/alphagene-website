@@ -791,6 +791,19 @@
     if (viewer) viewer.resize();
   });
 
+  window.addEventListener("alphagene:select-atlas-case", (event) => {
+    const caseId = event.detail?.caseId;
+    if (!cases.some((item) => item.id === caseId)) return;
+    activeFilter = "All";
+    [...filterHost.children].forEach((button) => {
+      const selected = button.querySelector("span")?.textContent === "All";
+      button.classList.toggle("is-active", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
+    renderCaseList();
+    selectCase(caseId);
+  });
+
   renderFilters();
   renderCaseList();
   renderVariants();

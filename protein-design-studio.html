@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=binding-atlas-2" />
+    <link rel="stylesheet" href="styles.css?v=mechanism-classroom-1" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -57,7 +57,7 @@
             outputs; it does not start a live GPU job.
           </p>
           <div class="hero-actions design-hero-actions">
-            <a class="button primary" href="#binding-atlas">Explore classic binding cases</a>
+            <a class="button primary" href="#mechanism-classroom">Play interaction lessons</a>
             <a class="button ghost" href="#design-workbench">Replay the design workflow</a>
           </div>
         </div>
@@ -70,6 +70,118 @@
           <li><span>03</span><strong>Design sequence</strong><small>ProteinMPNN with fixed motif</small></li>
           <li><span>04</span><strong>Review candidate</strong><small>Structure and method checks</small></li>
         </ol>
+      </section>
+
+      <section class="mechanism-classroom" id="mechanism-classroom" aria-labelledby="mechanism-classroom-title">
+        <div class="mechanism-classroom-heading reveal">
+          <div>
+            <span class="mechanism-teaching-badge">Interactive teaching simulations</span>
+            <p class="eyebrow">Molecular Mechanism Classroom</p>
+            <h2 id="mechanism-classroom-title">Follow what changes before, during, and after binding.</h2>
+          </div>
+          <p>
+            Step through twelve established interaction mechanisms—from receptor signaling and antibody blockade to
+            induced proximity and targeted degradation. These scenes explain biological logic; they do not run a
+            structure-prediction model or molecular-dynamics calculation.
+          </p>
+        </div>
+
+        <div class="mechanism-workbench reveal">
+          <div class="mechanism-case-toolbar">
+            <label for="mechanism-case-select">
+              <span>Teaching case</span>
+              <select id="mechanism-case-select" data-mechanism-case-select></select>
+            </label>
+            <label class="mechanism-variant-field" for="mechanism-variant-select" data-mechanism-variant-field hidden>
+              <span>Real-world example</span>
+              <select id="mechanism-variant-select" data-mechanism-variant-select></select>
+            </label>
+            <span class="mechanism-library-count" data-mechanism-library-count>12 lessons</span>
+          </div>
+
+          <article class="mechanism-player" aria-live="off">
+            <header class="mechanism-player-heading">
+              <div>
+                <p class="eyebrow" data-mechanism-category>Immuno-oncology</p>
+                <h3 data-mechanism-title>PD-1: treatment benefit and immune side effects</h3>
+                <p data-mechanism-subtitle></p>
+              </div>
+              <span>Teaching simulation · no live model</span>
+            </header>
+
+            <div class="mechanism-stage" data-mechanism-stage>
+              <svg
+                class="mechanism-canvas"
+                viewBox="0 0 1000 520"
+                role="img"
+                aria-labelledby="mechanism-svg-title mechanism-svg-description"
+                data-mechanism-canvas
+              >
+                <title id="mechanism-svg-title">Interactive protein mechanism scene</title>
+                <desc id="mechanism-svg-description" data-mechanism-svg-description>
+                  A step-by-step teaching diagram of the selected molecular interaction.
+                </desc>
+                <defs>
+                  <marker id="mechanism-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z"></path>
+                  </marker>
+                  <marker id="mechanism-arrow-harm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z"></path>
+                  </marker>
+                </defs>
+                <g data-mechanism-links></g>
+                <g data-mechanism-actors></g>
+              </svg>
+
+              <div class="mechanism-stage-status">
+                <span data-mechanism-step-number>Step 1 / 4</span>
+                <strong data-mechanism-step-title>Checkpoint engaged</strong>
+              </div>
+              <span class="mechanism-stage-outcome" data-mechanism-outcome>T-cell activity is restrained</span>
+            </div>
+
+            <div class="mechanism-playback" role="group" aria-label="Mechanism lesson playback">
+              <button type="button" data-mechanism-previous aria-label="Previous mechanism step">Previous</button>
+              <button class="is-primary" type="button" data-mechanism-play aria-label="Play mechanism lesson">Play</button>
+              <button type="button" data-mechanism-next aria-label="Next mechanism step">Next</button>
+              <label for="mechanism-progress" class="sr-only">Mechanism lesson timeline</label>
+              <input id="mechanism-progress" type="range" min="0" max="3" value="0" step="1" data-mechanism-progress />
+            </div>
+
+            <div class="mechanism-step-tabs" role="tablist" aria-label="Mechanism lesson steps" data-mechanism-step-tabs></div>
+
+            <div class="mechanism-explanation-grid">
+              <article aria-live="polite">
+                <span>What is happening</span>
+                <h4 data-mechanism-explanation-title>Natural checkpoint engagement</h4>
+                <p data-mechanism-explanation></p>
+              </article>
+              <article>
+                <span>Teaching point</span>
+                <h4 data-mechanism-takeaway-title>One checkpoint, two contexts</h4>
+                <p data-mechanism-takeaway></p>
+              </article>
+              <article class="mechanism-boundary-card">
+                <span>Interpretation boundary</span>
+                <p data-mechanism-boundary></p>
+              </article>
+            </div>
+
+            <div class="mechanism-actions">
+              <button class="button primary" type="button" data-mechanism-open-atlas>Inspect the experimental structure</button>
+              <a class="button ghost" href="#" target="_blank" rel="noreferrer" data-mechanism-source>Open mechanism reference</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="mechanism-classroom-note reveal">
+          <strong>How to read these scenes</strong>
+          <p>
+            Movement is deliberately simplified to teach sequence and causality. Distances, timing, concentrations,
+            membrane geometry, cell populations, and clinical outcomes are not simulated. Where a matching public PDB
+            is available, the button opens the separate experimental 3D reference below.
+          </p>
+        </div>
       </section>
 
       <section class="binding-atlas" id="binding-atlas" aria-labelledby="binding-atlas-title">
@@ -476,9 +588,10 @@
       </p>
     </footer>
 
-    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
     <script src="script.js?v=binding-atlas-2"></script>
-    <script src="binding-atlas.js?v=binding-atlas-2"></script>
-    <script src="protein-design-studio.js?v=binding-atlas-2"></script>
+    <script src="mechanism-simulator.js?v=mechanism-classroom-1"></script>
+    <script defer src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <script defer src="binding-atlas.js?v=mechanism-classroom-1"></script>
+    <script defer src="protein-design-studio.js?v=mechanism-classroom-1"></script>
   </body>
 </html>

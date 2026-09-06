@@ -2853,6 +2853,722 @@ h3 {
   }
 }
 
+/* Molecular Mechanism Classroom */
+.mechanism-classroom {
+  padding: clamp(78px, 10vw, 142px) clamp(20px, 4.5vw, 72px);
+  background:
+    radial-gradient(circle at 91% 10%, rgba(124, 58, 237, 0.08), transparent 24%),
+    radial-gradient(circle at 8% 62%, rgba(26, 115, 232, 0.08), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #f7f9fd 100%);
+}
+
+.mechanism-classroom-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.55fr);
+  gap: clamp(34px, 7vw, 110px);
+  align-items: end;
+  max-width: 1420px;
+  margin: 0 auto 38px;
+}
+
+.mechanism-classroom-heading h2 {
+  max-width: 1020px;
+  margin-bottom: 0;
+  font-size: clamp(2.35rem, 4.6vw, 5.2rem);
+}
+
+.mechanism-classroom-heading > p {
+  margin: 0 0 8px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.mechanism-teaching-badge {
+  display: inline-flex;
+  margin-bottom: 22px;
+  padding: 7px 11px;
+  border: 1px solid rgba(124, 58, 237, 0.22);
+  border-radius: 999px;
+  color: #6941c6;
+  background: rgba(255, 255, 255, 0.82);
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mechanism-workbench {
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: clamp(18px, 2.4vw, 30px);
+  border: 1px solid rgba(26, 115, 232, 0.13);
+  border-radius: 18px;
+  background: var(--white);
+  box-shadow: 0 22px 70px rgba(60, 64, 67, 0.1);
+}
+
+.mechanism-case-toolbar {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.mechanism-case-toolbar label {
+  display: grid;
+  flex: 1 1 760px;
+  max-width: 920px;
+  gap: 7px;
+}
+
+.mechanism-case-toolbar label > span {
+  color: var(--muted);
+  font-size: 0.61rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+}
+
+.mechanism-case-toolbar .mechanism-variant-field {
+  flex-basis: 480px;
+  max-width: 560px;
+}
+
+.mechanism-case-toolbar select {
+  width: 100%;
+  min-height: 54px;
+  padding: 10px 42px 10px 14px;
+  border: 1px solid rgba(32, 33, 36, 0.17);
+  border-radius: 9px;
+  color: var(--ink);
+  background: var(--paper-deep);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.mechanism-library-count {
+  flex: 0 0 auto;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--sage-dark);
+  background: var(--mist);
+  font-size: 0.63rem;
+  font-weight: 800;
+}
+
+.mechanism-player-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.mechanism-player-heading h3 {
+  max-width: 980px;
+  margin: 0 0 8px;
+  font-family: "Manrope", "Inter", Arial, sans-serif;
+  font-size: clamp(1.65rem, 2.9vw, 3rem);
+  line-height: 1.08;
+}
+
+.mechanism-player-heading > div > p:last-child {
+  max-width: 850px;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+
+.mechanism-player-heading > span {
+  flex: 0 0 auto;
+  padding: 7px 10px;
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  border-radius: 999px;
+  color: #6941c6;
+  background: rgba(124, 58, 237, 0.06);
+  font-size: 0.61rem;
+  font-weight: 800;
+}
+
+.mechanism-stage {
+  position: relative;
+  min-width: 0;
+  border: 1px solid rgba(26, 115, 232, 0.14);
+  border-radius: 14px;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(26, 115, 232, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 115, 232, 0.045) 1px, transparent 1px),
+    radial-gradient(circle at 50% 48%, rgba(26, 115, 232, 0.08), transparent 48%),
+    #f9fbfe;
+  background-size: 36px 36px, 36px 36px, auto, auto;
+  transition: border-color 220ms ease, background-color 220ms ease;
+}
+
+.mechanism-stage[data-mechanism-tone="harm"] {
+  border-color: rgba(234, 67, 53, 0.28);
+  background-color: rgba(234, 67, 53, 0.035);
+}
+
+.mechanism-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 420px;
+}
+
+.mechanism-stage-status,
+.mechanism-stage-outcome {
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
+  backdrop-filter: blur(9px);
+}
+
+.mechanism-stage-status {
+  top: 14px;
+  left: 14px;
+  display: grid;
+  gap: 1px;
+  max-width: min(420px, calc(100% - 28px));
+  padding: 9px 11px;
+  border: 1px solid rgba(26, 115, 232, 0.13);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.mechanism-stage-status span {
+  color: var(--sage-dark);
+  font-size: 0.57rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.mechanism-stage-status strong {
+  font-size: 0.72rem;
+}
+
+.mechanism-stage-outcome {
+  right: 14px;
+  bottom: 14px;
+  max-width: min(430px, calc(100% - 28px));
+  padding: 8px 10px;
+  border: 1px solid rgba(0, 168, 132, 0.19);
+  border-radius: 8px;
+  color: #087d69;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 0.64rem;
+  font-weight: 800;
+}
+
+.mechanism-node {
+  --node-color: #64748b;
+  opacity: 1;
+  transition: transform 720ms cubic-bezier(0.22, 0.76, 0.3, 1), opacity 260ms ease, filter 260ms ease;
+}
+
+.mechanism-node.role-target {
+  --node-color: #1a73e8;
+}
+
+.mechanism-node.role-partner {
+  --node-color: #00a884;
+}
+
+.mechanism-node.role-drug {
+  --node-color: #7c3aed;
+}
+
+.mechanism-node.role-immune {
+  --node-color: #e99a00;
+}
+
+.mechanism-node.role-risk {
+  --node-color: #ea4335;
+}
+
+.mechanism-node.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mechanism-node.is-inactive {
+  opacity: 0.42;
+  filter: grayscale(0.5);
+}
+
+.mechanism-node.is-active {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--node-color) 38%, transparent));
+}
+
+.mechanism-node.is-damaged .mechanism-node-shape > :first-child {
+  fill: rgba(234, 67, 53, 0.16);
+  stroke: #ea4335;
+}
+
+.mechanism-node.is-blocked {
+  opacity: 0.68;
+  filter: grayscale(0.3);
+}
+
+.mechanism-node.is-tagged .mechanism-node-shape > :first-child {
+  stroke: #e99a00;
+  stroke-width: 5;
+}
+
+.mechanism-node.is-degrading {
+  opacity: 0.55;
+  filter: blur(0.6px);
+}
+
+.mechanism-node-shape > * {
+  vector-effect: non-scaling-stroke;
+}
+
+.mechanism-node-shape > circle,
+.mechanism-node-shape > ellipse,
+.mechanism-node-shape > rect,
+.mechanism-node-shape > polygon,
+.mechanism-node-shape > path:first-child {
+  fill: color-mix(in srgb, var(--node-color) 14%, white);
+  stroke: var(--node-color);
+  stroke-width: 2.5;
+}
+
+.mechanism-node.type-receptor .mechanism-node-shape > path,
+.mechanism-node.type-antibody .mechanism-node-shape > path,
+.mechanism-node.type-protein .mechanism-node-shape > path,
+.mechanism-node.type-molecule .mechanism-node-shape > path,
+.mechanism-node.type-mitochondrion .mechanism-node-shape > path,
+.mechanism-node.type-vessel .mechanism-node-shape > path,
+.mechanism-node.type-virus .mechanism-node-shape > line {
+  fill: none;
+  stroke: var(--node-color);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.mechanism-node.type-receptor .mechanism-node-shape > path,
+.mechanism-node.type-antibody .mechanism-node-shape > path {
+  stroke-width: 8;
+}
+
+.mechanism-node .mechanism-node-detail {
+  fill: color-mix(in srgb, var(--node-color) 45%, white);
+  stroke: var(--node-color);
+}
+
+.mechanism-node .mechanism-node-aura {
+  fill: color-mix(in srgb, var(--node-color) 8%, white);
+  stroke: color-mix(in srgb, var(--node-color) 35%, white);
+  stroke-width: 1.5;
+}
+
+.mechanism-node-label,
+.mechanism-node-sub,
+.mechanism-node-symbol,
+.mechanism-link-label {
+  font-family: "Inter", Arial, sans-serif;
+  pointer-events: none;
+}
+
+.mechanism-node-label {
+  fill: var(--ink);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.mechanism-node-sub {
+  fill: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.mechanism-node-symbol {
+  fill: var(--node-color) !important;
+  stroke: none !important;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.mechanism-link {
+  opacity: 0;
+  animation: mechanism-link-enter 320ms ease forwards;
+}
+
+.mechanism-link > path {
+  fill: none;
+  stroke: #00a884;
+  stroke-linecap: round;
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.mechanism-link.is-recruit > path,
+.mechanism-link.is-tag > path {
+  stroke: #7c3aed;
+  stroke-dasharray: 8 7;
+  animation: mechanism-flow 1.2s linear infinite;
+}
+
+.mechanism-link.is-signal > path {
+  stroke: #1a73e8;
+  stroke-dasharray: 9 7;
+  animation: mechanism-flow 1.05s linear infinite;
+}
+
+.mechanism-link.is-inhibit > path,
+.mechanism-link.is-block > path {
+  stroke: #ea4335;
+  stroke-dasharray: 7 7;
+}
+
+.mechanism-link.is-damage > path,
+.mechanism-link.is-degrade > path {
+  stroke: #ea4335;
+  stroke-dasharray: 11 7;
+  animation: mechanism-flow 0.9s linear infinite;
+}
+
+#mechanism-arrow path {
+  fill: #1a73e8;
+}
+
+#mechanism-arrow-harm path {
+  fill: #ea4335;
+}
+
+.mechanism-link-label {
+  fill: var(--ink-soft);
+  stroke: rgba(255, 255, 255, 0.96);
+  stroke-width: 7;
+  paint-order: stroke;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.mechanism-block-mark line {
+  stroke: #ea4335;
+  stroke-linecap: round;
+  stroke-width: 5;
+  vector-effect: non-scaling-stroke;
+}
+
+.mechanism-playback {
+  display: grid;
+  grid-template-columns: auto auto auto minmax(180px, 1fr);
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper-deep);
+}
+
+.mechanism-playback button {
+  min-height: 42px;
+  padding: 8px 13px;
+  border: 1px solid rgba(26, 115, 232, 0.22);
+  border-radius: 7px;
+  cursor: pointer;
+  color: var(--sage-dark);
+  background: var(--white);
+  font-size: 0.66rem;
+  font-weight: 800;
+}
+
+.mechanism-playback button.is-primary {
+  min-width: 76px;
+  color: var(--white);
+  background: var(--sage-dark);
+}
+
+.mechanism-playback button.is-primary.is-playing {
+  color: var(--sage-dark);
+  background: var(--white);
+}
+
+.mechanism-playback button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.mechanism-playback input[type="range"] {
+  width: 100%;
+  accent-color: var(--sage-dark);
+}
+
+.mechanism-step-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.mechanism-step-tabs button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  min-height: 58px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  background: var(--white);
+  text-align: left;
+}
+
+.mechanism-step-tabs button span {
+  display: grid;
+  width: 29px;
+  height: 29px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--sage-dark);
+  background: var(--mist);
+  font-size: 0.57rem;
+  font-weight: 800;
+}
+
+.mechanism-step-tabs button strong {
+  font-size: 0.62rem;
+  line-height: 1.35;
+}
+
+.mechanism-step-tabs button:hover,
+.mechanism-step-tabs button.is-active {
+  border-color: rgba(26, 115, 232, 0.44);
+  color: var(--sage-dark);
+  background: rgba(232, 240, 254, 0.48);
+}
+
+.mechanism-step-tabs button.is-active {
+  box-shadow: inset 0 -3px 0 var(--sage-dark);
+}
+
+.mechanism-explanation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.mechanism-explanation-grid article {
+  min-height: 178px;
+  padding: clamp(18px, 2.2vw, 25px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--white);
+}
+
+.mechanism-explanation-grid article > span {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--sage-dark);
+  font-size: 0.59rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.mechanism-explanation-grid h4 {
+  margin: 0 0 9px;
+  font-family: "Manrope", "Inter", Arial, sans-serif;
+  font-size: 1rem;
+}
+
+.mechanism-explanation-grid p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.7rem;
+}
+
+.mechanism-boundary-card {
+  grid-column: 1 / -1;
+  min-height: 0 !important;
+  border-left: 3px solid var(--clay) !important;
+  background: rgba(251, 188, 4, 0.055) !important;
+}
+
+.mechanism-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.mechanism-actions .button {
+  min-height: 46px;
+  padding: 11px 15px;
+  font-size: 0.68rem;
+}
+
+.mechanism-classroom-note {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.28fr) minmax(0, 1fr);
+  gap: 24px;
+  max-width: 1420px;
+  margin: 18px auto 0;
+  padding: 18px 20px;
+  border: 1px solid rgba(124, 58, 237, 0.16);
+  border-radius: 10px;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.mechanism-classroom-note strong {
+  font-size: 0.72rem;
+}
+
+.mechanism-classroom-note p {
+  margin: 0;
+  font-size: 0.69rem;
+}
+
+.mechanism-classroom :focus-visible {
+  outline: 3px solid rgba(26, 115, 232, 0.3);
+  outline-offset: 2px;
+}
+
+@keyframes mechanism-link-enter {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mechanism-flow {
+  to {
+    stroke-dashoffset: -31;
+  }
+}
+
+@media (max-width: 900px) {
+  .mechanism-classroom-heading {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .mechanism-player-heading {
+    flex-direction: column;
+  }
+
+  .mechanism-player-heading > span {
+    align-self: flex-start;
+  }
+
+  .mechanism-step-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .mechanism-classroom {
+    padding-inline: 12px;
+  }
+
+  .mechanism-classroom-heading {
+    padding-inline: 8px;
+  }
+
+  .mechanism-workbench {
+    padding: 12px;
+    border-radius: 13px;
+  }
+
+  .mechanism-case-toolbar,
+  .mechanism-player-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .mechanism-case-toolbar label {
+    flex-basis: auto;
+  }
+
+  .mechanism-library-count {
+    align-self: flex-start;
+    margin-bottom: 0;
+  }
+
+  .mechanism-canvas {
+    min-height: 0;
+  }
+
+  .mechanism-canvas.is-narrow .mechanism-node-label {
+    font-size: 18px;
+  }
+
+  .mechanism-canvas.is-narrow .mechanism-node-sub,
+  .mechanism-canvas.is-narrow .mechanism-link-label {
+    display: none;
+  }
+
+  .mechanism-stage-status {
+    top: 8px;
+    left: 8px;
+  }
+
+  .mechanism-stage-outcome {
+    right: 8px;
+    bottom: 8px;
+  }
+
+  .mechanism-playback {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .mechanism-playback input[type="range"] {
+    grid-column: 1 / -1;
+    min-height: 36px;
+  }
+
+  .mechanism-playback button {
+    min-height: 48px;
+    padding-inline: 8px;
+  }
+
+  .mechanism-step-tabs,
+  .mechanism-explanation-grid,
+  .mechanism-classroom-note {
+    grid-template-columns: 1fr;
+  }
+
+  .mechanism-boundary-card {
+    grid-column: auto;
+  }
+
+  .mechanism-explanation-grid article {
+    min-height: 0;
+  }
+
+  .mechanism-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mechanism-node,
+  .mechanism-link,
+  .mechanism-link > path {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .mechanism-link {
+    opacity: 1;
+  }
+}
+
 /* Classic Binding Atlas */
 .binding-atlas {
   padding: clamp(78px, 10vw, 142px) clamp(20px, 4.5vw, 72px);

@@ -390,6 +390,7 @@
   let loadSequence = 0;
   let storyTimer = null;
   let storyStepIndex = -1;
+  let initialViewerLoadRequested = false;
 
   const setLoadingProgress = (value, label) => {
     const normalized = Math.max(0, Math.min(100, Math.round(value)));
@@ -581,6 +582,7 @@
   };
 
   const loadVariant = async (variant) => {
+    initialViewerLoadRequested = true;
     stopStory();
     loadSequence += 1;
     const sequence = loadSequence;
@@ -808,5 +810,33 @@
   renderCaseList();
   renderVariants();
   updateVariantDetails(activeVariant);
-  loadVariant(activeVariant);
+  let viewerVisibilityTimer = null;
+  const stopViewerVisibilityChecks = () => {
+    window.removeEventListener("scroll", scheduleViewerVisibilityCheck);
+    window.removeEventListener("resize", scheduleViewerVisibilityCheck);
+    if (viewerVisibilityTimer) window.clearTimeout(viewerVisibilityTimer);
+    viewerVisibilityTimer = null;
+  };
+  const loadViewerWhenVisible = () => {
+    if (initialViewerLoadRequested) {
+      stopViewerVisibilityChecks();
+      return;
+    }
+    const bounds = viewerStage.getBoundingClientRect();
+    const visibleHeight = Math.min(window.innerHeight, bounds.bottom) - Math.max(0, bounds.top);
+    if (visibleHeight < Math.min(220, bounds.height * 0.35)) return;
+    stopViewerVisibilityChecks();
+    loadVariant(activeVariant);
+  };
+  function scheduleViewerVisibilityCheck() {
+    if (viewerVisibilityTimer) window.clearTimeout(viewerVisibilityTimer);
+    viewerVisibilityTimer = window.setTimeout(loadViewerWhenVisible, 400);
+  }
+  viewerVisibilityTimer = window.setTimeout(() => {
+    viewerVisibilityTimer = null;
+    if (initialViewerLoadRequested) return;
+    window.addEventListener("scroll", scheduleViewerVisibilityCheck, { passive: true });
+    window.addEventListener("resize", scheduleViewerVisibilityCheck);
+    loadViewerWhenVisible();
+  }, 700);
 })();

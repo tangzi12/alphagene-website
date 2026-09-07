@@ -391,7 +391,7 @@
     updateProgress(100, false);
     updateResultPanel(selectedCandidate);
     renderCandidateCards();
-    loadPdb(selectedCandidate);
+    if (viewer) loadPdb(selectedCandidate);
   }
 
   const downloadBlob = (filename, contents, type = "text/plain") => {
@@ -521,47 +521,74 @@ Research-use demonstration only. This candidate has not been experimentally test
     downloadBlob(`${selectedCandidate.id}-design-report.txt`, createReport(selectedCandidate), "text/plain;charset=utf-8");
   });
 
-  if (!window.AlphaGeneStructureViewer) {
-    loadingPanel.hidden = true;
-    errorPanel.hidden = false;
-    playbackStatus.textContent = "3D viewer library could not be loaded";
-    setViewerButtonsDisabled(true);
-    renderCandidateCards();
-    updateResultPanel(selectedCandidate);
-    return;
-  }
-
-  try {
-    viewer = window.AlphaGeneStructureViewer.createViewer(viewerElement, {
-      backgroundColor: "#f8fbff",
-      antialias: true,
-    });
-  } catch (_error) {
-    loadingPanel.hidden = true;
-    errorPanel.hidden = false;
-    playbackStatus.textContent = "Interactive structure viewer could not be started";
-    setViewerButtonsDisabled(true);
-    renderCandidateCards();
-    updateResultPanel(selectedCandidate);
-    return;
-  }
   setActiveModeButton(currentViewMode);
   resizeOverlay();
   updateProgress(100, false);
   renderCandidateCards();
   updateResultPanel(selectedCandidate);
-  loadPdb(selectedCandidate);
 
-  if ("ResizeObserver" in window) {
-    const resizeObserver = new ResizeObserver(() => {
-      resizeOverlay();
-      if (viewer) viewer.resize();
-    });
-    resizeObserver.observe(viewerStage);
-  } else {
-    window.addEventListener("resize", () => {
-      resizeOverlay();
-      if (viewer) viewer.resize();
-    });
+  let viewerInitializationStarted = false;
+  const initializeViewer = () => {
+    if (viewerInitializationStarted) return;
+    viewerInitializationStarted = true;
+    if (!window.AlphaGeneStructureViewer) {
+      loadingPanel.hidden = true;
+      errorPanel.hidden = false;
+      playbackStatus.textContent = "3D viewer library could not be loaded";
+      setViewerButtonsDisabled(true);
+      return;
+    }
+
+    try {
+      viewer = window.AlphaGeneStructureViewer.createViewer(viewerElement, {
+        backgroundColor: "#f8fbff",
+        antialias: true,
+      });
+    } catch (_error) {
+      loadingPanel.hidden = true;
+      errorPanel.hidden = false;
+      playbackStatus.textContent = "Interactive structure viewer could not be started";
+      setViewerButtonsDisabled(true);
+      return;
+    }
+    loadPdb(selectedCandidate);
+
+    if ("ResizeObserver" in window) {
+      const resizeObserver = new ResizeObserver(() => {
+        resizeOverlay();
+        if (viewer) viewer.resize();
+      });
+      resizeObserver.observe(viewerStage);
+    } else {
+      window.addEventListener("resize", () => {
+        resizeOverlay();
+        if (viewer) viewer.resize();
+      });
+    }
+  };
+
+  let viewerVisibilityTimer = null;
+  const stopViewerVisibilityChecks = () => {
+    window.removeEventListener("scroll", scheduleViewerVisibilityCheck);
+    window.removeEventListener("resize", scheduleViewerVisibilityCheck);
+    if (viewerVisibilityTimer) window.clearTimeout(viewerVisibilityTimer);
+    viewerVisibilityTimer = null;
+  };
+  const initializeWhenVisible = () => {
+    const bounds = viewerStage.getBoundingClientRect();
+    const visibleHeight = Math.min(window.innerHeight, bounds.bottom) - Math.max(0, bounds.top);
+    if (visibleHeight < Math.min(220, bounds.height * 0.35)) return;
+    stopViewerVisibilityChecks();
+    initializeViewer();
+  };
+  function scheduleViewerVisibilityCheck() {
+    if (viewerVisibilityTimer) window.clearTimeout(viewerVisibilityTimer);
+    viewerVisibilityTimer = window.setTimeout(initializeWhenVisible, 400);
   }
+  viewerVisibilityTimer = window.setTimeout(() => {
+    viewerVisibilityTimer = null;
+    window.addEventListener("scroll", scheduleViewerVisibilityCheck, { passive: true });
+    window.addEventListener("resize", scheduleViewerVisibilityCheck);
+    initializeWhenVisible();
+  }, 700);
 })();

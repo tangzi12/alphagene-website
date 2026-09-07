@@ -301,12 +301,12 @@ window.ALPHAGENE_HUMAN_TARGETS = Object.freeze({
   "human-c5ar1": {
     context: "Human · ANCA-associated vasculitis",
     name: "C5AR1 · Complement C5a receptor 1",
-    classification: "Clinically validated vasculitis target",
+    classification: "Regulatory review · mechanism target",
     accession: "P21730",
-    note: "Full reviewed sequence. C5a-receptor antagonism is approved as add-on treatment in selected severe active ANCA-associated vasculitis.",
+    note: "Full reviewed sequence. C5aR1 remains a mechanistically relevant inflammation receptor, but FDA proposed withdrawal of avacopan in April 2026 after questioning its efficacy evidence and identifying serious liver-injury concerns. It is not presented here as a validated-effective target.",
     sourceUrl: "https://www.uniprot.org/uniprotkb/P21730/entry",
     evidenceUrl:
-      "https://www.fda.gov/drugs/news-events-human-drugs/fda-approves-add-drug-adults-rare-form-blood-vessel-inflammation",
+      "https://www.fda.gov/drugs/drug-alerts-and-statements/cder-proposes-withdraw-approval-tavneos",
     sequence:
       "MDSFNYTTPDYGHYDDKDTLDLNTPVDKTSNTLRVPDILALVIFAVVFLVGVLGNALVVWVTAFEAKRTINAIWFLNLAVADFLSCLALPILFTSIVQHHHWPFGGAACSILPSLILLNMYASILLLATISADRFLLVFKPIWCQNFRGAGLAWIACAVAWGLALLLTIPSFLYRVVREEYFPPKVLCGVDYSHDKRRERAVAIVRLVLGFLWPLLTLTICYTFILLRTWSRRATRSTKTLKVVVAVVASFFIFWLPYQVTGIMMSFLEPSSPTFLLLKKLDSLCVSFAYINCCINPIIYVVAGQGFQGRLRKSLPSLLRNVLTEESVVRESKSFTRSTVDTMAQKTQAV",
   },

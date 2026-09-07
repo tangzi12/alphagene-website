@@ -68,7 +68,7 @@
                 <span>Curated example library</span>
                 <strong>Choose a disease-related protein</strong>
               </div>
-              <span>48 curated proteins · Human · Dog · Cat</span>
+              <span data-target-library-count>81 curated protein entries · Human · Dog · Cat</span>
             </div>
             <div class="target-picker">
               <label class="sr-only" for="target-example">Disease-related protein example</label>
@@ -120,8 +120,49 @@
                 <optgroup label="Human · Type 1 diabetes">
                   <option value="human-cd3e">Type 1 diabetes immune modulation — CD3 epsilon</option>
                 </optgroup>
-                <optgroup label="Human · Kidney">
+                <optgroup label="Human · Shared fibrosis mechanisms">
+                  <option value="human-tgfb1-mature">Fibrosis signaling — mature TGF-β1</option>
+                  <option value="human-itgb6-ectodomain">Fibrotic epithelium — integrin β6 ectodomain</option>
+                  <option value="human-pdgfrb-ectodomain">Activated pericytes / fibroblasts — PDGFR-β ectodomain</option>
+                  <option value="human-fap-ectodomain">Activated fibroblasts — FAP ectodomain</option>
+                  <option value="human-ccn2-mature">Extracellular matrix signaling — mature CCN2 / CTGF</option>
+                  <option value="human-il11-mature">Fibroblast signaling — mature IL-11</option>
+                  <option value="human-lpar1">Fibrotic signaling — LPA receptor 1</option>
+                  <option value="human-loxl2-region">Collagen cross-linking — LOXL2 structured region</option>
+                  <option value="human-lgals3-crd">Fibrotic inflammation — galectin-3 recognition domain</option>
+                  <option value="human-trem2-ectodomain">Scar-associated macrophages — TREM2 ectodomain</option>
+                </optgroup>
+                <optgroup label="Human · Kidney injury &amp; fibrosis">
+                  <option value="human-havcr1-ectodomain">Injured proximal tubule — KIM-1 / HAVCR1 ectodomain</option>
+                  <option value="human-ccr2">Inflammatory recruitment — CCR2</option>
+                  <option value="human-ednra">IgA nephropathy / proteinuria — endothelin-A receptor</option>
                   <option value="human-fgf23">Chronic kidney disease — FGF23</option>
+                </optgroup>
+                <optgroup label="Human · Kidney disease-specific pathways">
+                  <option value="human-apol1-g0">APOL1 kidney disease — G0 reference</option>
+                  <option value="human-apol1-g1">APOL1 kidney disease — G1 risk variant</option>
+                  <option value="human-apol1-g2">APOL1 kidney disease — G2 risk variant</option>
+                  <option value="human-april-mature">Primary IgA nephropathy — mature APRIL</option>
+                  <option value="human-cfb">C3 glomerulopathy / IgA nephropathy — complement factor B</option>
+                  <option value="human-sglt2">Proteinuric CKD / diabetes — SGLT2</option>
+                  <option value="human-agtr1">Proteinuric CKD / RAAS — angiotensin II type-1 receptor</option>
+                  <option value="human-mr-lbd">Diabetic CKD — mineralocorticoid receptor LBD</option>
+                  <option value="human-avpr2">Autosomal dominant polycystic kidney disease — V2 receptor</option>
+                </optgroup>
+                <optgroup label="Human · Lung fibrosis">
+                  <option value="human-pde4b-domain">IPF / progressive pulmonary fibrosis — PDE4B catalytic domain</option>
+                  <option value="human-il11ra-ectodomain">Pulmonary fibrosis research — IL-11Rα ectodomain</option>
+                  <option value="human-il13-mature">Type 2 fibrotic signaling — mature IL-13</option>
+                  <option value="human-il13ra2-ectodomain">Fibrotic signaling — IL-13Rα2 ectodomain</option>
+                  <option value="human-mmp7-mature">IPF candidate biomarker — mature MMP-7</option>
+                  <option value="human-sftpd-mature">Interstitial lung disease biomarker — mature SP-D</option>
+                </optgroup>
+                <optgroup label="Human · Liver fibrosis &amp; MASH">
+                  <option value="human-thrb">Noncirrhotic MASH F2–F3 — thyroid hormone receptor β</option>
+                  <option value="human-glp1r">Noncirrhotic MASH F2–F3 — GLP-1 receptor</option>
+                  <option value="human-pnpla3">Genetic steatotic liver disease — PNPLA3 reference</option>
+                  <option value="human-hsd17b13">Genetic liver protection pathway — HSD17B13</option>
+                  <option value="human-pdgfb-mature">Hepatic stellate-cell activation — mature PDGF-B</option>
                 </optgroup>
                 <optgroup label="Dog · Oncology">
                   <option value="dog-cd20">B-cell lymphoma — CD20 / MS4A1</option>
@@ -339,6 +380,7 @@
     <script defer src="structure-viewer.js?v=predictor-resilient-1"></script>
     <script defer src="script.js?v=design-studio-1"></script>
     <script defer src="protein-targets-human.js?v=long-sequence-progress-7"></script>
-    <script defer src="protein-predictor.js?v=predictor-resilient-1"></script>
+    <script defer src="protein-targets-fibrosis.js?v=fibrosis-library-1"></script>
+    <script defer src="protein-predictor.js?v=fibrosis-library-1"></script>
   </body>
 </html>

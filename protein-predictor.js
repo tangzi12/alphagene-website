@@ -8,6 +8,7 @@
     "MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLRLRGG";
   const TARGETS = {
     ...(window.ALPHAGENE_HUMAN_TARGETS || {}),
+    ...(window.ALPHAGENE_FIBROSIS_TARGETS || {}),
     "human-bcl2": {
       context: "Human · Acute leukemia / chronic lymphocytic leukemia",
       name: "BCL2 · Apoptosis regulator Bcl-2",
@@ -221,6 +222,7 @@
   const loadExample = form.querySelector("[data-load-example]");
   const clearButton = form.querySelector("[data-clear-sequence]");
   const targetSelect = document.querySelector("[data-target-select]");
+  const targetLibraryCount = document.querySelector("[data-target-library-count]");
   const predictTargetButton = document.querySelector("[data-predict-target]");
   const targetDetail = document.querySelector("[data-target-detail]");
   const targetContext = document.querySelector("[data-target-context]");
@@ -246,6 +248,10 @@
   const downloadButton = document.querySelector("[data-download-pdb]");
   const modeButtons = [...document.querySelectorAll("[data-view-mode]")];
   const resetViewButton = document.querySelector("[data-view-reset]");
+
+  if (targetLibraryCount) {
+    targetLibraryCount.textContent = `${Object.keys(TARGETS).length} curated protein entries · Human · Dog · Cat`;
+  }
 
   let viewer = null;
   let currentPdb = "";

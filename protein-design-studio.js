@@ -571,6 +571,7 @@ Research-use demonstration only. This candidate has not been experimentally test
   const stopViewerVisibilityChecks = () => {
     window.removeEventListener("scroll", scheduleViewerVisibilityCheck);
     window.removeEventListener("resize", scheduleViewerVisibilityCheck);
+    window.removeEventListener("load", scheduleViewerVisibilityCheck);
     if (viewerVisibilityTimer) window.clearTimeout(viewerVisibilityTimer);
     viewerVisibilityTimer = null;
   };
@@ -589,6 +590,7 @@ Research-use demonstration only. This candidate has not been experimentally test
     viewerVisibilityTimer = null;
     window.addEventListener("scroll", scheduleViewerVisibilityCheck, { passive: true });
     window.addEventListener("resize", scheduleViewerVisibilityCheck);
+    if (document.readyState !== "complete") window.addEventListener("load", scheduleViewerVisibilityCheck, { once: true });
     initializeWhenVisible();
   }, 700);
 })();

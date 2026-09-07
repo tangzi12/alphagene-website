@@ -528,11 +528,11 @@
       addInterfaceStyles(activeVariant);
       viewLabel.textContent = "Binding interface · residues within 5 Å highlighted";
     } else {
-      styleChains(activeVariant.targetChains, { cartoon: { color: colors.target, opacity: 0.88 } });
+      styleChains(activeVariant.targetChains, { cartoon: { color: colors.target } });
       if (activeVariant.ligand) {
         addLigandStyle(activeVariant);
       } else {
-        styleChains(activeVariant.partnerChains, { cartoon: { color: colors.partner, opacity: 0.9 } });
+        styleChains(activeVariant.partnerChains, { cartoon: { color: colors.partner } });
       }
       viewLabel.textContent = "Experimental complex";
     }

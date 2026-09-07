@@ -380,17 +380,36 @@
     return 0xef5a50;
   };
 
+  const disposeViewer = () => {
+    const staleViewer = viewer;
+    viewer = null;
+    try {
+      staleViewer?.destroy?.();
+    } catch (_destroyError) {
+      // Removing the canvas below is enough to detach an unusable viewer.
+    }
+    viewerElement.replaceChildren();
+    viewerElement.classList.remove("is-compatibility-viewer");
+  };
+
   const ensureViewer = () => {
     if (viewer) return true;
-    if (!window.$3Dmol) {
+    if (!window.AlphaGeneStructureViewer) {
       showError("The 3D viewer could not load. Check your connection and refresh the page.");
       return false;
     }
-    viewer = window.$3Dmol.createViewer(viewerElement, {
-      backgroundColor: "white",
-      antialias: true,
-    });
-    return true;
+    try {
+      viewer = window.AlphaGeneStructureViewer.createViewer(viewerElement, {
+        backgroundColor: "white",
+        antialias: true,
+      });
+      return true;
+    } catch (viewerError) {
+      console.error("[AlphaGene Fold] Viewer initialization failed", viewerError);
+      disposeViewer();
+      showError("The 3D viewer could not start. The prediction can be retried after refreshing the page.");
+      return false;
+    }
   };
 
   const removeSurfaces = () => {
@@ -444,10 +463,15 @@
 
   const clearStructure = () => {
     currentPdb = "";
-    removeSurfaces();
     if (viewer) {
-      viewer.removeAllModels();
-      viewer.render();
+      try {
+        removeSurfaces();
+        viewer.removeAllModels();
+        viewer.render();
+      } catch (viewerError) {
+        console.warn("[AlphaGene Fold] Resetting an unavailable viewer", viewerError);
+        disposeViewer();
+      }
     }
     viewerControls.hidden = true;
     resultPanel.hidden = true;
@@ -457,13 +481,32 @@
   };
 
   const showStructure = (pdb, sequenceLength) => {
-    if (!ensureViewer()) return false;
+    let finalViewerError = null;
 
-    currentPdb = pdb;
-    viewer.removeAllModels();
-    viewer.addModel(pdb, "pdb");
-    viewer.zoomTo();
-    renderMode("cartoon");
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      if (attempt > 0) disposeViewer();
+      if (!ensureViewer()) return false;
+
+      try {
+        viewer.removeAllModels();
+        viewer.addModel(pdb, "pdb");
+        currentPdb = pdb;
+        viewer.zoomTo();
+        renderMode("cartoon");
+        finalViewerError = null;
+        break;
+      } catch (viewerError) {
+        finalViewerError = viewerError;
+        currentPdb = "";
+      }
+    }
+
+    if (finalViewerError) {
+      console.error("[AlphaGene Fold] Structure rendering failed", finalViewerError);
+      disposeViewer();
+      showError("The prediction finished, but its 3D view could not be created. Refresh and try again.");
+      return false;
+    }
 
     const meanConfidence = readMeanConfidence(pdb);
     resultLength.textContent = `${sequenceLength} aa`;
@@ -582,8 +625,6 @@
       input.focus();
       return;
     }
-    if (!ensureViewer()) return;
-
     input.value = sequence;
     updateCount();
     clearStructure();

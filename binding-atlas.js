@@ -392,6 +392,9 @@
   let storyStepIndex = -1;
   let initialViewerLoadRequested = false;
 
+  const waitForRetry = (milliseconds) =>
+    new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+
   const setLoadingProgress = (value, label) => {
     const normalized = Math.max(0, Math.min(100, Math.round(value)));
     loadBar.style.width = `${normalized}%`;
@@ -581,6 +584,76 @@
     return text;
   };
 
+  const disposeViewer = () => {
+    const staleViewer = viewer;
+    viewer = null;
+    try {
+      staleViewer?.destroy?.();
+    } catch (_destroyError) {
+      // Replacing the host below is enough to detach a broken WebGL canvas.
+    }
+    viewerElement.replaceChildren();
+    viewerElement.classList.remove("is-compatibility-viewer");
+  };
+
+  const createAtlasViewer = () => {
+    if (!window.AlphaGeneStructureViewer) throw new Error("3D viewer is unavailable");
+    viewer = window.AlphaGeneStructureViewer.createViewer(viewerElement, {
+      backgroundColor: "#f8fbff",
+      antialias: true,
+    });
+  };
+
+  const renderPdbWithRecovery = async (pdbText, sequence) => {
+    let lastError = null;
+
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      if (sequence !== loadSequence || loadController?.signal.aborted) return false;
+
+      if (attempt > 0 || viewer?.isCompatibilityViewer) {
+        disposeViewer();
+        await waitForRetry(attempt === 0 ? 120 : attempt * 240);
+        if (sequence !== loadSequence || loadController?.signal.aborted) return false;
+      }
+
+      try {
+        if (!viewer) createAtlasViewer();
+        viewer.removeAllModels();
+        viewer.removeAllSurfaces();
+        viewer.removeAllLabels();
+        viewer.addModel(pdbText, "pdb");
+        currentPdbText = pdbText;
+        activeMode = "complex";
+        renderMode("complex", true);
+        return true;
+      } catch (error) {
+        lastError = error;
+        currentPdbText = "";
+      }
+    }
+
+    disposeViewer();
+    throw lastError || new Error("The structure viewer could not be rebuilt");
+  };
+
+  const readPdbWithRetry = async (variant, signal, progressCallback) => {
+    let lastError = null;
+
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      try {
+        return await readPdb(variant, signal, progressCallback);
+      } catch (error) {
+        if (error.name === "AbortError" || signal.aborted) throw error;
+        lastError = error;
+        cache.delete(variant.path);
+        progressCallback(6, `Retrying ${variant.pdb} coordinates.`);
+        await waitForRetry(220);
+      }
+    }
+
+    throw lastError || new Error(`PDB ${variant.pdb} could not be read`);
+  };
+
   const loadVariant = async (variant) => {
     initialViewerLoadRequested = true;
     stopStory();
@@ -597,24 +670,11 @@
     storyButton.disabled = true;
 
     try {
-      const pdbText = await readPdb(variant, loadController.signal, setLoadingProgress);
+      const pdbText = await readPdbWithRetry(variant, loadController.signal, setLoadingProgress);
       if (sequence !== loadSequence) return;
       setLoadingProgress(90, "Parsing atoms and building the interactive model.");
-
-      if (!viewer) {
-        if (!window.AlphaGeneStructureViewer) throw new Error("3D viewer is unavailable");
-        viewer = window.AlphaGeneStructureViewer.createViewer(viewerElement, {
-          backgroundColor: "#f8fbff",
-          antialias: true,
-        });
-      }
-      viewer.removeAllModels();
-      viewer.removeAllSurfaces();
-      viewer.removeAllLabels();
-      viewer.addModel(pdbText, "pdb");
-      currentPdbText = pdbText;
-      activeMode = "complex";
-      renderMode("complex", true);
+      const rendered = await renderPdbWithRecovery(pdbText, sequence);
+      if (!rendered || sequence !== loadSequence) return;
       setLoadingProgress(100, "Interactive structure ready.");
       window.setTimeout(() => {
         if (sequence === loadSequence) setLoading(false);
@@ -624,6 +684,7 @@
       viewerStage.setAttribute("aria-busy", "false");
     } catch (error) {
       if (error.name === "AbortError") return;
+      console.error(`[Binding Atlas] Failed to load PDB ${variant.pdb}`, error);
       setLoading(false);
       errorPanel.hidden = false;
       viewButtons.forEach((button) => (button.disabled = true));

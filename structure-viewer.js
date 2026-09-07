@@ -297,6 +297,20 @@
       this.requestRender();
     }
 
+    destroy() {
+      if (this.frame) {
+        window.cancelAnimationFrame(this.frame);
+        this.frame = 0;
+      }
+      this.resizeObserver?.disconnect();
+      this.dragState = null;
+      this.atoms = [];
+      this.rules = [];
+      this.focusSelection = null;
+      this.canvas?.remove();
+      this.element.classList.remove("is-compatibility-viewer");
+    }
+
     render() {
       if (!this.atoms.length) return;
       const bounds = this.element.getBoundingClientRect();

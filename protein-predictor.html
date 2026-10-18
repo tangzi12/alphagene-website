@@ -16,6 +16,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css?v=design-studio-1" />
+    <link rel="stylesheet" href="organ-target-library.css?v=organ-binding-1" />
+    <link rel="stylesheet" href="candidate-binding-demo.css?v=organ-binding-1" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -49,6 +51,7 @@
             Select a disease-related protein or paste a sequence, run it through AlphaGene Fold, and inspect the
             predicted structure directly in your browser.
           </p>
+          <a class="button ghost" href="#candidate-binding-demo">Explore a candidate binding concept</a>
         </div>
       </section>
 
@@ -68,12 +71,38 @@
                 <span>Curated example library</span>
                 <strong>Choose a disease-related protein</strong>
               </div>
-              <span data-target-library-count>81 curated protein entries · Human · Dog · Cat</span>
+              <span data-target-library-count>90 curated protein entries · Human · Dog · Cat</span>
+            </div>
+            <div class="organ-library-filter">
+              <label for="target-organ">Browse by organ / organ failure</label>
+              <select id="target-organ" data-target-organ>
+                <option value="all">All organs and diseases</option>
+                <option value="heart">Heart · failure &amp; remodeling</option>
+                <option value="kidney">Kidney · disease, failure &amp; fibrosis</option>
+                <option value="lung">Lung · fibrosis &amp; functional decline</option>
+                <option value="liver">Liver · fibrosis &amp; disease</option>
+                <option value="shared">Shared organ-fibrosis mechanisms</option>
+              </select>
             </div>
             <div class="target-picker">
               <label class="sr-only" for="target-example">Disease-related protein example</label>
               <select id="target-example" data-target-select>
                 <option value="">Select a disease and protein…</option>
+                <optgroup label="Human · Heart failure &amp; remodeling">
+                  <option value="human-adrb1">Heart failure — β1AR / ADRB1</option>
+                  <option value="human-crbn">Cardiac dysfunction research — CRBN / Cereblon</option>
+                  <option value="human-rassf7">Early cardiac-stress research — RASSF7</option>
+                </optgroup>
+                <optgroup label="Human · Shared heart &amp; kidney fibrosis research">
+                  <option value="human-tet3-cxxc-domain">Fibrosis research — TET3 CXXC domain</option>
+                  <option value="human-smad3">TGF-β signaling — SMAD3</option>
+                  <option value="human-stat3">Inflammation / fibrosis — STAT3</option>
+                  <option value="human-sting1">Innate immune signaling — STING / TMEM173</option>
+                </optgroup>
+                <optgroup label="Human · Kidney failure mechanisms &amp; research">
+                  <option value="human-tspyl2">Diabetic kidney fibrosis — CDA1 / TSPYL2</option>
+                  <option value="human-igha1-constant">IgA nephropathy context — IgA1 constant region</option>
+                </optgroup>
                 <optgroup label="Human · Blood cancers">
                   <option value="human-bcl2">Acute leukemia / CLL — BCL2</option>
                   <option value="human-cd20">B-cell lymphoma — CD20 / MS4A1</option>
@@ -122,7 +151,7 @@
                 </optgroup>
                 <optgroup label="Human · Shared fibrosis mechanisms">
                   <option value="human-tgfb1-mature">Fibrosis signaling — mature TGF-β1</option>
-                  <option value="human-itgb6-ectodomain">Fibrotic epithelium — integrin β6 ectodomain</option>
+                  <option value="human-itgb6-ectodomain">αvβ6 integrin — β6 ectodomain / ITGB6</option>
                   <option value="human-pdgfrb-ectodomain">Activated pericytes / fibroblasts — PDGFR-β ectodomain</option>
                   <option value="human-fap-ectodomain">Activated fibroblasts — FAP ectodomain</option>
                   <option value="human-ccn2-mature">Extracellular matrix signaling — mature CCN2 / CTGF</option>
@@ -208,8 +237,12 @@
               <div class="target-links">
                 <a data-target-source target="_blank" rel="noreferrer">Sequence source</a>
                 <a data-target-evidence target="_blank" rel="noreferrer">Disease context</a>
+                <a href="#candidate-binding-demo" data-target-binding-demo hidden>Watch candidate binding concept · 16 sec</a>
               </div>
             </div>
+            <a class="organ-mechanism-link" href="#candidate-binding-demo" data-iga-mechanism>
+              IgA kidney disease: explore the BHV-1400 / Gd-IgA1 mechanism →
+            </a>
             <p class="library-disclaimer">
               This is a curated, expandable library of commonly studied examples—not an exhaustive list of every
               disease-associated protein or a diagnostic panel. “Biomarker,” “research target,” and “clinically
@@ -330,6 +363,8 @@
         </div>
       </section>
 
+      <section id="candidate-binding-demo" data-candidate-binding-demo aria-label="Candidate protein binding concept"></section>
+
       <section class="structure-explainer">
         <div class="structure-explainer-heading reveal">
           <p class="eyebrow">What the predictor does</p>
@@ -381,6 +416,8 @@
     <script defer src="script.js?v=design-studio-1"></script>
     <script defer src="protein-targets-human.js?v=long-sequence-progress-7"></script>
     <script defer src="protein-targets-fibrosis.js?v=fibrosis-library-1"></script>
-    <script defer src="protein-predictor.js?v=fibrosis-library-1"></script>
+    <script defer src="protein-targets-cardiorenal.js?v=organ-binding-1"></script>
+    <script defer src="candidate-binding-demo.js?v=organ-binding-1"></script>
+    <script defer src="protein-predictor.js?v=organ-binding-1"></script>
   </body>
 </html>

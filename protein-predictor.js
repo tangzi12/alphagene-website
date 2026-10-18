@@ -9,6 +9,7 @@
   const TARGETS = {
     ...(window.ALPHAGENE_HUMAN_TARGETS || {}),
     ...(window.ALPHAGENE_FIBROSIS_TARGETS || {}),
+    ...(window.ALPHAGENE_CARDIORENAL_TARGETS || {}),
     "human-bcl2": {
       context: "Human · Acute leukemia / chronic lymphocytic leukemia",
       name: "BCL2 · Apoptosis regulator Bcl-2",
@@ -222,6 +223,8 @@
   const loadExample = form.querySelector("[data-load-example]");
   const clearButton = form.querySelector("[data-clear-sequence]");
   const targetSelect = document.querySelector("[data-target-select]");
+  const targetOrgan = document.querySelector("[data-target-organ]");
+  const targetMenuTemplate = [...targetSelect.children].map((child) => child.cloneNode(true));
   const targetLibraryCount = document.querySelector("[data-target-library-count]");
   const predictTargetButton = document.querySelector("[data-predict-target]");
   const targetDetail = document.querySelector("[data-target-detail]");
@@ -231,6 +234,8 @@
   const targetNote = document.querySelector("[data-target-note]");
   const targetSource = document.querySelector("[data-target-source]");
   const targetEvidence = document.querySelector("[data-target-evidence]");
+  const targetBindingDemo = document.querySelector("[data-target-binding-demo]");
+  const igaMechanismLink = document.querySelector("[data-iga-mechanism]");
   const viewerElement = document.querySelector("[data-molecule-viewer]");
   const viewerEmpty = document.querySelector("[data-viewer-empty]");
   const viewerLoading = document.querySelector("[data-viewer-loading]");
@@ -249,9 +254,88 @@
   const modeButtons = [...document.querySelectorAll("[data-view-mode]")];
   const resetViewButton = document.querySelector("[data-view-reset]");
 
-  if (targetLibraryCount) {
-    targetLibraryCount.textContent = `${Object.keys(TARGETS).length} curated protein entries · Human · Dog · Cat`;
-  }
+  const canPredict = (target) =>
+    typeof target?.sequence === "string" &&
+    target.sequence.length > 0 &&
+    target.sequence.length <= MAX_RESIDUES &&
+    CANONICAL_AMINO_ACIDS.test(target.sequence);
+
+  // Existing examples keep their disease groups; organ filters also include shared pathways.
+  const legacyOrganGroups = {
+    "human-tgfb1-mature": ["heart", "kidney", "lung", "liver", "shared"],
+    "human-itgb6-ectodomain": ["kidney", "lung", "liver", "shared"],
+    "human-pdgfrb-ectodomain": ["heart", "kidney", "lung", "liver", "shared"],
+    "human-fap-ectodomain": ["heart", "kidney", "lung", "liver", "shared"],
+    "human-ccn2-mature": ["heart", "kidney", "lung", "liver", "shared"],
+    "human-il11-mature": ["heart", "kidney", "lung", "liver", "shared"],
+    "human-lpar1": ["kidney", "lung", "liver", "shared"],
+    "human-loxl2-region": ["heart", "kidney", "lung", "liver", "shared"],
+    "human-lgals3-crd": ["heart", "kidney", "lung", "liver", "shared"],
+    "human-trem2-ectodomain": ["kidney", "lung", "liver", "shared"],
+    "human-havcr1-ectodomain": ["kidney"],
+    "human-ccr2": ["heart", "kidney", "lung", "liver", "shared"],
+    "human-ednra": ["kidney"],
+    "human-fgf23": ["kidney"],
+    "human-apol1-g0": ["kidney"],
+    "human-apol1-g1": ["kidney"],
+    "human-apol1-g2": ["kidney"],
+    "human-april-mature": ["kidney"],
+    "human-cfb": ["kidney"],
+    "human-sglt2": ["heart", "kidney"],
+    "human-agtr1": ["heart", "kidney"],
+    "human-mr-lbd": ["heart", "kidney"],
+    "human-avpr2": ["kidney"],
+    "human-pde4b-domain": ["lung"],
+    "human-il11ra-ectodomain": ["lung"],
+    "human-il13-mature": ["lung"],
+    "human-il13ra2-ectodomain": ["lung"],
+    "human-mmp7-mature": ["lung"],
+    "human-sftpd-mature": ["lung"],
+    "human-thrb": ["liver"],
+    "human-glp1r": ["liver"],
+    "human-pnpla3": ["liver"],
+    "human-hsd17b13": ["liver"],
+    "human-pdgfb-mature": ["liver"],
+    "human-baff": ["kidney"],
+    "human-ifna2": ["kidney"],
+    "human-c5ar1": ["kidney"],
+    "dog-ngal": ["kidney"],
+    "dog-fgf23": ["kidney"],
+    "dog-nppb": ["heart"],
+    "cat-fgf23": ["kidney"],
+    "cat-nppb": ["heart"],
+  };
+
+  const filterTargetLibrary = () => {
+    const organ = targetOrgan?.value || "all";
+    const previousValue = targetSelect.value;
+    const fragment = document.createDocumentFragment();
+    targetMenuTemplate.forEach((template) => {
+      const node = template.cloneNode(true);
+      if (node.tagName === "OPTGROUP") {
+        [...node.children].forEach((option) => {
+          const target = TARGETS[option.value];
+          const organs = target?.organGroups || legacyOrganGroups[option.value] || [];
+          if (!target || (organ !== "all" && !organs.includes(organ))) option.remove();
+        });
+        if (node.children.length) fragment.append(node);
+      } else {
+        fragment.append(node);
+      }
+    });
+    targetSelect.replaceChildren(fragment);
+    targetSelect.value = [...targetSelect.options].some((option) => option.value === previousValue)
+      ? previousValue
+      : "";
+    if (targetLibraryCount) {
+      const total = Object.keys(TARGETS).length;
+      const visible = targetSelect.options.length - 1;
+      targetLibraryCount.textContent = organ === "all"
+        ? `${total} curated protein entries · Human · Dog · Cat`
+        : `${visible} of ${total} protein entries`;
+    }
+    updateTargetDetail();
+  };
 
   let viewer = null;
   let currentPdb = "";
@@ -358,7 +442,8 @@
     loadExample.disabled = isLoading;
     clearButton.disabled = isLoading;
     targetSelect.disabled = isLoading;
-    predictTargetButton.disabled = isLoading || !TARGETS[targetSelect.value];
+    if (targetOrgan) targetOrgan.disabled = isLoading;
+    predictTargetButton.disabled = isLoading || !canPredict(TARGETS[targetSelect.value]);
     submitLabel.textContent = isLoading ? "Predicting…" : "Predict structure";
     submitSpinner.hidden = !isLoading;
     viewerLoading.hidden = !isLoading;
@@ -595,25 +680,35 @@
 
   const updateTargetDetail = () => {
     const target = TARGETS[targetSelect.value];
-    predictTargetButton.disabled = !target;
+    predictTargetButton.disabled = !canPredict(target);
     targetDetail.hidden = !target;
+    if (targetBindingDemo) targetBindingDemo.hidden = !target?.bindingDemoKey;
     if (!target) return;
 
     targetContext.textContent = target.context;
     targetName.textContent = target.name;
     targetClassification.textContent = target.classification;
-    targetNote.textContent = `${target.note} Sequence length: ${target.sequence.length} residues.`;
+    targetNote.textContent = `${target.note} Sequence length: ${target.sequence?.length || 0} residues.`;
     targetSource.href = target.sourceUrl;
     targetSource.textContent = `UniProt ${target.accession}`;
     targetEvidence.href = target.evidenceUrl;
     targetEvidence.textContent = "Disease context";
+    if (target.bindingDemoKey) {
+      window.dispatchEvent(new CustomEvent("alphagene:target-selected", {
+        detail: { key: targetSelect.value, demoKey: target.bindingDemoKey },
+      }));
+    }
   };
 
   targetSelect.addEventListener("change", updateTargetDetail);
+  targetOrgan?.addEventListener("change", filterTargetLibrary);
+  igaMechanismLink?.addEventListener("click", () => {
+    window.AlphaGeneBindingDemo?.selectTarget("iga1");
+  });
 
   predictTargetButton.addEventListener("click", () => {
     const target = TARGETS[targetSelect.value];
-    if (!target) return;
+    if (!canPredict(target)) return;
     input.value = target.sequence;
     updateCount();
     clearError();
@@ -681,6 +776,12 @@
     if (viewer) viewer.resize();
   });
 
+  const libraryParams = new URLSearchParams(window.location.search);
+  if (targetOrgan && [...targetOrgan.options].some((option) => option.value === libraryParams.get("organ"))) {
+    targetOrgan.value = libraryParams.get("organ");
+  }
+  const initialTarget = libraryParams.get("target");
+  if (initialTarget && TARGETS[initialTarget]) targetSelect.value = initialTarget;
   updateCount();
-  updateTargetDetail();
+  filterTargetLibrary();
 })();

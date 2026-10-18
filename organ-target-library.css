@@ -1,0 +1,61 @@
+.organ-library-filter {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.organ-library-filter label {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.organ-library-filter select {
+  width: 100%;
+  min-height: 46px;
+  padding: 9px 34px 9px 12px;
+  border: 1px solid rgba(26, 115, 232, 0.25);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--white);
+  font-size: 0.84rem;
+}
+
+.organ-library-filter select:focus-visible {
+  outline: 3px solid rgba(26, 115, 232, 0.3);
+  outline-offset: 2px;
+}
+
+.organ-mechanism-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--sage-dark);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.target-library-heading > span {
+  white-space: normal;
+  text-align: right;
+}
+
+.target-detail-title {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.target-classification {
+  max-width: 100%;
+  white-space: normal;
+}
+
+@media (max-width: 600px) {
+  .organ-library-filter select,
+  .target-picker select {
+    font-size: 16px;
+  }
+
+  .target-library-heading > span {
+    text-align: left;
+  }
+}

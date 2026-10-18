@@ -11,3 +11,5 @@ The 16-second candidate-binding component is shared by the predictor and Design 
 Open a concept with `protein-predictor.html?binding=smad3#candidate-binding-demo` or `?binding=iga1#candidate-binding-demo`. Link to a library selection with `?organ=kidney&target=human-tspyl2`. The predictor emits `alphagene:target-selected` with `{ key, demoKey }`; the animation also exposes `window.AlphaGeneBindingDemo.selectTarget(demoKey)`.
 
 Serve the folder over HTTP for local preview, for example `python3 -m http.server 4173 --bind 127.0.0.1`.
+
+`protein-binding-concepts.html` is the focused presentation player. It embeds the same component CSS and JavaScript and uses system fonts, so playback has no external asset, WebGL, GPU, or API dependency. Regenerate its embedded component whenever the source component files change.

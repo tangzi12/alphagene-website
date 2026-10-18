@@ -694,6 +694,7 @@
     targetEvidence.href = target.evidenceUrl;
     targetEvidence.textContent = "Disease context";
     if (target.bindingDemoKey) {
+      if (targetBindingDemo) targetBindingDemo.href = `protein-binding-concepts.html?binding=${encodeURIComponent(target.bindingDemoKey)}`;
       window.dispatchEvent(new CustomEvent("alphagene:target-selected", {
         detail: { key: targetSelect.value, demoKey: target.bindingDemoKey },
       }));

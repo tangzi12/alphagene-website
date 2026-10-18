@@ -394,7 +394,7 @@
   window.addEventListener("alphagene:target-selected",(event)=>selectTarget(event.detail?.demoKey||event.detail?.key));
   if("ResizeObserver" in window) new ResizeObserver(resize).observe(canvas); else window.addEventListener("resize",resize);
   window.AlphaGeneBindingDemo={selectTarget,play,pause,replay,targets:Object.fromEntries(Object.entries(targets).map(([id,target])=>[id,{name:target.name,organs:[...target.organs],kind:target.kind}]))};
-  const requestedTarget = new URLSearchParams(window.location.search).get("binding");
+  const requestedTarget = new URLSearchParams(window.location.search).get("binding") || document.querySelector("[data-target-select]")?.value;
   selectTarget(normalizeKey(requestedTarget)||host.dataset.initialTarget||"smad3");
   resize();
 })();

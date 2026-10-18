@@ -235,7 +235,6 @@
   const targetSource = document.querySelector("[data-target-source]");
   const targetEvidence = document.querySelector("[data-target-evidence]");
   const targetBindingDemo = document.querySelector("[data-target-binding-demo]");
-  const igaMechanismLink = document.querySelector("[data-iga-mechanism]");
   const viewerElement = document.querySelector("[data-molecule-viewer]");
   const viewerEmpty = document.querySelector("[data-viewer-empty]");
   const viewerLoading = document.querySelector("[data-viewer-loading]");
@@ -694,18 +693,12 @@
     targetEvidence.href = target.evidenceUrl;
     targetEvidence.textContent = "Disease context";
     if (target.bindingDemoKey) {
-      if (targetBindingDemo) targetBindingDemo.href = `protein-binding-concepts.html?binding=${encodeURIComponent(target.bindingDemoKey)}`;
-      window.dispatchEvent(new CustomEvent("alphagene:target-selected", {
-        detail: { key: targetSelect.value, demoKey: target.bindingDemoKey },
-      }));
+      if (targetBindingDemo) targetBindingDemo.href = `protein-design-studio.html?binding=${encodeURIComponent(target.bindingDemoKey)}#atlas-structure-viewer`;
     }
   };
 
   targetSelect.addEventListener("change", updateTargetDetail);
   targetOrgan?.addEventListener("change", filterTargetLibrary);
-  igaMechanismLink?.addEventListener("click", () => {
-    window.AlphaGeneBindingDemo?.selectTarget("iga1");
-  });
 
   predictTargetButton.addEventListener("click", () => {
     const target = TARGETS[targetSelect.value];

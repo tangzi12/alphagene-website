@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css?v=viewer-ribbon-3" />
-    <link rel="stylesheet" href="candidate-binding-demo.css?v=organ-binding-1" />
+    <link rel="stylesheet" href="organ-binding-cinematic.css?v=atomic-binding-1" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -71,7 +71,7 @@
           <li><span>03</span><strong>Design sequence</strong><small>ProteinMPNN with fixed motif</small></li>
           <li><span>04</span><strong>Review candidate</strong><small>Structure and method checks</small></li>
         </ol>
-        <a class="button ghost" href="protein-binding-concepts.html">Heart &amp; kidney candidate-binding concepts · 16 sec</a>
+        <a class="button ghost" href="#binding-atlas">Heart &amp; kidney binding stories · 16 sec</a>
       </section>
 
       <section class="mechanism-classroom" id="mechanism-classroom" aria-labelledby="mechanism-classroom-title">
@@ -189,13 +189,13 @@
       <section class="binding-atlas" id="binding-atlas" aria-labelledby="binding-atlas-title">
         <div class="binding-atlas-heading reveal">
           <div>
-            <span class="atlas-reference-badge">Experimental reference structures</span>
+            <span class="atlas-reference-badge">Experimental references &amp; interaction concepts</span>
             <p class="eyebrow">Classic Binding Atlas</p>
-            <h2 id="binding-atlas-title">See how established ligands and inhibitors engage their targets.</h2>
+            <h2 id="binding-atlas-title">Explore protein recognition, from whole folds to atomic contacts.</h2>
           </div>
           <p>
-            Explore nine landmark binding stories across oncology, metabolism, immunology, and infectious disease.
-            Each view replays a public experimental structure from the Protein Data Bank—not a newly generated AlphaGene result.
+            Compare established PD-1 and HER2 complexes with heart and kidney interaction concepts in the same
+            3D workspace. Switch between folded ribbons, atoms and bonds, and contact close-ups.
           </p>
         </div>
 
@@ -208,7 +208,7 @@
                 <p class="eyebrow">Case library</p>
                 <h3 id="atlas-case-list-title">Choose a binding story</h3>
               </div>
-              <span data-atlas-case-count>9 cases</span>
+              <span data-atlas-case-count>18 cases</span>
             </div>
             <div class="atlas-case-list" data-atlas-case-list></div>
           </aside>
@@ -223,7 +223,7 @@
               <span class="atlas-pdb-badge" data-atlas-pdb>PDB 4ZQK</span>
             </div>
 
-            <div class="atlas-variant-tabs" role="tablist" aria-label="Available experimental structures" data-atlas-variants></div>
+            <div class="atlas-variant-tabs" role="tablist" aria-label="Available reference structures" data-atlas-variants></div>
 
             <div class="atlas-viewer-toolbar">
               <div class="viewer-controls atlas-view-modes" role="group" aria-label="Structure view" data-atlas-view-modes>
@@ -231,6 +231,7 @@
                 <button class="viewer-mode" type="button" data-atlas-view="target" aria-pressed="false">Target</button>
                 <button class="viewer-mode" type="button" data-atlas-view="partner" aria-pressed="false" data-atlas-partner-mode>Partner</button>
                 <button class="viewer-mode" type="button" data-atlas-view="interface" aria-pressed="false">Interface</button>
+                <button class="viewer-mode" type="button" data-atlas-view="atoms" aria-pressed="false">Atoms &amp; bonds</button>
                 <button class="viewer-mode" type="button" data-atlas-view="reset" aria-pressed="false">Reset</button>
               </div>
               <button class="atlas-story-button" type="button" data-atlas-play-story>
@@ -238,7 +239,7 @@
               </button>
             </div>
 
-            <div class="atlas-viewer-stage" id="atlas-structure-viewer" role="region" aria-label="Interactive experimental complex viewer" data-atlas-viewer-stage>
+            <div class="atlas-viewer-stage" id="atlas-structure-viewer" role="region" aria-label="Interactive molecular structure viewer" data-atlas-viewer-stage>
               <div class="viewer-canvas" data-atlas-molecule-viewer></div>
               <div class="atlas-viewer-label">
                 <span data-atlas-view-label>Experimental complex</span>
@@ -259,7 +260,9 @@
               </div>
             </div>
 
-            <div class="atlas-story-strip" aria-label="Binding story stages">
+            <div data-atlas-cinematic-controls hidden></div>
+
+            <div class="atlas-story-strip" aria-label="Binding story stages" data-atlas-story-strip>
               <button type="button" data-atlas-story-step="target"><span>01</span><strong data-atlas-target-step>Target</strong></button>
               <i aria-hidden="true">→</i>
               <button type="button" data-atlas-story-step="partner"><span>02</span><strong data-atlas-partner-step>Partner</strong></button>
@@ -283,7 +286,7 @@
                 <p data-atlas-mechanism></p>
               </article>
               <article>
-                <span>Experimental record</span>
+                <span>Structure record</span>
                 <dl class="atlas-fact-list">
                   <div><dt>Method</dt><dd data-atlas-method>—</dd></div>
                   <div><dt>Resolution</dt><dd data-atlas-resolution>—</dd></div>
@@ -305,18 +308,15 @@
         </div>
 
         <div class="atlas-disclaimer reveal">
-          <strong>Reference-library boundary</strong>
+          <strong>Structure sources</strong>
           <p>
-            These are public experimental structures used to explain molecular recognition. Static coordinates do
-            not establish affinity, selectivity, efficacy, safety, or real-time binding dynamics. Antibody entries show
-            Fab fragments where indicated; receptor entries may show only experimental domains or ectodomains.
-            <a href="assets/binding-atlas/ATTRIBUTION.txt">View structure provenance</a>.
+            Established-complex cases use public experimental structures. Heart and kidney concepts combine a
+            public target structure with a public scaffold in an illustrative pose; no proprietary candidate is shown.
+            Internal sticks represent covalent bonds, while dashed cross-chain lines indicate proximity only.
+            <a href="assets/binding-atlas/ATTRIBUTION.txt">Experimental references</a> ·
+            <a href="assets/organ-binding/ATTRIBUTION.txt">Organ-target references</a>.
           </p>
         </div>
-      </section>
-
-      <section id="candidate-binding-demo" data-candidate-binding-demo aria-label="Candidate protein binding concept">
-        <p><a class="button primary" href="protein-binding-concepts.html">Open the 16-second candidate binding player</a></p>
       </section>
 
       <section class="design-studio-shell" id="design-workbench">
@@ -594,12 +594,13 @@
       </p>
     </footer>
 
-    <script async src="candidate-binding-demo.js?v=organ-binding-2"></script>
     <script src="script.js?v=binding-atlas-2"></script>
     <script src="mechanism-simulator.js?v=mechanism-classroom-1"></script>
     <script defer src="assets/vendor/3dmol/3Dmol-min-2.5.5.js"></script>
-    <script defer src="structure-viewer.js?v=viewer-ribbon-9"></script>
-    <script defer src="binding-atlas.js?v=viewer-ribbon-9"></script>
+    <script defer src="structure-viewer.js?v=atomic-binding-1"></script>
+    <script defer src="organ-binding-cases.js?v=atomic-binding-1"></script>
+    <script defer src="organ-binding-cinematic.js?v=atomic-binding-1"></script>
+    <script defer src="binding-atlas.js?v=atomic-binding-1"></script>
     <script defer src="protein-design-studio.js?v=viewer-ribbon-9"></script>
   </body>
 </html>

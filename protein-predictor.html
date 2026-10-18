@@ -17,7 +17,6 @@
     />
     <link rel="stylesheet" href="styles.css?v=design-studio-1" />
     <link rel="stylesheet" href="organ-target-library.css?v=organ-binding-1" />
-    <link rel="stylesheet" href="candidate-binding-demo.css?v=organ-binding-1" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -51,7 +50,7 @@
             Select a disease-related protein or paste a sequence, run it through AlphaGene Fold, and inspect the
             predicted structure directly in your browser.
           </p>
-          <a class="button ghost" href="protein-binding-concepts.html">Explore a candidate binding concept</a>
+          <a class="button ghost" href="protein-design-studio.html?binding=smad3#atlas-structure-viewer">Explore a 3D binding story</a>
         </div>
       </section>
 
@@ -237,11 +236,11 @@
               <div class="target-links">
                 <a data-target-source target="_blank" rel="noreferrer">Sequence source</a>
                 <a data-target-evidence target="_blank" rel="noreferrer">Disease context</a>
-                <a href="protein-binding-concepts.html" data-target-binding-demo hidden>Watch candidate binding concept · 16 sec</a>
+                <a href="protein-design-studio.html?binding=smad3#atlas-structure-viewer" data-target-binding-demo hidden>Watch 3D binding story · 16 sec</a>
               </div>
             </div>
-            <a class="organ-mechanism-link" href="protein-binding-concepts.html?binding=iga1" data-iga-mechanism>
-              IgA kidney disease: explore the BHV-1400 / Gd-IgA1 mechanism →
+            <a class="organ-mechanism-link" href="protein-design-studio.html?binding=iga1#atlas-structure-viewer">
+              IgA kidney disease: inspect an IgA1 recognition concept →
             </a>
             <p class="library-disclaimer">
               This is a curated, expandable library of commonly studied examples—not an exhaustive list of every
@@ -363,10 +362,6 @@
         </div>
       </section>
 
-      <section id="candidate-binding-demo" data-candidate-binding-demo aria-label="Candidate protein binding concept">
-        <p><a class="button primary" href="protein-binding-concepts.html">Open the 16-second candidate binding player</a></p>
-      </section>
-
       <section class="structure-explainer">
         <div class="structure-explainer-heading reveal">
           <p class="eyebrow">What the predictor does</p>
@@ -413,13 +408,12 @@
       </p>
     </footer>
 
-    <script async src="candidate-binding-demo.js?v=organ-binding-2"></script>
     <script defer src="assets/vendor/3dmol/3Dmol-min-2.5.5.js"></script>
-    <script defer src="structure-viewer.js?v=predictor-resilient-1"></script>
+    <script defer src="structure-viewer.js?v=atomic-binding-1"></script>
     <script defer src="script.js?v=design-studio-1"></script>
     <script defer src="protein-targets-human.js?v=long-sequence-progress-7"></script>
     <script defer src="protein-targets-fibrosis.js?v=fibrosis-library-1"></script>
     <script defer src="protein-targets-cardiorenal.js?v=organ-binding-1"></script>
-    <script defer src="protein-predictor.js?v=organ-binding-1"></script>
+    <script defer src="protein-predictor.js?v=atomic-binding-1"></script>
   </body>
 </html>

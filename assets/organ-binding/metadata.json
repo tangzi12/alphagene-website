@@ -1,0 +1,220 @@
+{
+  "retrievedOn": "2026-10-18",
+  "purpose": "Public structural references for illustrative protein-binding animation. Targets and scaffold are independent; no validated or predicted binding complex is supplied.",
+  "noCandidateDisclosure": true,
+  "processing": "First NMR model only; requested protein chain; heavy ATOM records only; highest-occupancy alternate conformation; source residue numbering and atomic coordinates preserved. Atom serials renumbered. Waters, ligands, DNA, metals, hydrogens and other chains omitted. Missing coordinates not generated.",
+  "records": [
+    {
+      "key": "tet3",
+      "filename": "target-tet3.pdb",
+      "accession": "O43151",
+      "source": "RCSB PDB 4Z3C",
+      "sourceUrl": "https://files.rcsb.org/download/4Z3C.pdb",
+      "sourceType": "experimental X-ray",
+      "sourceChain": "C",
+      "description": "TET3 CXXC zinc-finger experimental region. Construct covers UniProt 47-98; source IDs retained. DNA and zinc omitted.",
+      "extractedRange": null,
+      "visibleSourceRange": [
+        52,
+        96
+      ],
+      "residueCount": 45,
+      "heavyAtomCount": 324,
+      "incompleteBackboneResidueIds": [
+        52
+      ],
+      "discardedAlternativeHeavyAtomRecords": 19,
+      "confidence": "Experimental coordinates; unresolved atoms and residues have not been reconstructed."
+    },
+    {
+      "key": "crbn",
+      "filename": "target-crbn.pdb",
+      "accession": "Q96SW2",
+      "source": "RCSB PDB 4TZ4",
+      "sourceUrl": "https://files.rcsb.org/download/4TZ4.pdb",
+      "sourceType": "experimental X-ray",
+      "sourceChain": "C",
+      "description": "Cereblon experimental structured construct. PDB 48-428 maps to UniProt 47-427. DDB1, ligand and zinc omitted.",
+      "extractedRange": null,
+      "visibleSourceRange": [
+        48,
+        428
+      ],
+      "residueCount": 361,
+      "heavyAtomCount": 2852,
+      "incompleteBackboneResidueIds": [],
+      "discardedAlternativeHeavyAtomRecords": 0,
+      "confidence": "Experimental coordinates; unresolved atoms and residues have not been reconstructed."
+    },
+    {
+      "key": "rassf7",
+      "filename": "target-rassf7.pdb",
+      "accession": "Q02833",
+      "source": "AlphaFold DB AF-Q02833-F1 v6",
+      "sourceUrl": "https://alphafold.ebi.ac.uk/files/AF-Q02833-F1-model_v6.pdb",
+      "sourceType": "predicted AlphaFold monomer",
+      "sourceChain": "A",
+      "description": "RASSF7 Ras-associating domain, public predicted monomer residues 6-89.",
+      "extractedRange": [
+        6,
+        89
+      ],
+      "visibleSourceRange": [
+        6,
+        89
+      ],
+      "residueCount": 84,
+      "heavyAtomCount": 643,
+      "incompleteBackboneResidueIds": [],
+      "discardedAlternativeHeavyAtomRecords": 0,
+      "confidence": "Public prediction; PDB B-factor column preserves pLDDT, not experimental temperature factors."
+    },
+    {
+      "key": "adrb1",
+      "filename": "target-adrb1.pdb",
+      "accession": "P08588",
+      "source": "AlphaFold DB AF-P08588-F1 v6",
+      "sourceUrl": "https://alphafold.ebi.ac.uk/files/AF-P08588-F1-model_v6.pdb",
+      "sourceType": "predicted AlphaFold monomer",
+      "sourceChain": "A",
+      "description": "Beta-1 adrenergic receptor transmembrane region, public predicted monomer residues 54-399. Membrane and signaling partners omitted.",
+      "extractedRange": [
+        54,
+        399
+      ],
+      "visibleSourceRange": [
+        54,
+        399
+      ],
+      "residueCount": 346,
+      "heavyAtomCount": 2702,
+      "incompleteBackboneResidueIds": [],
+      "discardedAlternativeHeavyAtomRecords": 0,
+      "confidence": "Public prediction; PDB B-factor column preserves pLDDT, not experimental temperature factors."
+    },
+    {
+      "key": "smad3",
+      "filename": "target-smad3.pdb",
+      "accession": "P84022",
+      "source": "RCSB PDB 1MJS",
+      "sourceUrl": "https://files.rcsb.org/download/1MJS.pdb",
+      "sourceType": "experimental X-ray",
+      "sourceChain": "A",
+      "description": "SMAD3 MH2 domain experimental monomer. PDB 228-424 maps to UniProt 229-425. Unresolved residues omitted.",
+      "extractedRange": null,
+      "visibleSourceRange": [
+        228,
+        417
+      ],
+      "residueCount": 178,
+      "heavyAtomCount": 1397,
+      "incompleteBackboneResidueIds": [],
+      "discardedAlternativeHeavyAtomRecords": 0,
+      "confidence": "Experimental coordinates; unresolved atoms and residues have not been reconstructed."
+    },
+    {
+      "key": "cda1",
+      "filename": "target-cda1.pdb",
+      "accession": "Q9H2G4",
+      "source": "AlphaFold DB AF-Q9H2G4-F1 v6",
+      "sourceUrl": "https://alphafold.ebi.ac.uk/files/AF-Q9H2G4-F1-model_v6.pdb",
+      "sourceType": "predicted AlphaFold monomer",
+      "sourceChain": "A",
+      "description": "CDA1/TSPYL2 public predicted central structural segment 210-460. This is a visual segment, not a validated binding site or precisely annotated functional-domain boundary.",
+      "extractedRange": [
+        210,
+        460
+      ],
+      "visibleSourceRange": [
+        210,
+        460
+      ],
+      "residueCount": 251,
+      "heavyAtomCount": 2130,
+      "incompleteBackboneResidueIds": [],
+      "discardedAlternativeHeavyAtomRecords": 0,
+      "confidence": "Public prediction; PDB B-factor column preserves pLDDT, not experimental temperature factors."
+    },
+    {
+      "key": "stat3",
+      "filename": "target-stat3.pdb",
+      "accession": "P40763",
+      "source": "RCSB PDB 6NJS",
+      "sourceUrl": "https://files.rcsb.org/download/6NJS.pdb",
+      "sourceType": "experimental X-ray",
+      "sourceChain": "A",
+      "description": "STAT3 experimental core construct, UniProt 127-688. Ligand and unresolved residues omitted; deposited residue IDs retained.",
+      "extractedRange": null,
+      "visibleSourceRange": [
+        136,
+        687
+      ],
+      "residueCount": 523,
+      "heavyAtomCount": 4166,
+      "incompleteBackboneResidueIds": [],
+      "discardedAlternativeHeavyAtomRecords": 6,
+      "confidence": "Experimental coordinates; unresolved atoms and residues have not been reconstructed."
+    },
+    {
+      "key": "sting",
+      "filename": "target-sting.pdb",
+      "accession": "Q86WV6",
+      "source": "RCSB PDB 4EMT",
+      "sourceUrl": "https://files.rcsb.org/download/4EMT.pdb",
+      "sourceType": "experimental X-ray",
+      "sourceChain": "A",
+      "description": "STING cyclic-dinucleotide-binding domain experimental monomer; construct maps to UniProt 155-341. Source residue IDs retained, including deposited N-terminal SER154. Ligand, dimer partner and membrane region omitted.",
+      "extractedRange": null,
+      "visibleSourceRange": [
+        154,
+        337
+      ],
+      "residueCount": 173,
+      "heavyAtomCount": 1399,
+      "incompleteBackboneResidueIds": [],
+      "discardedAlternativeHeavyAtomRecords": 0,
+      "confidence": "Experimental coordinates; unresolved atoms and residues have not been reconstructed."
+    },
+    {
+      "key": "iga1",
+      "filename": "target-iga1.pdb",
+      "accession": "P01876-1",
+      "source": "RCSB PDB 1OW0",
+      "sourceUrl": "https://files.rcsb.org/download/1OW0.pdb",
+      "sourceType": "experimental X-ray",
+      "sourceChain": "A",
+      "description": "IgA1 Fc heavy-chain constant-region segment. PDB 241-454 maps to UniProt 122-335; visible 242-450 maps to 123-331. Secreted and membrane isoforms share this region. No hinge glycans, complete antibody or Gd-IgA1 glycoform is represented.",
+      "extractedRange": null,
+      "visibleSourceRange": [
+        242,
+        450
+      ],
+      "residueCount": 209,
+      "heavyAtomCount": 1435,
+      "incompleteBackboneResidueIds": [],
+      "discardedAlternativeHeavyAtomRecords": 0,
+      "confidence": "Experimental coordinates; unresolved atoms and residues have not been reconstructed."
+    },
+    {
+      "key": "scaffold-reference",
+      "filename": "scaffold-reference.pdb",
+      "accession": null,
+      "source": "RCSB PDB 1L2Y",
+      "sourceUrl": "https://files.rcsb.org/download/1L2Y.pdb",
+      "sourceType": "experimental solution NMR; model 1",
+      "sourceChain": "A",
+      "description": "TC5b Trp-cage 20-residue miniprotein, first NMR model only. Public reference scaffold, not a designed candidate or validated binder to these targets.",
+      "extractedRange": null,
+      "visibleSourceRange": [
+        1,
+        20
+      ],
+      "residueCount": 20,
+      "heavyAtomCount": 154,
+      "incompleteBackboneResidueIds": [],
+      "discardedAlternativeHeavyAtomRecords": 0,
+      "confidence": "Experimental coordinates; unresolved atoms and residues have not been reconstructed."
+    }
+  ]
+}
+

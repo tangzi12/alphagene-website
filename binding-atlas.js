@@ -335,6 +335,8 @@
     },
   ];
 
+  cases.push(...(window.ALPHAGENE_ORGAN_BINDING_CASES || []));
+
   const colors = {
     target: "#1a73e8",
     partner: "#00a884",
@@ -342,7 +344,7 @@
     muted: "#c5d0dc",
   };
   const cache = new Map();
-  const filters = ["All", "Oncology", "Metabolism", "Immunology", "Infectious disease"];
+  const filters = ["All", ...new Set(cases.map((item) => item.category))];
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const filterHost = document.querySelector("[data-atlas-filters]");
@@ -379,13 +381,18 @@
   const storyButton = document.querySelector("[data-atlas-play-story]");
   const viewButtons = [...document.querySelectorAll("[data-atlas-view]")];
   const storyStepButtons = [...document.querySelectorAll("[data-atlas-story-step]")];
+  const cinematicControls = document.querySelector("[data-atlas-cinematic-controls]");
+  const storyStrip = document.querySelector("[data-atlas-story-strip]");
 
   let activeFilter = "All";
-  let activeCase = cases[0];
-  let activeVariant = cases[0].variants[0];
+  const initialBinding = new URLSearchParams(window.location.search).get("binding");
+  let activeCase = cases.find((item) => item.id === `organ-${initialBinding}`) || cases[0];
+  let activeVariant = activeCase.variants[0];
   let activeMode = "complex";
   let viewer = null;
   let currentPdbText = "";
+  let currentModel = null;
+  let cinematic = null;
   let loadController = null;
   let loadSequence = 0;
   let storyTimer = null;
@@ -409,11 +416,12 @@
   };
 
   const stopStory = () => {
+    cinematic?.pause();
     if (storyTimer) window.clearTimeout(storyTimer);
     storyTimer = null;
     storyStepIndex = -1;
     storyButton.classList.remove("is-playing");
-    storyButton.textContent = "Play 3-step binding story";
+    storyButton.textContent = activeVariant.illustrative ? "Play 16-second binding story" : "Play 3-step binding story";
   };
 
   const setActiveViewControls = (mode) => {
@@ -507,11 +515,25 @@
     if (!viewer || !currentPdbText) return;
     const mode = requestedMode === "reset" ? "complex" : requestedMode;
     activeMode = mode;
+    if (cinematic) {
+      cinematic.setViewMode(requestedMode);
+      viewLabel.textContent = mode === "atoms" ? "Atoms & covalent bonds · element colors" : mode === "interface" ? "Illustrative contact region · proximity lines" : "Public target + scaffold surrogate · illustrative pose";
+      return;
+    }
     viewer.removeAllSurfaces();
     viewer.removeAllLabels();
     viewer.setStyle({}, {});
 
-    if (mode === "target") {
+    if (mode === "atoms") {
+      [...activeVariant.targetChains, ...activeVariant.partnerChains].forEach((chain) => {
+        viewer.setStyle({ chain, hetflag: false }, {
+          stick: { radius: 0.13, colorscheme: "Jmol" },
+          sphere: { scale: 0.22, colorscheme: "Jmol" },
+        });
+      });
+      if (activeVariant.ligand) addLigandStyle(activeVariant);
+      viewLabel.textContent = "Atoms & covalent bonds · element colors";
+    } else if (mode === "target") {
       styleChains(activeVariant.targetChains, { cartoon: { color: colors.target } });
       viewLabel.textContent = activeVariant.targetName;
     } else if (mode === "partner") {
@@ -576,7 +598,7 @@
       received += value.byteLength;
       text += decoder.decode(value, { stream: true });
       const transferProgress = total ? received / total : Math.min(received / 2400000, 1);
-      progressCallback(8 + transferProgress * 72, "Downloading experimental coordinates.");
+      progressCallback(8 + transferProgress * 72, "Downloading reference coordinates.");
     }
     text += decoder.decode();
     cache.set(variant.path, text);
@@ -587,6 +609,7 @@
   const disposeViewer = () => {
     const staleViewer = viewer;
     viewer = null;
+    currentModel = null;
     try {
       staleViewer?.destroy?.();
     } catch (_destroyError) {
@@ -621,7 +644,7 @@
         viewer.removeAllModels();
         viewer.removeAllSurfaces();
         viewer.removeAllLabels();
-        viewer.addModel(pdbText, "pdb");
+        currentModel = viewer.addModel(pdbText, "pdb");
         currentPdbText = pdbText;
         activeMode = "complex";
         renderMode("complex", true);
@@ -657,6 +680,9 @@
   const loadVariant = async (variant) => {
     initialViewerLoadRequested = true;
     stopStory();
+    cinematic?.destroy();
+    cinematic = null;
+    if (cinematicControls) cinematicControls.hidden = true;
     loadSequence += 1;
     const sequence = loadSequence;
     if (loadController) loadController.abort();
@@ -665,16 +691,37 @@
     viewerStage.setAttribute("aria-busy", "true");
     setLoading(true);
     setLoadingProgress(4, "Reading coordinates from the local case library.");
-    loadingTitle.textContent = `Loading ${variant.pdb}`;
+    loadingTitle.textContent = `Loading ${variant.pdb}${variant.illustrative ? " reference structures" : ""}`;
     viewButtons.forEach((button) => (button.disabled = true));
     storyButton.disabled = true;
 
     try {
-      const pdbText = await readPdbWithRetry(variant, loadController.signal, setLoadingProgress);
+      let pdbText;
+      if (variant.illustrative) {
+        const [targetText, scaffoldText] = await Promise.all([
+          readPdbWithRetry(variant, loadController.signal, setLoadingProgress),
+          readPdbWithRetry({ path: variant.scaffoldPath, pdb: "public scaffold" }, loadController.signal, () => {}),
+        ]);
+        if (sequence !== loadSequence) return;
+        pdbText = window.AlphaGeneBindingCinematic.composePdb(targetText, scaffoldText).pdb;
+      } else {
+        pdbText = await readPdbWithRetry(variant, loadController.signal, setLoadingProgress);
+      }
       if (sequence !== loadSequence) return;
       setLoadingProgress(90, "Parsing atoms and building the interactive model.");
       const rendered = await renderPdbWithRecovery(pdbText, sequence);
       if (!rendered || sequence !== loadSequence) return;
+      if (variant.illustrative) {
+        cinematic = window.AlphaGeneBindingCinematic.mount({
+          viewer, model: currentModel, variant, controlsHost: cinematicControls,
+          statusElement: storyStatus, stageHost: viewerStage,
+          onViewMode: (mode) => {
+            activeMode = mode;
+            setActiveViewControls(mode);
+            viewLabel.textContent = mode === "interface" ? "Illustrative contact region · dashed lines are proximity" : mode === "atoms" ? "Atoms & covalent bonds · element colors" : "Public target + illustrative scaffold";
+          },
+        });
+      }
       setLoadingProgress(100, "Interactive structure ready.");
       window.setTimeout(() => {
         if (sequence === loadSequence) setLoading(false);
@@ -698,23 +745,27 @@
     titleElement.textContent = variant.title;
     subtitleElement.textContent = variant.subtitle;
     categoryElement.textContent = activeCase.eyebrow;
-    pdbBadge.textContent = `PDB ${variant.pdb}`;
+    pdbBadge.textContent = variant.illustrative ? "Illustrative pose" : `PDB ${variant.pdb}`;
     methodElement.textContent = variant.method;
     resolutionElement.textContent = variant.resolution;
     chainsElement.textContent = variant.chainLabel;
     mechanismTitle.textContent = variant.mechanismTitle;
     mechanismElement.textContent = variant.mechanism;
     scopeElement.textContent = variant.scope;
-    rcsbLink.href = `https://www.rcsb.org/structure/${variant.pdb}`;
-    rcsbLink.setAttribute("aria-label", `Open RCSB record for PDB ${variant.pdb}`);
+    rcsbLink.href = variant.illustrative ? variant.sourceUrl : `https://www.rcsb.org/structure/${variant.pdb}`;
+    rcsbLink.textContent = variant.illustrative ? "Open target reference" : "Open RCSB record";
+    rcsbLink.setAttribute("aria-label", variant.illustrative ? `Open ${variant.targetName} public reference` : `Open RCSB record for PDB ${variant.pdb}`);
     downloadLink.href = variant.path;
-    downloadLink.download = `${variant.pdb.toLowerCase()}.pdb`;
+    downloadLink.textContent = variant.illustrative ? "Download public target PDB" : "Download experimental PDB";
+    downloadLink.download = variant.illustrative ? `${variant.bindingKey}-target-reference.pdb` : `${variant.pdb.toLowerCase()}.pdb`;
     targetLegend.textContent = variant.targetName;
     partnerLegend.textContent = variant.partnerName;
     partnerModeButton.textContent = variant.ligand ? "Ligand" : "Partner";
     targetStepLabel.textContent = variant.targetName;
     partnerStepLabel.textContent = variant.partnerName;
-    storyStatus.textContent = "Three-step explanatory view · not a molecular-dynamics trajectory.";
+    storyButton.hidden = Boolean(variant.illustrative);
+    if (storyStrip) storyStrip.hidden = Boolean(variant.illustrative);
+    storyStatus.textContent = variant.illustrative ? "Public target and scaffold coordinates · illustrative placement, not a predicted complex." : "Three-step explanatory view · not a molecular-dynamics trajectory.";
   };
 
   const renderVariants = () => {
@@ -726,7 +777,7 @@
       button.setAttribute("role", "tab");
       button.setAttribute("aria-selected", String(index === 0));
       button.classList.toggle("is-active", index === 0);
-      button.innerHTML = `<strong>${variant.label}</strong><small>PDB ${variant.pdb} · ${variant.resolution}</small>`;
+      button.innerHTML = `<strong>${variant.label}</strong><small>${variant.illustrative ? "Public reference coordinates · hypothetical pose" : `PDB ${variant.pdb} · ${variant.resolution}`}</small>`;
       button.addEventListener("click", () => {
         [...variantHost.children].forEach((tab) => {
           tab.classList.remove("is-active");
@@ -768,7 +819,7 @@
       button.setAttribute("aria-pressed", String(item.id === activeCase.id));
       button.classList.toggle("is-active", item.id === activeCase.id);
       button.innerHTML = `
-        <span><i>${item.category}</i><em>${item.variants.length > 1 ? `${item.variants.length} structures` : item.variants[0].pdb}</em></span>
+        <span><i>${item.category}</i><em>${item.variants[0].illustrative ? "16 s · concept" : item.variants.length > 1 ? `${item.variants.length} structures` : item.variants[0].pdb}</em></span>
         <strong>${item.cardTitle}</strong>
         <small>${item.summary}</small>
       `;
@@ -825,7 +876,7 @@
     button.addEventListener("click", () => {
       stopStory();
       renderMode(button.dataset.atlasView, true);
-      storyStatus.textContent = "Manual structure view selected. Coordinates remain the same experimental snapshot.";
+      storyStatus.textContent = activeVariant.illustrative ? "Illustrative pose · inspect internal covalent bonds and proximity separately." : "Manual structure view selected. Coordinates remain the same experimental snapshot.";
     });
   });
 
@@ -902,4 +953,13 @@
     if (document.readyState !== "complete") window.addEventListener("load", scheduleViewerVisibilityCheck, { once: true });
     loadViewerWhenVisible();
   }, 700);
+
+  // Case cards are populated after the browser's initial fragment scroll. Restore
+  // deep-link framing once that layout exists, especially for stacked mobile cards.
+  if (window.location.hash === "#atlas-structure-viewer") {
+    window.requestAnimationFrame(() => {
+      viewerStage.scrollIntoView({ block: "start", behavior: "instant" });
+      loadViewerWhenVisible();
+    });
+  }
 })();

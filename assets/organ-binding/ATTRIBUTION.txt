@@ -1,0 +1,105 @@
+PUBLIC REFERENCE STRUCTURES FOR ALPHAGENE ORGAN BINDING TEACHING VIEWS
+Retrieved: 2026-10-18
+
+These are public target/reference-scaffold coordinates, not proprietary AlphaGene
+designs, candidate sequences, docking poses, measured interactions or binding-site
+disclosures. An animation moving the target and scaffold together is illustrative,
+not a molecular-dynamics trajectory or a binding prediction.
+
+Files retain real protein heavy-atom coordinates (N, CA, C, O and available side
+chains). Missing atoms/residues are not reconstructed. Hydrogens, DNA, ligands,
+waters, ions and other chains are removed. Highest-occupancy alternate conformers
+are selected. Source residue IDs are retained; atom serials are renumbered.
+Experimental constructs may differ from the reviewed sequence. See sources.
+
+RCSB PDB archive data: CC0. https://www.rcsb.org/pages/policies
+AlphaFold DB: CC BY 4.0. https://alphafold.ebi.ac.uk/faq
+Credit: AlphaFold Protein Structure Database, EMBL-EBI and Google DeepMind.
+Jumper et al., Nature 596, 583-589 (2021).
+https://doi.org/10.1038/s41586-021-03819-2
+AlphaFold metadata API was inaccessible during retrieval; official versioned v6
+PDB file endpoints were retrieved directly and verified as PDB coordinates.
+
+target-tet3.pdb
+  Source: RCSB PDB 4Z3C (experimental X-ray)
+  https://files.rcsb.org/download/4Z3C.pdb
+  UniProt: O43151
+  TET3 CXXC zinc-finger experimental region. Construct covers UniProt 47-98; source IDs retained. DNA and zinc omitted.
+  324 heavy atoms; 45 visible residues.
+
+target-crbn.pdb
+  Source: RCSB PDB 4TZ4 (experimental X-ray)
+  https://files.rcsb.org/download/4TZ4.pdb
+  UniProt: Q96SW2
+  Cereblon experimental structured construct. PDB 48-428 maps to UniProt 47-427. DDB1, ligand and zinc omitted.
+  2852 heavy atoms; 361 visible residues.
+
+target-rassf7.pdb
+  Source: AlphaFold DB AF-Q02833-F1 v6 (predicted AlphaFold monomer)
+  https://alphafold.ebi.ac.uk/files/AF-Q02833-F1-model_v6.pdb
+  UniProt: Q02833
+  RASSF7 Ras-associating domain, public predicted monomer residues 6-89.
+  643 heavy atoms; 84 visible residues.
+
+target-adrb1.pdb
+  Source: AlphaFold DB AF-P08588-F1 v6 (predicted AlphaFold monomer)
+  https://alphafold.ebi.ac.uk/files/AF-P08588-F1-model_v6.pdb
+  UniProt: P08588
+  Beta-1 adrenergic receptor transmembrane region, public predicted monomer residues 54-399. Membrane and signaling partners omitted.
+  2702 heavy atoms; 346 visible residues.
+
+target-smad3.pdb
+  Source: RCSB PDB 1MJS (experimental X-ray)
+  https://files.rcsb.org/download/1MJS.pdb
+  UniProt: P84022
+  SMAD3 MH2 domain experimental monomer. PDB 228-424 maps to UniProt 229-425. Unresolved residues omitted.
+  1397 heavy atoms; 178 visible residues.
+
+target-cda1.pdb
+  Source: AlphaFold DB AF-Q9H2G4-F1 v6 (predicted AlphaFold monomer)
+  https://alphafold.ebi.ac.uk/files/AF-Q9H2G4-F1-model_v6.pdb
+  UniProt: Q9H2G4
+  CDA1/TSPYL2 public predicted central structural segment 210-460. This is a visual segment, not a validated binding site or precisely annotated functional-domain boundary.
+  2130 heavy atoms; 251 visible residues.
+
+target-stat3.pdb
+  Source: RCSB PDB 6NJS (experimental X-ray)
+  https://files.rcsb.org/download/6NJS.pdb
+  UniProt: P40763
+  STAT3 experimental core construct, UniProt 127-688. Ligand and unresolved residues omitted; deposited residue IDs retained.
+  4166 heavy atoms; 523 visible residues.
+
+target-sting.pdb
+  Source: RCSB PDB 4EMT (experimental X-ray)
+  https://files.rcsb.org/download/4EMT.pdb
+  UniProt: Q86WV6
+  STING cyclic-dinucleotide-binding domain experimental monomer; construct maps to UniProt 155-341. Source residue IDs retained, including deposited N-terminal SER154. Ligand, dimer partner and membrane region omitted.
+  1399 heavy atoms; 173 visible residues.
+
+target-iga1.pdb
+  Source: RCSB PDB 1OW0 (experimental X-ray)
+  https://files.rcsb.org/download/1OW0.pdb
+  UniProt: P01876-1
+  IgA1 Fc heavy-chain constant-region segment. PDB 241-454 maps to UniProt 122-335; visible 242-450 maps to 123-331. Secreted and membrane isoforms share this region. No hinge glycans, complete antibody or Gd-IgA1 glycoform is represented.
+  1435 heavy atoms; 209 visible residues.
+
+scaffold-reference.pdb
+  Source: RCSB PDB 1L2Y (experimental solution NMR; model 1)
+  https://files.rcsb.org/download/1L2Y.pdb
+  UniProt: Not applicable; de novo TC5b miniprotein
+  TC5b Trp-cage 20-residue miniprotein, first NMR model only. Public reference scaffold, not a designed candidate or validated binder to these targets.
+  154 heavy atoms; 20 visible residues.
+
+SCAFFOLD CREDIT
+  1L2Y: Neidigh, Fesinmeyer and Andersen, Designing a 20-residue protein.
+  Nature Structural Biology 9, 425-430 (2002).
+  https://doi.org/10.1038/nsb798
+  https://www.rcsb.org/structure/1L2Y
+  TC5b Trp-cage, first NMR conformer. It is not a designed or validated binder
+  to TET3, CRBN, RASSF7, ADRB1, SMAD3, CDA1, STAT3, STING or IgA1.
+
+IgA NOTE
+  The IgA1 asset is a public Fc fragment. Gd-IgA1 is defined by hinge
+  glycosylation, which is not represented here. BHV-1400 is a drug candidate,
+  not a protein or the reference scaffold supplied here.
+

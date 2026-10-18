@@ -2,6 +2,7 @@
   const clamp = (value, minimum, maximum) => Math.max(minimum, Math.min(maximum, value));
 
   const normalizeColor = (value, fallback = "#1a73e8") => {
+    if (typeof value === "number" && Number.isFinite(value)) return `#${(value >>> 0).toString(16).padStart(6, "0").slice(-6)}`;
     if (typeof value !== "string") return fallback;
     if (value.startsWith("#")) return value;
     const colors = {
@@ -39,6 +40,27 @@
 
   const isEmptyObject = (value) => !value || Object.keys(value).length === 0;
 
+  const covalentRadii = { H: 0.31, B: 0.85, C: 0.76, N: 0.71, O: 0.66, F: 0.57, SI: 1.11, P: 1.07, S: 1.05, CL: 1.02, SE: 1.2, BR: 1.2, I: 1.39 };
+  const elementColors = { H: "#e5e9ef", C: "#8793a5", N: "#3478db", O: "#e14d53", F: "#65ba75", P: "#ef9c3b", S: "#e2bf43", CL: "#64b775", BR: "#ac6154", I: "#9b69b6", ZN: "#a5a8c7", FE: "#bc8054" };
+  const residueKey = (atom) => `${atom.chain}:${atom.resi}:${atom.icode || ""}`;
+  const atomElement = (line, record) => {
+    const explicit = line.slice(76, 78).trim().toUpperCase();
+    if (explicit) return explicit;
+    const field = line.slice(12, 16);
+    const name = field.trim().replace(/^\d+/, "").toUpperCase();
+    if (record === "ATOM" || /^\s/.test(field)) return name[0] || "C";
+    return covalentRadii[name.slice(0, 2)] ? name.slice(0, 2) : name[0] || "C";
+  };
+  const atomColor = (atom, style) => {
+    const atomic = [style.sphere, style.stick, style.line].filter(Boolean);
+    const representations = atomic.length ? atomic : [style.cartoon].filter(Boolean);
+    const colored = representations.find((representation) => representation.color !== undefined);
+    if (colored) return normalizeColor(colored.color);
+    if (style.color !== undefined) return normalizeColor(style.color);
+    if (representations.some((representation) => representation.colorscheme) || style.colorscheme) return elementColors[atom.elem] || "#9b86b7";
+    return elementColors[atom.elem] || "#9b86b7";
+  };
+
   const catmullRom = (before, from, to, after, progress) => {
     const progressSquared = progress * progress;
     const progressCubed = progressSquared * progress;
@@ -57,6 +79,7 @@
       this.options = options;
       this.atoms = [];
       this.rules = [];
+      this.shapes = [];
       this.focusSelection = null;
       this.rotationX = -0.24;
       this.rotationY = 0.62;
@@ -158,21 +181,69 @@
         const secondary = secondaryRanges.find(
           (range) => range.chain === chain && resi >= Math.min(range.start, range.end) && resi <= Math.max(range.start, range.end)
         )?.type;
+        const elem = atomElement(line, record);
         atoms.push({
           index: atoms.length,
+          serial: Number.parseInt(line.slice(6, 11), 10),
           atom: line.slice(12, 16).trim(),
           resn: line.slice(17, 20).trim(),
           chain,
           resi,
+          icode: line.slice(26, 27).trim(),
           x,
           y,
           z,
-          element: line.slice(76, 78).trim() || line.slice(12, 14).trim(),
+          elem,
+          element: elem,
+          bonds: [],
+          bondOrder: [],
           hetflag: record === "HETATM",
           secondary: secondary || "coil",
         });
       });
+      this.assignBonds(atoms, lines);
       return atoms;
+    }
+
+    assignBonds(atoms, lines) {
+      const serials = new Map(atoms.map((atom) => [atom.serial, atom]));
+      const addBond = (left, right) => {
+        // Different chains may be arbitrarily placed in a teaching scene.
+        if (!left || !right || left === right || left.chain !== right.chain || left.bonds.includes(right.index)) return;
+        left.bonds.push(right.index);
+        left.bondOrder.push(1);
+        right.bonds.push(left.index);
+        right.bondOrder.push(1);
+      };
+      lines.forEach((line) => {
+        if (!line.startsWith("CONECT")) return;
+        const source = serials.get(Number.parseInt(line.slice(6, 11), 10));
+        for (let offset = 11; offset + 5 <= line.length; offset += 5) addBond(source, serials.get(Number.parseInt(line.slice(offset, offset + 5), 10)));
+      });
+      const cells = new Map();
+      const cellSize = 2.8;
+      atoms.forEach((atom) => {
+        const x = Math.floor(atom.x / cellSize);
+        const y = Math.floor(atom.y / cellSize);
+        const z = Math.floor(atom.z / cellSize);
+        for (let dx = -1; dx <= 1; dx += 1) {
+          for (let dy = -1; dy <= 1; dy += 1) {
+            for (let dz = -1; dz <= 1; dz += 1) {
+              const neighbors = cells.get(`${atom.chain}:${x + dx}:${y + dy}:${z + dz}`) || [];
+              neighbors.forEach((neighbor) => {
+                // Metals need explicit CONECT records rather than inferred covalent bonds.
+                if (!covalentRadii[atom.elem] || !covalentRadii[neighbor.elem]) return;
+                const maximum = covalentRadii[atom.elem] + covalentRadii[neighbor.elem] + 0.4;
+                const squared = (atom.x - neighbor.x) ** 2 + (atom.y - neighbor.y) ** 2 + (atom.z - neighbor.z) ** 2;
+                if (squared > 0.16 && squared <= maximum * maximum) addBond(atom, neighbor);
+              });
+            }
+          }
+        }
+        const key = `${atom.chain}:${x}:${y}:${z}`;
+        if (!cells.has(key)) cells.set(key, []);
+        cells.get(key).push(atom);
+      });
     }
 
     removeAllModels() {
@@ -185,18 +256,47 @@
       if (format !== "pdb") throw new Error(`Compatibility renderer does not support ${format}`);
       this.atoms = this.parsePdb(text);
       if (!this.atoms.length) throw new Error("No atoms were found in the PDB file");
-      return { atoms: this.atoms };
+      const atoms = this.atoms;
+      return {
+        atoms,
+        selectedAtoms: (selection = {}) => {
+          const indices = this.matchingIndices(selection);
+          return atoms.filter((atom) => indices.has(atom.index));
+        },
+        setStyle: (selection = {}, style = {}, additive = false) => this.setStyle(selection, style, additive),
+      };
     }
 
     removeAllSurfaces() {}
 
     removeAllLabels() {}
 
+    addLine(specification = {}) {
+      if (!specification.start || !specification.end) return null;
+      const shape = { ...specification };
+      this.shapes.push(shape);
+      return shape;
+    }
+
+    removeShape(shape) {
+      const index = this.shapes.indexOf(shape);
+      if (index !== -1) this.shapes.splice(index, 1);
+      return this;
+    }
+
+    removeAllShapes() {
+      this.shapes = [];
+    }
+
     addSurface() {
       return Promise.resolve(null);
     }
 
-    setStyle(selection = {}, style = {}) {
+    setStyle(selection = {}, style = {}, additive = false) {
+      if (additive) {
+        if (!isEmptyObject(style)) this.addStyle(selection, style);
+        return;
+      }
       if (isEmptyObject(selection) && isEmptyObject(style)) {
         this.rules = [];
         return;
@@ -217,6 +317,8 @@
       if (selection.resn !== undefined && atom.resn !== String(selection.resn)) return false;
       if (selection.resi !== undefined && atom.resi !== Number(selection.resi)) return false;
       if (selection.atom !== undefined && atom.atom !== String(selection.atom)) return false;
+      if (selection.elem !== undefined && atom.elem !== String(selection.elem).toUpperCase()) return false;
+      if (selection.index !== undefined && !(Array.isArray(selection.index) ? selection.index : [selection.index]).includes(atom.index)) return false;
       return true;
     }
 
@@ -228,18 +330,32 @@
 
       const distance = Number(selection.within.distance) || 5;
       const distanceSquared = distance * distance;
-      const nearbyAtoms = this.atoms.filter(
-        (atom) => this.simpleMatch(atom, selection.within.sel || {}) && (atom.hetflag || atom.atom === "CA")
-      );
-      candidates = candidates.filter((atom) => {
-        if (!atom.hetflag && atom.atom !== "CA") return false;
-        return nearbyAtoms.some((nearby) => {
-          const dx = atom.x - nearby.x;
-          const dy = atom.y - nearby.y;
-          const dz = atom.z - nearby.z;
-          return dx * dx + dy * dy + dz * dz <= distanceSquared;
-        });
+      const nearbyAtoms = this.atoms.filter((atom) => this.simpleMatch(atom, selection.within.sel || {}) && atom.elem !== "H");
+      const cells = new Map();
+      nearbyAtoms.forEach((atom) => {
+        const key = `${Math.floor(atom.x / distance)}:${Math.floor(atom.y / distance)}:${Math.floor(atom.z / distance)}`;
+        if (!cells.has(key)) cells.set(key, []);
+        cells.get(key).push(atom);
       });
+      candidates = candidates.filter((atom) => {
+        if (atom.elem === "H") return false;
+        const x = Math.floor(atom.x / distance);
+        const y = Math.floor(atom.y / distance);
+        const z = Math.floor(atom.z / distance);
+        let matched = false;
+        for (let dx = -1; dx <= 1 && !matched; dx += 1) {
+          for (let dy = -1; dy <= 1 && !matched; dy += 1) {
+            for (let dz = -1; dz <= 1 && !matched; dz += 1) {
+              matched = (cells.get(`${x + dx}:${y + dy}:${z + dz}`) || []).some((nearby) => atom !== nearby && (atom.x - nearby.x) ** 2 + (atom.y - nearby.y) ** 2 + (atom.z - nearby.z) ** 2 <= distanceSquared);
+            }
+          }
+        }
+        return selection.within.invert ? !matched : matched;
+      });
+      if (selection.byres) {
+        const residues = new Set(candidates.map(residueKey));
+        candidates = this.atoms.filter((atom) => this.simpleMatch(atom, basicSelection) && residues.has(residueKey(atom)));
+      }
       return new Set(candidates.map((atom) => atom.index));
     }
 
@@ -306,6 +422,7 @@
       this.dragState = null;
       this.atoms = [];
       this.rules = [];
+      this.shapes = [];
       this.focusSelection = null;
       this.canvas?.remove();
       this.element.classList.remove("is-compatibility-viewer");
@@ -335,7 +452,7 @@
       const rules = this.compiledRules();
       const styledAtoms = this.atoms
         .map((atom) => ({ atom, style: this.styleFor(atom, rules) }))
-        .filter(({ atom, style }) => style && (atom.atom === "CA" || atom.hetflag));
+        .filter(({ atom, style }) => style && ((style.cartoon && atom.atom === "CA" && !atom.hetflag) || style.stick || style.sphere || style.line));
       if (!styledAtoms.length) return;
 
       let focusAtoms = styledAtoms.map(({ atom }) => atom);
@@ -370,7 +487,7 @@
 
       const chainFragments = new Map();
       projected.forEach((entry) => {
-        if (entry.atom.hetflag || !entry.style.cartoon) return;
+        if (entry.atom.hetflag || entry.atom.atom !== "CA" || !entry.style.cartoon) return;
         if (!chainFragments.has(entry.atom.chain)) chainFragments.set(entry.atom.chain, [[]]);
         const fragments = chainFragments.get(entry.atom.chain);
         const fragment = fragments[fragments.length - 1];
@@ -539,19 +656,63 @@
         context.lineCap = "round";
       });
 
+      const projectedByIndex = new Map(projected.map((entry) => [entry.atom.index, entry]));
+      const bonds = [];
+      projected.forEach((entry) => {
+        if (!entry.style.stick && !entry.style.line) return;
+        entry.atom.bonds.forEach((index) => {
+          const other = projectedByIndex.get(index);
+          if (index <= entry.atom.index || !other || (!other.style.stick && !other.style.line)) return;
+          bonds.push({ from: entry, to: other, z: (entry.point.z + other.point.z) / 2 });
+        });
+      });
+      bonds.sort((left, right) => left.z - right.z).forEach(({ from, to, z }) => {
+        const representation = from.style.stick || from.style.line;
+        const lineWidth = from.style.stick ? clamp(scale * (representation.radius ?? 0.16) * 1.7, 1.2, 5.5) : representation.linewidth || 1.1;
+        const opacity = representation.opacity ?? 1;
+        const middle = { x: (from.point.x + to.point.x) / 2, y: (from.point.y + to.point.y) / 2 };
+        const segment = (start, end, color, width) => {
+          context.beginPath();
+          context.moveTo(start.x, start.y);
+          context.lineTo(end.x, end.y);
+          context.lineWidth = width;
+          context.strokeStyle = color;
+          context.stroke();
+        };
+        if (from.style.stick) segment(from.point, to.point, rgba("#26374a", opacity * 0.35), lineWidth + 1.25);
+        segment(from.point, middle, rgba(atomColor(from.atom, from.style), opacity, 0.8 + depth(z) * 0.2), lineWidth);
+        segment(middle, to.point, rgba(atomColor(to.atom, to.style), opacity, 0.8 + depth(z) * 0.2), lineWidth);
+      });
+
+      this.shapes.forEach((shape) => {
+        const start = this.transform(shape.start, center, scale, width, height);
+        const end = this.transform(shape.end, center, scale, width, height);
+        context.beginPath();
+        context.moveTo(start.x, start.y);
+        context.lineTo(end.x, end.y);
+        context.lineWidth = shape.linewidth || 1.7;
+        context.strokeStyle = rgba(normalizeColor(shape.color, "#e0ab23"), shape.opacity ?? 0.85);
+        context.setLineDash(shape.dashed ? [5, 5] : []);
+        context.stroke();
+      });
+      context.setLineDash([]);
+
       projected
-        .filter(({ atom, style }) => atom.hetflag || style.stick || style.sphere)
+        .filter(({ style }) => style.stick || style.sphere)
         .sort((left, right) => left.point.z - right.point.z)
         .forEach(({ atom, style, point }) => {
           const amount = depth(point.z);
-          const color = normalizeColor(style.sphere?.color || style.stick?.color || style.cartoon?.color, "#f0b429");
-          const radiusPixels = atom.hetflag ? 3.8 + amount * 2.7 : 2.4 + amount * 1.8;
+          const color = atomColor(atom, style);
+          const radiusPixels = style.sphere
+            ? clamp(scale * (style.sphere.radius ?? (atom.elem === "H" ? 1.2 : 1.7) * (style.sphere.scale ?? 1)), 1.2, 12)
+            : clamp(scale * (style.stick?.radius ?? 0.16) * 0.95, 0.8, 3.8);
+          const opacity = style.sphere?.opacity ?? style.stick?.opacity ?? 1;
           context.beginPath();
           context.arc(point.x, point.y, radiusPixels, 0, Math.PI * 2);
-          context.fillStyle = rgba(color, 0.76 + amount * 0.24, 0.78 + amount * 0.25);
+          context.fillStyle = rgba(color, opacity * (0.76 + amount * 0.24), 0.78 + amount * 0.25);
           context.fill();
-          context.lineWidth = 1;
-          context.strokeStyle = "rgba(255,255,255,0.55)";
+          context.lineWidth = 0.65;
+          context.strokeStyle = `rgba(255,255,255,${opacity * 0.45})`;
           context.stroke();
         });
     }

@@ -1,0 +1,48 @@
+#atlas-structure-viewer { scroll-margin-top: 88px; }
+.organ-cinematic {
+  margin: 18px 0;
+  padding: 19px 20px 17px;
+  border: 1px solid #d8e6f7;
+  border-radius: 16px;
+  background: linear-gradient(130deg, #f6f9ff, #fff 60%);
+  color: #20354b;
+}
+.organ-cinematic[hidden] { display: none !important; }
+.organ-cinematic-header, .organ-cinematic-transport, .organ-cinematic-bottom {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.organ-cinematic-header { justify-content: space-between; margin-bottom: 17px; }
+.organ-cinematic-header > div { display: grid; gap: 5px; }
+.organ-cinematic-eyebrow { color: #1a73e8; font-size: 10px; letter-spacing: 0.1em; font-weight: 750; }
+.organ-cinematic-header strong { font-size: 15px; }
+.organ-cinematic-provenance { color: #66798a; font-size: 11px; text-align: right; }
+.organ-cinematic button { font-family: inherit; cursor: pointer; font-size: 12px; font-weight: 650; border-radius: 9px; padding: 9px 12px; white-space: nowrap; }
+.organ-cinematic button:focus-visible, .organ-cinematic input:focus-visible { outline: 3px solid #7ab2f7; outline-offset: 3px; }
+.organ-cinematic-play { background: #1a73e8; color: #fff; border: 1px solid #1a73e8; min-width: 88px; }
+.organ-cinematic-replay { background: #fff; color: #1a73e8; border: 1px solid #cfe0f5; }
+.organ-cinematic-transport input { flex: 1; min-width: 45px; cursor: pointer; accent-color: #1a73e8; }
+.organ-cinematic-transport output { font-size: 11px; color: #66798a; min-width: 77px; font-variant-numeric: tabular-nums; }
+.organ-cinematic-bottom { justify-content: space-between; margin-top: 15px; border-top: 1px solid #e3ebf5; padding-top: 13px; }
+.organ-cinematic-views { display: flex; gap: 6px; flex-wrap: wrap; }
+.organ-cinematic-views button { border: 1px solid transparent; color: #52677b; background: transparent; padding: 7px 10px; }
+.organ-cinematic-views button.is-active { color: #1a73e8; background: #e7f0ff; border-color: #d2e3fc; }
+.organ-cinematic-export { color: #536c83; border: 1px solid #d6e1ee; background: #fff; }
+.organ-cinematic-export:disabled { color: #8291a0; cursor: progress; }
+.organ-cinematic-stage-badge { position: absolute; z-index: 5; top: 17px; left: 17px; max-width: calc(100% - 34px); padding: 11px 14px; background: rgba(255,255,255,0.9); border: 1px solid #dfebfa; border-radius: 12px; display: grid; gap: 5px; pointer-events: none; box-shadow: 0 3px 15px #213c5710; }
+.organ-cinematic-stage-badge span { color: #173b61; font-size: 12px; font-weight: 700; }
+.organ-cinematic-stage-badge small { color: #6b7e90; font-size: 10px; }
+@media (max-width: 650px) {
+  .organ-cinematic { padding: 14px 12px; }
+  .organ-cinematic-header { align-items: flex-start; gap: 10px; }
+  .organ-cinematic-provenance { max-width: 135px; line-height: 1.5; font-size: 10px; }
+  .organ-cinematic-header strong { font-size: 13px; }
+  .organ-cinematic-transport { flex-wrap: wrap; gap: 9px; }
+  .organ-cinematic-transport input { flex-basis: calc(100% - 100px); order: 1; }
+  .organ-cinematic-transport output { order: 2; }
+  .organ-cinematic-bottom { align-items: flex-start; flex-wrap: wrap; gap: 9px; }
+  .organ-cinematic-views { gap: 1px; }
+  .organ-cinematic button { font-size: 11px; padding: 8px 9px; }
+  .organ-cinematic-stage-badge { top: 12px; left: 12px; padding: 9px 11px; }
+}
